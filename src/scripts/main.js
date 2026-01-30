@@ -64,18 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hero animations
     function initHeroAnimations() {
-        gsap.fromTo('.hero-gradient',
-            {
-                opacity: 0,
-                scale: 0.9
-            },
-            {
-                opacity: 1,
-                scale: 1,
-                duration: 2,
-                ease: 'power2.out'
-            }
-        );
+        gsap.to('.hero-gradient', {
+            opacity: 1,
+            duration: 2,
+            delay: 0.3,
+            ease: 'power2.out'
+        });
 
         gsap.fromTo('.header-logo',
             { y: -50, opacity: 0 },
