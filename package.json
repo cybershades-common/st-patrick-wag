@@ -1,0 +1,23 @@
+{
+  "name": "st-patrick",
+  "version": "1.0.0",
+  "description": "Professional front-end project",
+  "main": "public/index.html",
+  "scripts": {
+    "less:compile": "lessc src/styles/style.less src/styles/style.css",
+    "less:watch": "lessc src/styles/style.less src/styles/style.css --watch",
+    "less:minify": "lessc src/styles/style.less src/styles/style.min.css --clean-css"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "less",
+    "javascript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "less": "^4.2.0",
+    "less-plugin-clean-css": "^1.5.1"
+  }
+}

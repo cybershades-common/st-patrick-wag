@@ -1,0 +1,63 @@
+// Buttons
+// Reusable button styles
+
+.btn-rounded-large {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: @spacing-super-small;
+  padding: @spacing-2xs @spacing-half-base;
+  border-radius: @radius-huge;
+  font-family: @font-family-helvetica-neue;
+  font-size: @font-size-b2;
+  font-weight: @font-weight-regular;
+  line-height: 0.9;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.btn-rounded-large-outline {
+  .btn-rounded-large();
+  border-color: @primary-blue;
+  color: @primary-blue;
+}
+
+.btn-rounded-large-outline:hover {
+  background-color: @primary-blue;
+  color: @basic-white;
+}
+
+.btn-rounded-large-outline.btn-header {
+  border-color: @basic-black;
+  color: @basic-black;
+}
+
+.btn-rounded-large-outline.btn-header:hover {
+  background-color: @basic-black;
+  color: @basic-white;
+}
+
+.btn-rounded-large-no-border {
+  .btn-rounded-large();
+  border-color: transparent;
+  color: @primary-blue;
+}
+
+.btn-rounded-large-no-border:hover {
+  color: @primary-blue-tint;
+}
+
+.btn-rounded-large-solid {
+  .btn-rounded-large();
+  background-color: @primary-blue;
+  color: @basic-white;
+  border-color: @primary-blue;
+}
+
+.btn-rounded-large-solid:hover {
+  background-color: @primary-blue-tint;
+}

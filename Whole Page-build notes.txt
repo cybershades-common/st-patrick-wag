@@ -1,0 +1,26 @@
+Whole Page
+
+Staggered fade in entrance animations for elements as user scrolls down the page
+
+Hero
+Golden radial gradient subtle fade in from background
+Large headline text should have a nice vertical reveal up
+Logo and top right nav can slide in from top on load
+Video to autoplay in background with no sound (video should not be masked by header content)
+
+Menu
+Menu icon bars to smoothly animate to ‘X’ close icon. 
+Main menu to quickly appear in (not instant, but smooth and quick), no crazy slide or fly in’s from off canvas.
+Main menu items to animate in, each one in staggered motion down, so top one appears first, then each one below. 
+Menu should not be full browser height, but have a 80% black opaque overlay so user can see main website content below it. When user clicks off the mega menu in the overlay area, mega menu should close. 
+
+Intro Text
+Need some nice word by word or sentence by sentence quick load in animation to reveal. 
+
+Stats Block
+Vertical Lines should animate down and stat numbers should have counter animation up to their current numbers. 
+See https://riverview.cimarketing.au/giving/
+
+Footer
+Golden radial gradient subtle fade in and up from bottom of canvas as user arrives to bottom of page
+Large headline text should have a steady right to left marquee animation seamless loop

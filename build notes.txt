@@ -1,0 +1,9 @@
+1. no inline styles or script
+2. for core tags of html like h2, h3 etc , CSS should be for common - no class based css, if any needed put through parent.
+3. buttons- define btns and use same- no separate css, 
+4. background image should not be inserted through css
+only through html
+5.permanent usable assets should be in separate file, temp. assets which will be changed when it will be converted in backend to be dynamic  should be in separate 
+6.all html file should be same
+7.use bootstrap as much as posiible, less only when needed, also in all sections i want you to use common styles as much possible, we need minimum code, all things should be in rem,vh or vw as per industry standards- modern standards, in styles, dont use & or __ for child styles, use tradition one in which parent and then inside childs, max-width,max-height use only very neccesary otherwise set these by bootstrap use international grade responsivenedd breakpoints to make it fully resposive in all devices with mobile first aproach, do not write so many comments, only write comments when neccesary, write comment on start of section in html, full line comment, in styles when start as section styles, in js separating functionality so  
+ 8. check my project structure and put related code in right files

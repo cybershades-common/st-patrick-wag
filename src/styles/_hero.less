@@ -1,0 +1,100 @@
+// Hero Section Styles
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: @spacing-base 0;
+  background-color: @primary-gold-4;
+  overflow: hidden;
+}
+
+.hero .container-fluid {
+  padding-left: @spacing-base;
+  padding-right: @spacing-base;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-gradient {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(circle at bottom left,
+    rgba(252, 238, 166, 0.8) 0%,
+    rgba(249, 247, 242, 0) 70%);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 0;
+  transform: scale(0.9);
+}
+
+.hero-content {
+  padding-right: @spacing-base;
+}
+
+.hero-title {
+  color: @primary-blue;
+  margin: 0;
+  overflow: hidden;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: @spacing-small;
+  padding-left: @spacing-base;
+}
+
+.hero-text p {
+  max-width: 45rem;
+  margin: 0;
+}
+
+@media (max-width: @breakpoint-lg) {
+  .hero .container-fluid {
+    padding-left: @spacing-xs;
+    padding-right: @spacing-xs;
+  }
+
+  .hero-content {
+    padding-right: 0;
+    margin-bottom: @spacing-small;
+  }
+
+  .hero-text {
+    padding-left: 0;
+  }
+
+  .hero-title {
+    font-size: 7rem;
+  }
+}
+
+@media (max-width: @breakpoint-md) {
+  .hero {
+    min-height: 100svh;
+    padding: @spacing-small 0;
+  }
+
+  .hero-title {
+    font-size: 5rem;
+  }
+
+  .hero-text p {
+    font-size: @font-size-b2;
+  }
+}
+
+@media (max-width: @breakpoint-sm) {
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .hero-text {
+    gap: @spacing-xs;
+  }
+}
