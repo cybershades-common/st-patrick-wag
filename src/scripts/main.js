@@ -113,8 +113,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const heroGradient = document.querySelector('.hero-gradient');
         if (heroGradient) {
             gsap.set(heroGradient, {
-                x: '-40%',
-                y: '65vh',
+                x: '-10%',
+                y: '5vh',
                 opacity: 0,
                 visibility: 'visible'
             });
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 x: '-15vw',
                 y: '35vh',
                 opacity: 0.9,
-                duration: 1.3,
+                duration: 3.3,
                 ease: 'power2.out',
                 scrollTrigger: {
                     trigger: '.hero',
