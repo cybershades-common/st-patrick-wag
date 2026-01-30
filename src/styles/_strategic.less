@@ -1,0 +1,159 @@
+// Strategic Section Styles
+
+.strategic-section {
+  position: relative;
+  min-height: 81rem;
+  overflow: hidden;
+}
+
+.strategic-background {
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.strategic-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.strategic-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.strategic-section .container-fluid {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  position: relative;
+  z-index: 5;
+  min-height: 81rem;
+  
+  @media (min-width: @breakpoint-lg) {
+    max-width: 144rem;
+  }
+}
+
+.strategic-content {
+  padding-top: 3.3rem;
+  min-height: 81rem;
+  position: relative;
+}
+
+.strategic-top {
+  width: 73.3rem;
+  max-width: 100%;
+}
+
+.strategic-heading {
+  font-family: @font-family-helvetica-neue;
+  font-size: @font-size-h2;
+  font-weight: @font-weight-light;
+  line-height: 1.05;
+  letter-spacing: -0.06rem;
+  color: @basic-white;
+  margin: 0;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+}
+
+.strategic-button {
+  border-color: @basic-white;
+  color: @basic-white;
+  margin-top: 1rem;
+}
+
+.strategic-button:hover {
+  background-color: @basic-white;
+  color: @basic-black;
+}
+
+.strategic-text-wrapper {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  width: 68rem;
+  max-width: calc(100% - 6rem);
+}
+
+.strategic-text-col {
+  padding-right: 1.7rem;
+}
+
+.strategic-text-col:last-child {
+  padding-right: 0;
+}
+
+.strategic-text-col p {
+  font-family: @font-family-helvetica-neue;
+  font-size: @font-size-b2;
+  font-weight: @font-weight-regular;
+  line-height: @line-height-b2;
+  letter-spacing: 0;
+  color: @basic-white;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+@media (max-width: @breakpoint-lg - 1px) {
+  .strategic-section {
+    min-height: auto;
+  }
+
+  .strategic-section .container-fluid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    min-height: auto;
+  }
+
+  .strategic-content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    min-height: auto;
+  }
+
+  .strategic-top {
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .strategic-heading {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .strategic-text-wrapper {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    margin-top: 3rem;
+  }
+
+  .strategic-text-col {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .strategic-text-col:first-child {
+    padding-right: 0;
+  }
+
+  .strategic-text-col:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: @breakpoint-md - 1px) {
+  .strategic-heading {
+    font-size: 3rem;
+  }
+}
