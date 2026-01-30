@@ -13,14 +13,14 @@
 
 
     <!-- Header Section -->
-    <header-logo-text- class="header" id="header">
+    <header class="header" id="header">
         <div class="container-fluid">
             <div class="header-content">
                 <div class="header-logo">
                     <img src="assets/icons/Crest-logo.svg" alt="St Patrick's College">
                     <div class="header-logo-text">
-                        <span class="logo-text-main">ST PATRICK'S</span>
-                        <span class="logo-text-sub">COLLEGE</span>
+                        <span class="logo-text logo-text-main">ST PATRICK'S</span>
+                        <span class="logo-text logo-text-sub">COLLEGE</span>
                     </div>
                 </div>
                 <nav class="header-nav">
@@ -63,7 +63,9 @@
                 </nav>
             </div>
         </div>
-    </header-logo-text- <!-- Mega Menu Overlay -->
+    </header>
+
+    <!-- Mega Menu Overlay -->
     <div class="mega-menu-overlay" id="menuOverlay"></div>
 
     <!-- Mega Menu -->
@@ -116,19 +118,29 @@
     <section class="hero">
         <div class="hero-gradient"></div>
         <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="hero-content">
-                        <h1 class="hero-title">Let your light shine.</h1>
-                    </div>
+            <div class="hero-content-wrapper">
+                <div class="hero-content">
+                    <h1 class="hero-title">Let your light shine.</h1>
                 </div>
-                <div class="col-lg-6">
-                    <div class="hero-text">
-                        <p>An independent Catholic day school for boys from Years 5 to 12 in the Edmund Rice tradition
-                            educating spirited men of faith and purpose.</p>
-                        <button class="btn-rounded-large-outline">Welcome to St Patrick's</button>
-                    </div>
+                <div class="hero-text">
+                    <p>An independent  Catholic day school for boys  from Years 5 to 12 in the  Edmund Rice tradition educating spirited men of faith and purpose.</p>
+                    <button class="btn-rounded-large-outline">Welcome to St Patrick's</button>
                 </div>
+            </div>
+        </div>
+        <div class="hero-media">
+            <div class="hero-media-wrapper">
+                <!-- Option 1: Use Image -->
+                <img src="assets/images/hero-image.jpg" alt="St Patrick's College" class="hero-image" id="heroImage">
+                
+                <!-- Option 2: Use Video (uncomment and comment out image above) -->
+                <!-- <video class="hero-video" id="heroVideo" autoplay muted loop playsinline>
+                    <source src="assets/videos/hero-video.mp4" type="video/mp4">
+                    <source src="assets/videos/hero-video.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                </video> -->
+                
+                <div class="hero-media-overlay"></div>
             </div>
         </div>
     </section>
