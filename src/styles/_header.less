@@ -120,7 +120,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.7rem; 
+  gap: 0.3rem; // Figma: gap-[3px]
 }
 
 .hamburger-line {
@@ -133,12 +133,23 @@
   border-radius: 0.1rem;
 }
 
+.hamburger.active {
+  gap: 0;
+}
+
+.hamburger.active .hamburger-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -0.1rem; // Center the 2px line
+}
+
 .hamburger.active .hamburger-line:nth-child(1) {
-  transform: translateY(0.25rem) rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .hamburger.active .hamburger-line:nth-child(2) {
-  transform: translateY(-0.25rem) rotate(-45deg);
+  transform: rotate(-45deg);
 }
 
 .mega-menu {
@@ -337,10 +348,15 @@
 }
 
 .menu-image-wrapper {
-  padding-left: @spacing-small;
+  padding-left: 0;
   opacity: 0;
   transform: scale(0.95);
   transition: opacity 0.5s ease, transform 0.5s ease;
+  
+  @media (min-width: @breakpoint-lg) {
+    width: 44.5rem; // Figma: width="445" (44.5rem)
+    height: 55.8rem; // Figma: height="558" (55.8rem)
+  }
 }
 
 .mega-menu.active .menu-image-wrapper {
@@ -350,15 +366,16 @@
 }
 
 .menu-image {
-  max-width: 44.5rem;
-  max-height: 55.8rem;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 0.8rem;
+  border-radius: 0;
+  display: block;
 }
 
 .mega-menu-footer {
   background-color: @basic-white;
-  border-top: 0.1rem solid @primary-gold-3;
+  border-top: none;
   padding: @spacing-half-base 0;
   flex-shrink: 0;
   opacity: 0;
