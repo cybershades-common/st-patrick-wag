@@ -6,6 +6,10 @@
 html {
   font-size: 16px;
 }
+.container-fluid {
+  padding-left: 1.875rem;
+  padding-right: 1.875rem;
+}
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
   src: url('../../assets/fonts/HelveticaNeueLTProLt.otf') format('opentype');
@@ -235,10 +239,6 @@ body {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
-.header-logo {
-  gap: 0.64234375rem;
-  width: 20.0074375rem;
-}
 .header-logo img {
   width: 4.375rem;
   height: auto;
@@ -260,7 +260,6 @@ body {
   color: #27251f;
   display: block;
   margin: 0;
-  width: 14.41175rem;
 }
 .logo-text-main {
   margin: 0;
@@ -731,26 +730,21 @@ body {
 }
 .hero {
   position: relative;
-  padding-top: 18.0625rem;
   padding-bottom: 2.5rem;
   background-color: #f6f3ec;
   overflow: hidden;
-  min-height: 100vh;
+}
+.hero .hero-content-wrap {
+  height: 75vh;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 2rem;
 }
 .hero .container-fluid {
-  padding-left: 2rem;
-  padding-right: 2rem;
   position: relative;
   z-index: 2;
 }
-@media (min-width: 992px) {
-  .hero .container-fluid {
-    max-width: 86.125rem;
-  }
-}
 .hero .row {
-  margin-left: 0;
-  margin-right: 0;
   width: 100%;
 }
 .hero-gradient {
@@ -773,13 +767,6 @@ body {
   position: relative;
   z-index: 2;
 }
-@media (min-width: 992px) {
-  .hero-content {
-    width: 48.5rem;
-    max-width: 48.5rem;
-    flex: 0 0 auto;
-  }
-}
 .hero-title {
   font-family: 'Helvetica Neue LT Pro', sans-serif;
   font-size: 11.25rem;
@@ -794,20 +781,11 @@ body {
   display: block;
   position: relative;
   z-index: 1;
-  top: -2.5rem;
-  left: -4.375rem;
+  top: -1.25rem;
 }
 .hero-text {
-  padding-left: 0;
-  padding-right: 0;
-}
-@media (min-width: 992px) {
-  .hero-text {
-    width: 27.8125rem;
-    max-width: 27.8125rem;
-    height: 19.3125rem;
-    flex: 0 0 auto;
-  }
+  height: 100%;
+  padding-bottom: 2.5rem;
 }
 .hero-text p {
   font-family: 'Helvetica Neue LT Pro', sans-serif;
@@ -817,12 +795,6 @@ body {
   letter-spacing: 0;
   color: #27251f;
   margin: 0;
-  white-space: pre-wrap;
-}
-@media (min-width: 992px) {
-  .hero-text p {
-    width: 20.5625rem;
-  }
 }
 .hero-media {
   position: relative;
@@ -944,14 +916,7 @@ body {
   position: relative;
 }
 .about-section .container-fluid {
-  padding-left: 1.875rem;
-  padding-right: 1.875rem;
   position: relative;
-}
-@media (min-width: 992px) {
-  .about-section .container-fluid {
-    max-width: 86.25rem;
-  }
 }
 .about-heading {
   font-family: 'Helvetica Neue LT Pro', sans-serif;
@@ -1072,8 +1037,6 @@ body {
   pointer-events: none;
 }
 .strategic-section .container-fluid {
-  padding-left: 1.875rem;
-  padding-right: 1.875rem;
   position: relative;
   z-index: 5;
   min-height: 50.625rem;
@@ -1200,15 +1163,8 @@ body {
   z-index: 1;
 }
 .academics-section .container-fluid {
-  padding-left: 1.875rem;
-  padding-right: 1.875rem;
   position: relative;
   z-index: 2;
-}
-@media (min-width: 992px) {
-  .academics-section .container-fluid {
-    max-width: 90rem;
-  }
 }
 .academics-top {
   margin-bottom: 2.175rem;
@@ -1349,8 +1305,6 @@ body {
   pointer-events: none;
 }
 .cocurricular-section .container-fluid {
-  padding-left: 1.875rem;
-  padding-right: 1.875rem;
   padding-top: 1.875rem;
   padding-bottom: 1.875rem;
   position: relative;
@@ -1358,11 +1312,6 @@ body {
   min-height: 50.625rem;
   display: flex;
   flex-direction: column;
-}
-@media (min-width: 992px) {
-  .cocurricular-section .container-fluid {
-    max-width: 90rem;
-  }
 }
 .cocurricular-content {
   flex: 1;
@@ -1523,8 +1472,6 @@ body {
   z-index: 1;
 }
 .footer .container-fluid {
-  padding-left: 1.875rem;
-  padding-right: 1.875rem;
   position: relative;
 }
 @media (min-width: 992px) {
