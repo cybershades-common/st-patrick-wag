@@ -165,29 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initHeroAnimations();
 
-    // Smooth scroll animations for elements
-    const sections = document.querySelectorAll('section:not(.hero)');
-    sections.forEach(section => {
-        const elements = section.querySelectorAll('h1, h2, h3, h4, p, .btn-rounded-large-outline, img');
-
-        gsap.fromTo(elements,
-            { y: 50, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top 80%',
-                    end: 'bottom 20%',
-                    toggleActions: 'play none none reverse'
-                }
-            }
-        );
-    });
-
+    
     if (footerArrowUp) {
         footerArrowUp.addEventListener('click', function() {
             window.scrollTo({
