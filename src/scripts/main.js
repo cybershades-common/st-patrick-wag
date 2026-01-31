@@ -237,6 +237,90 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initHeroAnimations();
 
+    // About section reveal animation (word and sentence)
+    function wrapWords(el) {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+        const textNodes = [];
+        while (walker.nextNode()) {
+            const node = walker.currentNode;
+            if (node.nodeValue && node.nodeValue.trim()) {
+                textNodes.push(node);
+            }
+        }
+        textNodes.forEach(node => {
+            if (node.parentNode && node.parentNode.closest && node.parentNode.closest('.underline')) {
+                return;
+            }
+            const words = node.nodeValue.split(/(\s+)/);
+            const frag = document.createDocumentFragment();
+            words.forEach(part => {
+                if (part.trim() === '') {
+                    frag.appendChild(document.createTextNode(part));
+                } else {
+                    const span = document.createElement('span');
+                    span.className = 'word';
+                    span.textContent = part;
+                    frag.appendChild(span);
+                }
+            });
+            node.parentNode.replaceChild(frag, node);
+        });
+    }
+
+    function wrapSentences(el) {
+        const text = el.textContent || '';
+        const parts = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
+        el.textContent = '';
+        parts.forEach(part => {
+            const span = document.createElement('span');
+            span.className = 'sentence';
+            span.textContent = part.trim() + ' ';
+            el.appendChild(span);
+        });
+    }
+
+    function initAboutReveal() {
+        const aboutHeading = document.querySelector('.about-heading');
+        if (!aboutHeading) {
+            return;
+        }
+
+        wrapWords(aboutHeading);
+
+        const aboutParagraphs = document.querySelectorAll('.about-text p');
+        aboutParagraphs.forEach(p => wrapSentences(p));
+
+        gsap.set('.about-heading .word, .about-heading .underline', { opacity: 0, y: 24 });
+        gsap.set('.about-text .sentence', { opacity: 0, y: 16 });
+
+        const headingPieces = gsap.utils.toArray('.about-heading .word, .about-heading .underline');
+        gsap.to(headingPieces, {
+            opacity: 1,
+            y: 0,
+            duration: 0.35,
+            ease: 'power2.out',
+            stagger: 0.03,
+            scrollTrigger: {
+                trigger: '.about-section',
+                start: 'top 75%'
+            }
+        });
+
+        gsap.to('.about-text .sentence', {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+            stagger: 0.15,
+            scrollTrigger: {
+                trigger: '.about-section',
+                start: 'top 70%'
+            }
+        });
+    }
+
+    initAboutReveal();
+
     // Hero video lazy loading
     const heroVideo = document.getElementById('heroVideo');
     if (heroVideo) {
