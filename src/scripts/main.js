@@ -174,4 +174,92 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+    // Latest News Swiper
+    function initLatestNewsSwiper() {
+        const swiperEl = document.querySelector('.latest-news-swiper');
+        if (!swiperEl) return;
+
+        // Wait for Swiper to be available
+        if (typeof Swiper === 'undefined') {
+            setTimeout(initLatestNewsSwiper, 100);
+            return;
+        }
+
+        const prevBtn = document.querySelector('.latest-news-prev');
+        const nextBtn = document.querySelector('.latest-news-next');
+
+        const swiper = new Swiper('.latest-news-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 19,
+            speed: 600,
+            loop: false,
+            freeMode: false,
+            watchSlidesProgress: true,
+            breakpoints: {
+                992: {
+                    slidesPerView: 'auto',
+                    spaceBetween: 19,
+                }
+            },
+            on: {
+                init: function() {
+                    updateCardSizes();
+                },
+                slideChange: function() {
+                    updateCardSizes();
+                },
+                slideChangeTransitionStart: function() {
+                    updateCardSizes();
+                }
+            }
+        });
+
+        function updateCardSizes() {
+            const slides = swiperEl.querySelectorAll('.swiper-slide');
+            const activeIndex = swiper.activeIndex;
+            
+            slides.forEach((slide, index) => {
+                if (index === activeIndex) {
+                    slide.classList.add('swiper-slide-active');
+                } else {
+                    slide.classList.remove('swiper-slide-active');
+                }
+            });
+            
+            setTimeout(() => {
+                if (swiper && swiper.update) {
+                    swiper.update();
+                }
+            }, 50);
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                swiper.slidePrev();
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                swiper.slideNext();
+            });
+        }
+    }
+
+    // Initialize Swiper after everything is loaded
+    function initSwiperWhenReady() {
+        if (typeof Swiper !== 'undefined') {
+            initLatestNewsSwiper();
+        } else {
+            setTimeout(initSwiperWhenReady, 100);
+        }
+    }
+    
+    // Try to initialize immediately, or wait for load
+    if (document.readyState === 'complete') {
+        initSwiperWhenReady();
+    } else {
+        window.addEventListener('load', initSwiperWhenReady);
+        setTimeout(initSwiperWhenReady, 500);
+    }
 });

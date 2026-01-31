@@ -1,0 +1,195 @@
+// CTA Section Styles
+
+.cta-section {
+  position: relative;
+  min-height: 50.625rem; // 810px
+  max-height: 100vh;
+  overflow: visible;
+}
+
+.cta-background {
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.cta-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+  
+  &:nth-child(2) {
+    z-index: 2;
+  }
+}
+
+.cta-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cta-section .container-fluid {
+  position: relative;
+  z-index: 4;
+  min-height: 50.625rem;
+  max-height: 100vh;
+  padding-bottom: 4.375rem; // 70px to ensure buttons aren't cut
+  
+  @media (min-width: @breakpoint-lg) {
+    max-width: 90rem;
+  }
+}
+
+.cta-content {
+  position: relative;
+  min-height: 50.625rem;
+  height: 100%;
+  padding-left: 1.875rem; // 30px
+  padding-bottom: 1.25rem; // Extra padding for buttons
+}
+
+.cta-heading-wrapper {
+  position: absolute;
+  left: 1.875rem; // 30px
+  top: 10.46875rem; // 167.5px
+  transform: translateY(-50%);
+  width: 41.625rem; // 666px
+  max-width: calc(100% - 3.75rem);
+}
+
+.cta-heading {
+  font-family: @font-family-helvetica-neue;
+  font-size: @font-size-h1;
+  font-weight: @font-weight-light;
+  line-height: @line-height-h1;
+  letter-spacing: @letter-spacing-h1; // -2.7px
+  color: @basic-white;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.cta-text-wrapper {
+  position: absolute;
+  left: calc(50% + 0.625rem); // calc(50% + 10px)
+  bottom: 4.375rem; // 70px from bottom to ensure buttons aren't cut
+  width: 29.1875rem; // 467px
+  max-width: calc(100% - 3.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.8125rem; // 29px
+  align-items: flex-start;
+  
+  @media (max-width: @breakpoint-lg - 1px) {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 100%;
+    margin-top: @spacing-base;
+  }
+}
+
+.cta-text {
+  font-family: @font-family-helvetica-neue;
+  font-size: @font-size-b1;
+  font-weight: @font-weight-light;
+  line-height: @line-height-b1;
+  letter-spacing: 0;
+  color: @basic-white;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.cta-buttons {
+  gap: @spacing-xs; // 20px
+  flex-wrap: wrap;
+}
+
+.cta-button-solid {
+  background-color: @basic-white;
+  color: @basic-black;
+  border-color: @basic-white;
+  margin: 0;
+}
+
+.cta-button-solid:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: @basic-black;
+}
+
+.cta-button-outline {
+  border-color: @basic-white;
+  color: @basic-white;
+  background-color: transparent;
+  margin: 0;
+}
+
+.cta-button-outline:hover {
+  background-color: @basic-white;
+  color: @basic-black;
+}
+
+@media (max-width: @breakpoint-lg - 1px) {
+  .cta-section {
+    min-height: auto;
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
+  }
+
+  .cta-section .container-fluid {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    min-height: auto;
+  }
+
+  .cta-content {
+    min-height: auto;
+    padding-left: 0;
+  }
+
+  .cta-heading-wrapper {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: @spacing-small;
+  }
+
+  .cta-heading {
+    font-size: 3rem;
+  }
+
+  .cta-text-wrapper {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cta-buttons {
+    gap: @spacing-xs;
+  }
+}
+
+@media (max-width: @breakpoint-md - 1px) {
+  .cta-heading {
+    font-size: 2.5rem;
+  }
+
+  .cta-text {
+    font-size: 1.125rem;
+  }
+}

@@ -355,7 +355,7 @@
     <section class="parents-community-section position-relative">
         <div class="parents-community-background position-absolute w-100 h-100">
             <img src="assets/images/parents-community-bg.jpg" alt="Parents Community Background 1" class="parents-community-bg-img" onerror="this.style.display='none'">
-            <img src="assets/images/parents-community-bg-2.jpg" alt="Parents Community Background 2" class="parents-community-bg-img" onerror="this.style.display='none'">
+            <img src="assets/images/parents-community-bg-2.jpg" alt="Parents Community Background 2" class="parents-community-bg-img" onerror="this.style.display='none'" style="display: none;">
             <div class="parents-community-overlay position-absolute w-100 h-100"></div>
         </div>
         <div class="container-fluid position-relative">
@@ -381,7 +381,7 @@
                                 <div class="testimonials-image-background position-absolute w-100 h-100">
                                     <img src="assets/images/testimonial-1.jpg" alt="Testimonial Background 1" class="testimonials-bg-img" onerror="this.style.display='none'">
                                     <div class="testimonials-image-overlay position-absolute w-100 h-100">
-                                        <img src="assets/images/testimonial-bg-2.jpg" alt="Testimonial Background 2" class="testimonials-bg-img-overlay" onerror="this.style.display='none'">
+                                        <img src="assets/images/testimonial-bg-2.jpg" alt="Testimonial Background 2" class="testimonials-bg-img-overlay" onerror="this.style.display='none'" style="display: none;">
                                     </div>
                                 </div>
                             </div>
@@ -410,6 +410,148 @@
                                     </svg>
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News Section -->
+    <section class="latest-news-section">
+        <div class="container-fluid">
+            <div class="row g-0">
+                <div class="col-12 latest-news-top">
+                    <div class="row g-0 align-items-start">
+                        <div class="col-12 col-lg-5 latest-news-heading-col">
+                            <h2 class="latest-news-heading">Latest News and Happenings</h2>
+                        </div>
+                        <div class="col-12 col-lg-7 latest-news-content-col">
+                            <p class="latest-news-description">Stay up to date with what's happening at SPC, from Open Days and community events, to student achievements and campus news, this is your window into our life as a college.</p>
+                            <div class="latest-news-buttons d-flex align-items-center">
+                                <button class="btn-rounded-large-outline">View Latest News</button>
+                                <button class="btn-rounded-large-no-border">Events and Bookings <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 2L8 5.5L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 latest-news-bottom">
+                    <div class="row g-0 align-items-center latest-news-filters-row">
+                        <div class="col-12 col-lg-auto latest-news-filters-col">
+                            <div class="latest-news-filters d-flex align-items-center">
+                                <button class="btn-rounded-large-outline latest-news-filter-btn latest-news-filter-btn-active" data-filter="all">All News</button>
+                                <button class="btn-rounded-large-outline latest-news-filter-btn latest-news-filter-btn-gold" data-filter="junior">Junior</button>
+                                <button class="btn-rounded-large-outline latest-news-filter-btn latest-news-filter-btn-gold" data-filter="senior">Senior</button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-auto latest-news-arrows-col">
+                            <div class="latest-news-arrows d-flex align-items-center">
+                                <button class="latest-news-arrow-btn latest-news-prev" aria-label="Previous news">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 10L10 20L20 30M10 20H30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <button class="latest-news-arrow-btn latest-news-next" aria-label="Next news">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 10L30 20L20 30M30 20H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper latest-news-swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide latest-news-slide">
+                                <div class="latest-news-card latest-news-card-large">
+                                    <div class="latest-news-card-image">
+                                        <img src="assets/images/news-1.jpg" alt="Black Tie Liturgy" class="w-100 h-100">
+                                    </div>
+                                    <div class="latest-news-card-content">
+                                        <h3 class="latest-news-card-title-large">Black Tie Liturgy</h3>
+                                        <p class="latest-news-card-date">22.09.25</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide latest-news-slide">
+                                <div class="latest-news-card latest-news-card-small">
+                                    <div class="latest-news-card-image">
+                                        <img src="assets/images/news-2.jpg" alt="Farewell to the Class of 2025!" class="w-100 h-100">
+                                    </div>
+                                    <div class="latest-news-card-content">
+                                        <h4 class="latest-news-card-title-small">Farewell to the Class of 2025!</h4>
+                                        <p class="latest-news-card-date">18.09.25</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide latest-news-slide">
+                                <div class="latest-news-card latest-news-card-small">
+                                    <div class="latest-news-card-image">
+                                        <img src="assets/images/news-3.jpg" alt="Celebrating Father's Day" class="w-100 h-100">
+                                    </div>
+                                    <div class="latest-news-card-content">
+                                        <h4 class="latest-news-card-title-small">Celebrating Father's Day</h4>
+                                        <p class="latest-news-card-date">10.09.25</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide latest-news-slide">
+                                <div class="latest-news-card latest-news-card-small">
+                                    <div class="latest-news-card-image">
+                                        <img src="assets/images/news-1.jpg" alt="News Article" class="w-100 h-100" onerror="this.style.display='none'">
+                                    </div>
+                                    <div class="latest-news-card-content">
+                                        <h4 class="latest-news-card-title-small">Example Headline</h4>
+                                        <p class="latest-news-card-date">05.09.25</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide latest-news-slide">
+                                <div class="latest-news-card latest-news-card-small">
+                                    <div class="latest-news-card-image">
+                                        <img src="assets/images/news-2.jpg" alt="News Article" class="w-100 h-100" onerror="this.style.display='none'">
+                                    </div>
+                                    <div class="latest-news-card-content">
+                                        <h4 class="latest-news-card-title-small">Example Headline</h4>
+                                        <p class="latest-news-card-date">01.09.25</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide latest-news-slide">
+                                <div class="latest-news-card latest-news-card-small">
+                                    <div class="latest-news-card-image">
+                                        <img src="assets/images/news-3.jpg" alt="News Article" class="w-100 h-100" onerror="this.style.display='none'">
+                                    </div>
+                                    <div class="latest-news-card-content">
+                                        <h4 class="latest-news-card-title-small">Example Headline</h4>
+                                        <p class="latest-news-card-date">28.08.25</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section position-relative">
+        <div class="cta-background position-absolute w-100 h-100">
+            <img src="assets/images/CTA.jpg" alt="CTA Background 1" class="cta-bg-img" onerror="this.style.display='none'">
+            <img src="assets/images/cta-bg-2.jpg" alt="CTA Background 2" class="cta-bg-img" onerror="this.style.display='none'">
+            <div class="cta-overlay position-absolute w-100 h-100"></div>
+        </div>
+        <div class="container-fluid position-relative">
+            <div class="row g-0">
+                <div class="col-12 cta-content">
+                    <div class="cta-heading-wrapper">
+                        <h1 class="cta-heading">Begin your journey and let your light shine</h1>
+                    </div>
+                    <div class="cta-text-wrapper">
+                        <p class="cta-text">Every boy who walks through our gates begins a journey shaped by faith, friendship and challenge. <br>This is where confidence grows, talents emerge and young men learn to live with purpose and heart.</p>
+                        <div class="cta-buttons d-flex align-items-center">
+                            <button class="btn-rounded-large-solid cta-button-solid">Button Label</button>
+                            <button class="btn-rounded-large-outline cta-button-outline">Button Label</button>
                         </div>
                     </div>
                 </div>
@@ -543,7 +685,9 @@
         </div>
     </footer>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="src/scripts/main.js"></script>
