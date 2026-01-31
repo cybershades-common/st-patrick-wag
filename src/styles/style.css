@@ -1209,6 +1209,14 @@ body {
 .academics-card {
   padding: 0;
 }
+@media (min-width: 992px) {
+  .academics-card:first-child {
+    padding-right: 0.625rem;
+  }
+  .academics-card:last-child {
+    padding-left: 0.625rem;
+  }
+}
 .academics-card-image {
   width: 100%;
   height: 28.75rem;
@@ -1427,6 +1435,169 @@ body {
   }
   .cocurricular-nav-buttons {
     gap: 0.625rem;
+  }
+}
+.statistics-section {
+  background-color: #ffffff;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.statistics-section .container-fluid {
+  max-width: 86.25rem;
+}
+.statistics-top {
+  margin-bottom: 0;
+}
+.statistics-cards {
+  margin-top: 12.0625rem;
+}
+.statistics-heading-col {
+  padding-right: 0;
+}
+@media (min-width: 992px) {
+  .statistics-heading-col {
+    padding-right: 8.5625rem;
+  }
+}
+.statistics-heading {
+  font-family: 'Helvetica Neue LT Pro', sans-serif;
+  font-size: 3.75rem;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.0375rem;
+  color: #10069f;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.statistics-content-col {
+  padding-left: 0;
+}
+@media (min-width: 992px) {
+  .statistics-content-col {
+    padding-left: 0;
+  }
+}
+.statistics-text {
+  font-family: 'Helvetica Neue LT Pro', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: #27251f;
+  margin: 0;
+  margin-bottom: 2.5rem;
+  white-space: pre-wrap;
+}
+.statistics-button {
+  margin-top: 0;
+}
+.statistics-card {
+  position: relative;
+  height: 17.625rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+@media (min-width: 992px) {
+  .statistics-card:not(:last-child) {
+    padding-right: 1.25rem;
+  }
+  .statistics-card:last-child {
+    padding-right: 0;
+  }
+}
+@media (max-width: 991px) {
+  .statistics-card {
+    height: auto;
+    min-height: 17.625rem;
+    padding-right: 0;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+@media (max-width: 991px) {
+  .statistics-card:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+.statistics-card-divider {
+  width: 0.0625rem;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+@media (max-width: 991px) {
+  .statistics-card-divider {
+    display: none;
+  }
+}
+.statistics-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  flex: 1;
+}
+.statistics-card-label {
+  font-family: 'Helvetica Neue LT Pro', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: #27251f;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.statistics-card-number {
+  font-family: 'Helvetica Neue LT Pro', sans-serif;
+  font-size: 5.625rem;
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.1875rem;
+  color: #10069f;
+  margin: 0;
+}
+@media (max-width: 991px) {
+  .statistics-section {
+    padding-top: 1.875rem;
+    padding-bottom: 1.875rem;
+  }
+  .statistics-section .container-fluid {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .statistics-top {
+    margin-bottom: 1.875rem;
+  }
+  .statistics-cards {
+    margin-top: 1.875rem;
+  }
+  .statistics-heading-col {
+    padding-right: 0;
+    margin-bottom: 1.25rem;
+  }
+  .statistics-content-col {
+    padding-left: 0;
+  }
+  .statistics-text {
+    margin-bottom: 1.25rem;
+  }
+  .statistics-button {
+    margin-top: 0;
+  }
+}
+@media (max-width: 767px) {
+  .statistics-heading {
+    font-size: 2.5rem;
+  }
+  .statistics-text {
+    font-size: 1.125rem;
+  }
+  .statistics-card-number {
+    font-size: 4.5rem;
   }
 }
 .footer {

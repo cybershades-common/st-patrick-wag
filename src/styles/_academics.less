@@ -75,6 +75,16 @@
 
 .academics-card {
   padding: 0;
+  
+  @media (min-width: @breakpoint-lg) {
+    &:first-child {
+      padding-right: 0.625rem; // 1.25rem / 2 = 0.625rem per side
+    }
+    
+    &:last-child {
+      padding-left: 0.625rem; // 1.25rem / 2 = 0.625rem per side
+    }
+  }
 }
 
 .academics-card-image {
