@@ -1,0 +1,136 @@
+// Parents and Friends Community Section Styles
+
+.parents-community-section {
+  position: relative;
+  min-height: 50.625rem;
+  overflow: hidden;
+}
+
+.parents-community-background {
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.parents-community-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  
+  &:nth-child(2) {
+    z-index: 2;
+  }
+}
+
+.parents-community-overlay {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.40) 100%);
+  top: 0;
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.parents-community-section .container-fluid {
+  position: relative;
+  z-index: 4;
+  min-height: 50.625rem;
+  
+  @media (min-width: @breakpoint-lg) {
+    max-width: 90rem;
+  }
+}
+
+.parents-community-content {
+  padding-top: 2.0625rem; // 33px
+  padding-left: 1.875rem; // 30px
+  min-height: 50.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: @spacing-super-small; // 10px
+  align-items: flex-start;
+  width: 45.8125rem; // 733px
+  max-width: 100%;
+}
+
+.parents-community-heading {
+  width: 100%;
+}
+
+.parents-community-heading {
+  font-family: @font-family-helvetica-neue;
+  font-size: @font-size-h2;
+  font-weight: @font-weight-light;
+  line-height: @line-height-h2;
+  letter-spacing: -0.0375rem; // -0.6px
+  color: @basic-white;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.parents-community-text {
+  font-family: @font-family-helvetica-neue;
+  font-size: @font-size-b1;
+  font-weight: @font-weight-regular;
+  line-height: @line-height-b1;
+  letter-spacing: -0.0125rem; // -0.2px
+  color: @basic-white-secondary;
+  margin: 0;
+  width: 33.4375rem; // 535px
+  max-width: 100%;
+  white-space: pre-wrap;
+}
+
+.parents-community-button {
+  border-color: @basic-white;
+  color: @basic-white;
+  margin-top: 0;
+}
+
+.parents-community-button:hover {
+  background-color: @basic-white;
+  color: @basic-black;
+}
+
+@media (max-width: @breakpoint-lg - 1px) {
+  .parents-community-section {
+    min-height: auto;
+  }
+
+  .parents-community-section .container-fluid {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    min-height: auto;
+  }
+
+  .parents-community-content {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    padding-left: 0;
+    min-height: auto;
+    width: 100%;
+  }
+
+  .parents-community-heading {
+    font-size: 2.5rem;
+    margin-bottom: @spacing-xs;
+  }
+
+  .parents-community-text {
+    width: 100%;
+    margin-bottom: @spacing-xs;
+  }
+}
+
+@media (max-width: @breakpoint-md - 1px) {
+  .parents-community-heading {
+    font-size: 1.875rem;
+  }
+
+  .parents-community-text {
+    font-size: 1.125rem;
+  }
+}

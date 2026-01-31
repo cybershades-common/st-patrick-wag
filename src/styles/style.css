@@ -1600,6 +1600,123 @@ body {
     font-size: 4.5rem;
   }
 }
+.parents-community-section {
+  position: relative;
+  min-height: 50.625rem;
+  overflow: hidden;
+}
+.parents-community-background {
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.parents-community-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.parents-community-bg-img:nth-child(2) {
+  z-index: 2;
+}
+.parents-community-overlay {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%);
+  top: 0;
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.parents-community-section .container-fluid {
+  position: relative;
+  z-index: 4;
+  min-height: 50.625rem;
+}
+@media (min-width: 992px) {
+  .parents-community-section .container-fluid {
+    max-width: 90rem;
+  }
+}
+.parents-community-content {
+  padding-top: 2.0625rem;
+  padding-left: 1.875rem;
+  min-height: 50.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  align-items: flex-start;
+  width: 45.8125rem;
+  max-width: 100%;
+}
+.parents-community-heading {
+  width: 100%;
+}
+.parents-community-heading {
+  font-family: 'Helvetica Neue LT Pro', sans-serif;
+  font-size: 3.75rem;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.0375rem;
+  color: #ffffff;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.parents-community-text {
+  font-family: 'Helvetica Neue LT Pro', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.0125rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  width: 33.4375rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+}
+.parents-community-button {
+  border-color: #ffffff;
+  color: #ffffff;
+  margin-top: 0;
+}
+.parents-community-button:hover {
+  background-color: #ffffff;
+  color: #27251f;
+}
+@media (max-width: 991px) {
+  .parents-community-section {
+    min-height: auto;
+  }
+  .parents-community-section .container-fluid {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    min-height: auto;
+  }
+  .parents-community-content {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    padding-left: 0;
+    min-height: auto;
+    width: 100%;
+  }
+  .parents-community-heading {
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .parents-community-text {
+    width: 100%;
+    margin-bottom: 1.25rem;
+  }
+}
+@media (max-width: 767px) {
+  .parents-community-heading {
+    font-size: 1.875rem;
+  }
+  .parents-community-text {
+    font-size: 1.125rem;
+  }
+}
 .footer {
   background-color: #eeeae0;
   padding-top: 2.75rem;
