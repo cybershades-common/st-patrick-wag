@@ -290,31 +290,35 @@ document.addEventListener('DOMContentLoaded', function () {
         const aboutParagraphs = document.querySelectorAll('.about-text p');
         aboutParagraphs.forEach(p => wrapSentences(p));
 
-        gsap.set('.about-heading .word, .about-heading .underline', { opacity: 0, y: 24 });
-        gsap.set('.about-text .sentence', { opacity: 0, y: 16 });
+        gsap.set('.about-heading .word, .about-heading .underline', { opacity: 0, y: 32 });
+        gsap.set('.about-text .sentence', { opacity: 0, y: 22 });
 
         const headingPieces = gsap.utils.toArray('.about-heading .word, .about-heading .underline');
         gsap.to(headingPieces, {
             opacity: 1,
             y: 0,
-            duration: 0.35,
-            ease: 'power2.out',
-            stagger: 0.03,
+            duration: 0.7,
+            ease: 'power3.out',
+            stagger: 0.06,
             scrollTrigger: {
                 trigger: '.about-section',
-                start: 'top 75%'
+                start: 'top 80%',
+                end: 'top 40%',
+                scrub: 1
             }
         });
 
         gsap.to('.about-text .sentence', {
             opacity: 1,
             y: 0,
-            duration: 0.4,
-            ease: 'power2.out',
-            stagger: 0.15,
+            duration: 1.8,
+            ease: 'power3.out',
+            stagger: 0.42,
             scrollTrigger: {
                 trigger: '.about-section',
-                start: 'top 70%'
+                start: 'top 78%',
+                end: 'top 38%',
+                scrub: 1
             }
         });
     }

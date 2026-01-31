@@ -929,6 +929,9 @@ class GSAPAnimations {
           case 'parallax-bg':
             this.parallaxBg(el, config);
             break;
+          case 'image-clip-top':
+            this.imageClipTop(el, config);
+            break;
           default:
             console.warn(`Unknown animation type: ${animationType}`);
         }
@@ -4167,6 +4170,41 @@ class GSAPAnimations {
         autoRound: false // Prevent sub-pixel rounding jitter
       }, T.textDelay); // Start text reveal T.textDelay seconds after fill begins
     }
+  }
+
+  // Image clip from top - curtain drop reveal animation
+  // Reveals image from top to bottom like a curtain dropping
+  imageClipTop(el, config) {
+    if (!el) return;
+
+    const children = el.children.length > 0 ? Array.from(el.children) : null;
+    const target = children && config.stagger ? children : el;
+
+    // Set initial state - clipped from bottom (only top edge visible)
+    gsap.set(target, {
+      clipPath: 'inset(0 0 100% 0)',
+      webkitClipPath: 'inset(0 0 100% 0)',
+      willChange: 'clip-path'
+    });
+
+    // Animate to fully visible (curtain drops down)
+    gsap.to(target, {
+      clipPath: 'inset(0 0 0% 0)',
+      webkitClipPath: 'inset(0 0 0% 0)',
+      duration: config.duration || 0.6,
+      ease: config.ease || 'power2.inOut',
+      delay: config.delay,
+      stagger: children && config.stagger ? config.stagger : 0,
+      scrollTrigger: this.buildScrollTrigger(el, config),
+      onComplete: () => {
+        // Clean up for performance
+        if (children && config.stagger) {
+          children.forEach(child => gsap.set(child, { clearProps: 'will-change' }));
+        } else {
+          gsap.set(target, { clearProps: 'will-change' });
+        }
+      }
+    });
   }
 
 
