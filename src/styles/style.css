@@ -159,6 +159,16 @@ select:focus-within {
   --breakpoint-xl: 1200px;
   --breakpoint-xxl: 1400px;
 }
+@media (max-width: 1400px) {
+  html {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1800px) {
+  html {
+    font-size: 21px;
+  }
+}
 h1 {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-h1);
@@ -606,12 +616,6 @@ body {
   transform: scale(0.95);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-@media (min-width: 992px) {
-  .menu-image-wrapper {
-    width: 27.8125rem;
-    height: 34.875rem;
-  }
-}
 .mega-menu.active .menu-image-wrapper {
   opacity: 1;
   transform: scale(1);
@@ -932,6 +936,11 @@ body {
   z-index: 2;
   pointer-events: none;
 }
+@media (min-width: 992px) and (max-width: 1200px) {
+  .hero .hero-content-wrap h1 {
+    font-size: 9.25rem;
+  }
+}
 @media (max-width: 1199px) {
   .hero-content {
     flex: 1 1 100%;
@@ -941,7 +950,6 @@ body {
   .hero-text {
     flex: 1 1 100%;
     max-width: 100%;
-    height: auto;
   }
   .hero-text p {
     width: 100%;
@@ -1031,10 +1039,6 @@ body {
   margin-top: 7.8125rem;
   position: relative;
   z-index: 11;
-}
-.about-content {
-  padding-right: 0;
-  padding-left: 0;
 }
 .about-text {
   display: flex;

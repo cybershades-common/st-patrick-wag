@@ -1,6 +1,8 @@
 // Responsive Mixins
 // Mobile first approach
 
+
+
 .respond-to-sm(@rules) {
   @media (min-width: var(--breakpoint-sm)) {
     @rules();
@@ -28,5 +30,19 @@
 .respond-to-xxl(@rules) {
   @media (min-width: var(--breakpoint-xxl)) {
     @rules();
+  }
+}
+
+
+@media (max-width:1400px){
+  html{
+    font-size: 15px;
+  }
+}
+
+
+@media (min-width:1800px){
+  html{
+    font-size: 21px;
   }
 }
