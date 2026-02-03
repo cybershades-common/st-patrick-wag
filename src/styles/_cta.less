@@ -1,10 +1,17 @@
 // CTA Section Styles
 
+.cta-block-wrap{
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  flex-direction: column;
+  min-height: 88vh;
+}
 .cta-section {
   position: relative;
-  min-height: 50.625rem; // 810px
   max-height: 100vh;
   overflow: visible;
+  padding: 2.5rem 0;
 }
 
 .cta-background {
@@ -48,22 +55,8 @@
   }
 }
 
-.cta-content {
-  position: relative;
-  min-height: 50.625rem;
-  height: 100%;
-  padding-left: 1.875rem; // 30px
-  padding-bottom: 1.25rem; // Extra padding for buttons
-}
 
-.cta-heading-wrapper {
-  position: absolute;
-  left: 1.875rem; // 30px
-  top: 10.46875rem; // 167.5px
-  transform: translateY(-50%);
-  width: 41.625rem; // 666px
-  max-width: calc(100% - 3.75rem);
-}
+
 
 .cta-heading {
   font-family: var(--font-family-helvetica-neue);
@@ -77,25 +70,9 @@
 }
 
 .cta-text-wrapper {
-  position: absolute;
-  left: calc(50% + 0.625rem); // calc(50% + 10px)
-  bottom: 4.375rem; // 70px from bottom to ensure buttons aren't cut
-  width: 29.1875rem; // 467px
-  max-width: calc(100% - 3.75rem);
   display: flex;
-  flex-direction: column;
-  gap: 1.8125rem; // 29px
-  align-items: flex-start;
-  
-  @media (max-width: 991px) {
-    position: relative;
-    left: auto;
-    top: auto;
-    bottom: auto;
-    width: 100%;
-    max-width: 100%;
-    margin-top: var(--spacing-base);
-  }
+   gap: 1.8125rem;
+   flex-direction: column;
 }
 
 .cta-text {
@@ -193,3 +170,4 @@
     font-size: 1.125rem;
   }
 }
+
