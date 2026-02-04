@@ -2023,7 +2023,7 @@ body {
 }
 @media (min-width: 992px) {
   .latest-news-heading-col {
-    padding-right: 17.375rem;
+    padding-right: 8.5rem;
   }
 }
 .latest-news-heading {
@@ -2370,6 +2370,12 @@ body {
   background-color: var(--basic-white);
   color: var(--basic-black);
 }
+@media (min-width: 992px) and (max-width: 1200px) {
+  .cta-block-wrap .cta-heading {
+    font-size: 4.5rem;
+    letter-spacing: -0.0625rem;
+  }
+}
 @media (max-width: 991px) {
   .cta-section {
     min-height: auto;
@@ -2509,8 +2515,6 @@ body {
   margin: 0;
 }
 .footer-logos {
-  margin-top: 2.75rem;
-  margin-left: 2.125rem;
   gap: 1.92rem;
   height: 5.1975rem;
   align-items: center;
@@ -2722,13 +2726,10 @@ body {
   margin: 0;
 }
 .footer-bottom-links {
-  gap: 11.625rem;
-  width: 41.5rem;
   flex-shrink: 0;
 }
 .footer-bottom-links-left {
   gap: 1.5rem;
-  width: 26.9375rem;
   flex-shrink: 0;
 }
 .footer-bottom-links-left span {
@@ -2763,6 +2764,14 @@ body {
   height: 0.9375rem;
   z-index: 3;
   width: 100%;
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .col-12.col-lg-6.footer-bottom-links.d-flex.align-items-center.justify-content-lg-end {
+    justify-content: space-between !important;
+  }
+  .footer-bottom-links-left {
+    gap: 1.125rem;
+  }
 }
 @media (max-width: 991px) {
   .footer {
