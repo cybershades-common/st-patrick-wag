@@ -650,11 +650,13 @@ body {
   }
   .header-logo {
     width: auto;
+    gap: 0.5rem;
   }
   .logo-text {
-    font-size: 0.9375rem;
+    font-size: 1.25rem;
     letter-spacing: -0.025rem;
     width: auto;
+    line-height: 100%;
   }
   .header-logo-text {
     padding-top: 0.9375rem;
@@ -718,10 +720,6 @@ body {
 @media (max-width: 991px) {
   .header-logo {
     width: auto;
-  }
-  .logo-text {
-    font-size: 0.9375rem;
-    letter-spacing: -0.025rem;
   }
   .header-logo-text {
     padding-top: 0.9375rem;
@@ -1096,12 +1094,11 @@ body {
     margin-bottom: 1.25rem;
   }
   .about-buttons {
-    flex-direction: column;
     align-items: flex-start;
     gap: 0.625rem;
   }
   .about-image {
-    padding-top: 1.25rem;
+    padding-top: 0;
     height: 25rem;
   }
 }
@@ -1375,6 +1372,9 @@ body {
   }
   .academics-card-title {
     font-size: 1.725rem;
+  }
+  .academics-heading {
+    font-size: 3.5rem;
   }
 }
 @media (max-width: 767px) {
@@ -2016,7 +2016,7 @@ body {
   .testimonials-text-col {
     padding-left: 0;
     margin-bottom: var(--spacing-small);
-    height: auto;
+    height: 100%;
   }
   .testimonials-quote-wrapper {
     width: 100%;
@@ -2928,6 +2928,9 @@ body {
     flex-wrap: wrap;
     gap: 1.875rem;
     width: 100%;
+  }
+  .footer .footer-right {
+    padding: 0 0.75rem;
   }
 }
 @media (max-width: 767px) {

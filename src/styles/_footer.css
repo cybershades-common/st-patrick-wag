@@ -467,6 +467,9 @@
     gap: 1.875rem;
     width: 100%;
   }
+  .footer .footer-right {
+    padding: 0 0.75rem;
+  }
 }
 @media (max-width: 767px) {
   .footer-logos {
