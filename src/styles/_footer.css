@@ -50,6 +50,8 @@
   filter: blur(15.625rem);
   pointer-events: none;
   background: var(--primary-yellow-bright, #FFF02A);
+  opacity: 0;
+  visibility: hidden;
 }
 .footer .container-fluid {
   position: relative;
@@ -254,6 +256,7 @@
   pointer-events: none;
   width: 100vw;
   overflow: hidden;
+  white-space: nowrap;
 }
 .footer-large-text h1 {
   font-family: var(--font-family-helvetica-neue);
