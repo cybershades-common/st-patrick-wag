@@ -177,25 +177,22 @@ document.addEventListener('DOMContentLoaded', function () {
         // Create master timeline
         const heroTimeline = gsap.timeline();
 
-        // Set initial states for title spans
+        // Set initial states before timeline runs — prevents flash of visible content
         const heroTitleSpans = document.querySelectorAll('.hero-title span');
-        gsap.set(heroTitleSpans, {
-            display: 'inline-block',
-            opacity: 0,
-            y: 150
-        });
+        gsap.set(heroTitleSpans, { display: 'inline-block', opacity: 0, y: 150 });
+        gsap.set('.header-logo', { y: -50, opacity: 0 });
+        gsap.set('.header-nav', { y: -50, opacity: 0 });
+        gsap.set('.hero-text p', { x: 50, opacity: 0 });
 
         // Build timeline sequence
         heroTimeline
             // Header logo
-            .fromTo('.header-logo',
-                { y: -50, opacity: 0 },
+            .to('.header-logo',
                 { y: 0, opacity: 1, duration: 0.7, ease: 'Power1.easeOut' },
                 0.2
             )
             // Header navigation
-            .fromTo('.header-nav',
-                { y: -50, opacity: 0 },
+            .to('.header-nav',
                 { y: 0, opacity: 1, duration: 0.7, ease: 'Power1.easeOut' },
                 0.2
             )
@@ -208,8 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ease: 'Power1.easeOut'
             }, 0.5)
             // Hero description text
-            .fromTo('.hero-text p',
-                { x: 50, opacity: 0 },
+            .to('.hero-text p',
                 { x: 0, opacity: 1, duration: 1.2, ease: 'Power1.easeOut' },
                 1.5
             );

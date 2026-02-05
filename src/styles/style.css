@@ -348,6 +348,9 @@ body {
   padding-left: var(--spacing-base);
   padding-right: var(--spacing-base);
 }
+.header-logo {
+  opacity: 0;
+}
 .header-logo img {
   width: 4.375rem;
   height: auto;
@@ -380,6 +383,7 @@ body {
 }
 .header-nav {
   gap: var(--spacing-xs);
+  opacity: 0;
 }
 .header-icons-wrapper {
   gap: 1.5625rem;
@@ -819,6 +823,9 @@ body {
   z-index: 1;
   top: -1.25rem;
 }
+.hero-title span {
+  opacity: 0;
+}
 .hero-text {
   height: 100%;
   padding-bottom: 2.5rem;
@@ -832,6 +839,10 @@ body {
   letter-spacing: 0;
   color: var(--basic-black);
   margin: 0;
+  opacity: 0;
+}
+.hero-text button {
+  clip-path: inset(0 100% 0 0);
 }
 .sticky-wrapper {
   position: relative;
