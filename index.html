@@ -464,6 +464,26 @@
         <!-- Testimonials Section -->
         <section class="testimonials-section section">
             <div class="testimonials-gradient position-absolute"></div>
+
+            <!-- Testimonial data (read by JS) -->
+            <div class="testimonials-slides" hidden>
+                <div class="testimonials-slide">
+                    <img src="assets/images/testimonial-1.jpg" alt="">
+                    <p class="testimonials-slide-quote">"St Patrick's has given me confidence I never knew I had. My teachers push me, my mates back me and every day I feel like I am becoming a better version of myself."</p>
+                    <p class="testimonials-slide-attr">Liam Dossi, Year 10 Student</p>
+                </div>
+                <div class="testimonials-slide">
+                    <img src="assets/images/about-image.jpg" alt="">
+                    <p class="testimonials-slide-quote">"The support I've received at SPC has shaped me in ways I didn't expect. The teachers here don't just teach — they genuinely care about who you become."</p>
+                    <p class="testimonials-slide-attr">Michael Chen, Year 11 Student</p>
+                </div>
+                <div class="testimonials-slide">
+                    <img src="assets/images/parents-community-bg.jpg" alt="">
+                    <p class="testimonials-slide-quote">"Watching our son thrive at St Patrick's has been remarkable. The school strikes the perfect balance between academic excellence and character development."</p>
+                    <p class="testimonials-slide-attr">Catherine Walsh, Parent</p>
+                </div>
+            </div>
+
             <div class="container-fluid">
                 <div class="row ">
                     <div class="col-12 testimonials-content">
@@ -471,25 +491,15 @@
                             <div class="col-12 col-lg-6 col-md-5 testimonials-image-col">
                                 <div class="testimonials-image-wrapper">
                                     <div class="testimonials-image w-100 h-100">
-                                        <img data-gsap="image-fade-in"
-       data-gsap-start="top 50%"                  data-gsap-start-mobile="top 75%" src="assets/images/testimonial-1.jpg"
-                                            alt="Testimonial Background 1" class="testimonials-bg-img"
-                                            onerror="this.style.display='none'">
-                                        <div class="testimonials-image-overlay position-absolute w-100 h-100">
-                                            <img src="assets/images/testimonial-bg-2.jpg" alt="Testimonial Background 2"
-                                                class="testimonials-bg-img-overlay" onerror="this.style.display='none'"
-                                                style="display: none;">
-                                        </div>
+                                        <img class="testimonials-img testimonials-img-a" src="assets/images/testimonial-1.jpg" alt="Testimonial">
+                                        <img class="testimonials-img testimonials-img-b" src="assets/images/testimonial-1.jpg" alt="Testimonial">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6  col-md-6 offset-lg-0 offset-md-1  testimonials-text-col">
+                            <div class="col-12 col-lg-6 col-md-6 offset-lg-0 offset-md-1 testimonials-text-col">
                                 <div class="testimonials-quote-wrapper">
-                                    <p data-gsap="lines" data-gsap-start="top 50%" class="testimonials-quote">"St Patrick's has given me
-                                        confidence I never knew I had. My teachers push me, my mates back me and every
-                                        day I feel like I am becoming a better version of myself."</p>
-                                    <p data-gsap="fade-up" data-gsap-start="top 80%" class="testimonials-attribution">Liam Dossi, Year 10 Student
-                                    </p>
+                                    <p class="testimonials-quote">"St Patrick's has given me confidence I never knew I had. My teachers push me, my mates back me and every day I feel like I am becoming a better version of myself."</p>
+                                    <p class="testimonials-attribution">Liam Dossi, Year 10 Student</p>
                                 </div>
                             </div>
                         </div>
@@ -501,14 +511,14 @@
                             </div>
                             <div class="col-lg-6 testimonials-arrows-col">
                                 <div data-gsap="fade-in" class="testimonials-arrows d-flex align-items-center">
-                                    <button class="testimonials-arrow-btn" aria-label="Previous testimonial">
+                                    <button class="testimonials-arrow-btn" id="testimonialPrev" aria-label="Previous testimonial">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20 10L10 20L20 30M10 20H30" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </button>
-                                    <button class="testimonials-arrow-btn" aria-label="Next testimonial">
+                                    <button class="testimonials-arrow-btn" id="testimonialNext" aria-label="Next testimonial">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20 10L30 20L20 30M30 20H10" stroke="currentColor" stroke-width="2"

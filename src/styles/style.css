@@ -2049,6 +2049,31 @@ body {
   width: 100%;
   height: 100%;
 }
+.testimonials-image {
+  position: relative;
+}
+.testimonials-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.testimonials-counter {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0 0.875rem;
+  font-family: var(--font-family-helvetica-neue);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-regular);
+  color: var(--primary-blue);
+  letter-spacing: 0.05rem;
+}
+.testimonials-counter-sep {
+  opacity: 0.35;
+  margin: 0 0.125rem;
+}
 @media (max-width: 991px) {
   .testimonials-section {
     padding-top: var(--spacing-small);

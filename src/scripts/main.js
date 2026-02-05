@@ -784,6 +784,102 @@ document.addEventListener('DOMContentLoaded', function () {
     // STATISTICS SECTION ANIMATION - END
     // ==========================================================================
 
+    // ==========================================================================
+    // TESTIMONIALS SLIDER
+    // ==========================================================================
+
+    function initTestimonialsSlider() {
+        // Read testimonial data from HTML
+        const slides = document.querySelectorAll('.testimonials-slide');
+        if (!slides.length) return;
+
+        const testimonials = [...slides].map(slide => ({
+            image:       slide.querySelector('img').getAttribute('src'),
+            quote:       slide.querySelector('.testimonials-slide-quote').textContent,
+            attribution: slide.querySelector('.testimonials-slide-attr').textContent
+        }));
+
+        const imgA    = document.querySelector('.testimonials-img-a');
+        const imgB    = document.querySelector('.testimonials-img-b');
+        const quoteEl = document.querySelector('.testimonials-quote');
+        const attrEl  = document.querySelector('.testimonials-attribution');
+        const prevBtn = document.getElementById('testimonialPrev');
+        const nextBtn = document.getElementById('testimonialNext');
+
+        if (!imgA || !imgB || !quoteEl || !attrEl || !prevBtn || !nextBtn) return;
+
+        let current     = 0;
+        let isAnimating = false;
+        let activeImg   = imgA;
+        let inactiveImg = imgB;
+
+        // Init: inactive layer fully clipped and below
+        gsap.set(activeImg,   { zIndex: 1 });
+        gsap.set(inactiveImg, { clipPath: 'inset(0 0 0 100%)', webkitClipPath: 'inset(0 0 0 100%)', zIndex: 0 });
+
+        function goTo(index, direction) {
+            if (isAnimating || index === current) return;
+            isAnimating = true;
+            current = index;
+
+            // Preload next image to prevent blank-reveal snap during clip animation
+            const img = new Image();
+            img.src = testimonials[current].image;
+            const startAnim = () => {
+                inactiveImg.src = testimonials[current].image;
+
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        [activeImg, inactiveImg] = [inactiveImg, activeImg];
+                        gsap.set(activeImg,   { zIndex: 1 });
+                        gsap.set(inactiveImg, { clipPath: 'inset(0 0 0 100%)', webkitClipPath: 'inset(0 0 0 100%)', zIndex: 0 });
+                        isAnimating = false;
+                    }
+                });
+
+                // --- Image: slides in from arrow direction (right on next, left on prev) ---
+                const hiddenClip = direction > 0 ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
+                const shownClip  = direction > 0 ? 'inset(0 0 0 0%)'   : 'inset(0 0% 0 0)';
+                tl.set(inactiveImg, { clipPath: hiddenClip, webkitClipPath: hiddenClip, zIndex: 2 });
+                tl.to(inactiveImg, {
+                    clipPath: shownClip, webkitClipPath: shownClip,
+                    duration: 0.85, ease: 'power2.inOut', autoRound: false
+                }, 0);
+
+                // --- Text: slide out (up on next, down on prev) ---
+                const outY = direction > 0 ? -32 : 32;
+                const inY  = direction > 0 ?  32 : -32;
+                tl.to(quoteEl, { y: outY, opacity: 0, duration: 0.3,  ease: 'power2.in' }, 0);
+                tl.to(attrEl,  { y: outY, opacity: 0, duration: 0.25, ease: 'power2.in' }, 0.07);
+
+                // --- Swap text content ---
+                tl.call(() => {
+                    quoteEl.textContent = testimonials[current].quote;
+                    attrEl.textContent  = testimonials[current].attribution;
+                }, [], 0.33);
+
+                // --- Text: slide in (from bottom on next, from top on prev) ---
+                tl.fromTo(quoteEl, { y: inY, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out' }, 0.33);
+                tl.fromTo(attrEl,  { y: inY * 0.6, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out' }, 0.44);
+            };
+
+            if (img.complete) {
+                startAnim();
+            } else {
+                img.onload = startAnim;
+            }
+        }
+
+        prevBtn.addEventListener('click', () => {
+            goTo((current - 1 + testimonials.length) % testimonials.length, -1);
+        });
+        nextBtn.addEventListener('click', () => {
+            goTo((current + 1) % testimonials.length, 1);
+        });
+    }
+
+    initTestimonialsSlider();
+
     // Hero video lazy loading
     const heroVideo = document.getElementById('heroVideo');
     if (heroVideo) {
