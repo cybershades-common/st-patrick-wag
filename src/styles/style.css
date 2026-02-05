@@ -191,6 +191,20 @@ select:focus-within {
     font-size: 21px;
   }
 }
+@media (max-width: 767px) {
+  .section .gradient-circle.right {
+    right: -146%;
+    bottom: -100%;
+  }
+  .section .gradient-circle.left {
+    left: -150%;
+    bottom: -75%;
+  }
+  .section .testimonials-gradient {
+    left: 92%;
+    top: 95%;
+  }
+}
 h1 {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-h1);
@@ -961,13 +975,15 @@ body {
 }
 @media (min-width: 992px) and (max-width: 1200px) {
   .hero .hero-content-wrap {
-    min-height: auto;
+    height: auto;
     padding-bottom: 0;
+    min-height: auto;
+    padding: 14rem 0 0rem;
   }
-  .hero .hero-content-wrap .hero-content h1 {
-    font-size: 9.25rem;
+  .hero .hero-content h1 {
+    font-size: 8.25rem;
   }
-  .hero .hero-content-wrap .hero-content .hero-gradient {
+  .hero .hero-content .hero-gradient {
     bottom: -16.5rem;
     left: -0.25rem;
     width: 20.75rem;
@@ -1137,6 +1153,11 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .about-heading {
+    font-size: 3rem;
+  }
 }
 @media (max-width: 991px) {
   .about-section {
@@ -1747,6 +1768,9 @@ body {
   }
   .statistics-card {
     height: 13rem;
+  }
+  .statistics-card-number {
+    font-size: 4.25rem;
   }
 }
 @media (max-width: 991px) {
@@ -3025,6 +3049,9 @@ body {
 @media (max-width: 767px) {
   .footer {
     padding-bottom: 0;
+  }
+  .footer .footer-gradient {
+    top: 100%;
   }
   .footer .footer-mission,
   .footer .footer-logo {

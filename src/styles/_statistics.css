@@ -131,6 +131,9 @@
   .statistics-card {
     height: 13rem;
   }
+  .statistics-card-number {
+    font-size: 4.25rem;
+  }
 }
 @media (max-width: 991px) {
   .statistics-section {

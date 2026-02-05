@@ -3,3 +3,17 @@
     font-size: 21px;
   }
 }
+@media (max-width: 767px) {
+  .section .gradient-circle.right {
+    right: -146%;
+    bottom: -100%;
+  }
+  .section .gradient-circle.left {
+    left: -150%;
+    bottom: -75%;
+  }
+  .section .testimonials-gradient {
+    left: 92%;
+    top: 95%;
+  }
+}
