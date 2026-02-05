@@ -29,7 +29,8 @@
   filter: blur(11.625rem);
   pointer-events: none;
   z-index: 0;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
 }
 .hero-content {
   padding-left: 0;

@@ -333,6 +333,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initFooterGradientFade();
 
+    // Section-specific gradients (slow fade on entry)
+    function initSectionGradientFades() {
+        const items = [
+            { selector: '.about-section .gradient-circle', trigger: '.about-section' },
+            { selector: '.academics-gradient', trigger: '.academics-section' },
+            { selector: '.testimonials-gradient', trigger: '.testimonials-section' }
+        ];
+
+        items.forEach(({ selector, trigger }) => {
+            const el = document.querySelector(selector);
+            const section = document.querySelector(trigger);
+            if (!el || !section) return;
+
+            gsap.set(el, { autoAlpha: 0 });
+            gsap.to(el, {
+                autoAlpha: 1,
+                duration: 3.6,
+                ease: 'power1.out',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 85%',
+                    once: true
+                }
+            });
+        });
+    }
+
+    initSectionGradientFades();
+
     // About section reveal animation (word and sentence)
     function wrapWords(el) {
         const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
