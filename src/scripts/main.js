@@ -794,88 +794,92 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!slides.length) return;
 
         const testimonials = [...slides].map(slide => ({
-            image:       slide.querySelector('img').getAttribute('src'),
-            quote:       slide.querySelector('.testimonials-slide-quote').textContent,
-            attribution: slide.querySelector('.testimonials-slide-attr').textContent
+            image: slide.querySelector('img')?.getAttribute('src') || '',
+            alt: slide.querySelector('img')?.getAttribute('alt') || 'Testimonial',
+            quote: slide.querySelector('.testimonials-slide-quote')?.textContent || '',
+            attribution: slide.querySelector('.testimonials-slide-attr')?.textContent || ''
         }));
 
-        const imgA    = document.querySelector('.testimonials-img-a');
-        const imgB    = document.querySelector('.testimonials-img-b');
-        const quoteEl = document.querySelector('.testimonials-quote');
-        const attrEl  = document.querySelector('.testimonials-attribution');
+        const picWrapper = document.querySelector('.testimonials-pic-slider .swiper-wrapper');
+        const textWrapper = document.querySelector('.testimonials-text-slider .swiper-wrapper');
         const prevBtn = document.getElementById('testimonialPrev');
         const nextBtn = document.getElementById('testimonialNext');
+        const section = document.querySelector('.testimonials-section');
 
-        if (!imgA || !imgB || !quoteEl || !attrEl || !prevBtn || !nextBtn) return;
+        if (!picWrapper || !textWrapper || !prevBtn || !nextBtn) return;
 
-        let current     = 0;
-        let isAnimating = false;
-        let activeImg   = imgA;
-        let inactiveImg = imgB;
+        // Build slides
+        testimonials.forEach(item => {
+            const picSlide = document.createElement('div');
+            picSlide.className = 'swiper-slide';
 
-        // Init: inactive layer fully clipped and below
-        gsap.set(activeImg,   { zIndex: 1 });
-        gsap.set(inactiveImg, { clipPath: 'inset(0 0 0 100%)', webkitClipPath: 'inset(0 0 0 100%)', zIndex: 0 });
+            const img = document.createElement('img');
+            img.className = 'testimonials-img';
+            img.src = item.image;
+            img.alt = item.alt;
+            picSlide.appendChild(img);
+            picWrapper.appendChild(picSlide);
 
-        function goTo(index, direction) {
-            if (isAnimating || index === current) return;
-            isAnimating = true;
-            current = index;
+            const textSlide = document.createElement('div');
+            textSlide.className = 'swiper-slide';
 
-            // Preload next image to prevent blank-reveal snap during clip animation
-            const img = new Image();
-            img.src = testimonials[current].image;
-            const startAnim = () => {
-                inactiveImg.src = testimonials[current].image;
+            const quoteWrap = document.createElement('div');
+            quoteWrap.className = 'testimonials-quote-wrapper';
 
-                const tl = gsap.timeline({
-                    onComplete: () => {
-                        [activeImg, inactiveImg] = [inactiveImg, activeImg];
-                        gsap.set(activeImg,   { zIndex: 1 });
-                        gsap.set(inactiveImg, { clipPath: 'inset(0 0 0 100%)', webkitClipPath: 'inset(0 0 0 100%)', zIndex: 0 });
-                        isAnimating = false;
-                    }
-                });
+            const quoteEl = document.createElement('p');
+            quoteEl.className = 'testimonials-quote';
+            quoteEl.textContent = item.quote;
 
-                // --- Image: slides in from arrow direction (right on next, left on prev) ---
-                const hiddenClip = direction > 0 ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
-                const shownClip  = direction > 0 ? 'inset(0 0 0 0%)'   : 'inset(0 0% 0 0)';
-                tl.set(inactiveImg, { clipPath: hiddenClip, webkitClipPath: hiddenClip, zIndex: 2 });
-                tl.to(inactiveImg, {
-                    clipPath: shownClip, webkitClipPath: shownClip,
-                    duration: 0.85, ease: 'power2.inOut', autoRound: false
-                }, 0);
+            const attrEl = document.createElement('p');
+            attrEl.className = 'testimonials-attribution';
+            attrEl.textContent = item.attribution;
 
-                // --- Text: slide out (up on next, down on prev) ---
-                const outY = direction > 0 ? -32 : 32;
-                const inY  = direction > 0 ?  32 : -32;
-                tl.to(quoteEl, { y: outY, opacity: 0, duration: 0.3,  ease: 'power2.in' }, 0);
-                tl.to(attrEl,  { y: outY, opacity: 0, duration: 0.25, ease: 'power2.in' }, 0.07);
+            quoteWrap.appendChild(quoteEl);
+            quoteWrap.appendChild(attrEl);
+            textSlide.appendChild(quoteWrap);
+            textWrapper.appendChild(textSlide);
+        });
 
-                // --- Swap text content ---
-                tl.call(() => {
-                    quoteEl.textContent = testimonials[current].quote;
-                    attrEl.textContent  = testimonials[current].attribution;
-                }, [], 0.33);
+        const totalSlides = testimonials.length;
 
-                // --- Text: slide in (from bottom on next, from top on prev) ---
-                tl.fromTo(quoteEl, { y: inY, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out' }, 0.33);
-                tl.fromTo(attrEl,  { y: inY * 0.6, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out' }, 0.44);
-            };
+        const picSlider = new Swiper('.testimonials-pic-slider', {
+            direction: 'vertical',
+            slidesPerView: 1,
+            speed: 1000,
+            allowTouchMove: false,
+            effect: 'slide'
+        });
 
-            if (img.complete) {
-                startAnim();
-            } else {
-                img.onload = startAnim;
+        const textSlider = new Swiper('.testimonials-text-slider', {
+            slidesPerView: 1,
+            speed: 1000,
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+            allowTouchMove: true,
+            on: {
+                slideChange: function() {
+                    const index = this.activeIndex;
+                    picSlider.slideTo(index);
+                    prevBtn.disabled = index === 0;
+                    nextBtn.disabled = index === totalSlides - 1;
+                }
             }
-        }
+        });
 
-        prevBtn.addEventListener('click', () => {
-            goTo((current - 1 + testimonials.length) % testimonials.length, -1);
+        prevBtn.disabled = true;
+        nextBtn.disabled = totalSlides <= 1;
+
+        prevBtn.addEventListener('click', function() {
+            textSlider.slidePrev();
         });
-        nextBtn.addEventListener('click', () => {
-            goTo((current + 1) % testimonials.length, 1);
+
+        nextBtn.addEventListener('click', function() {
+            textSlider.slideNext();
         });
+
+        // Navigation only (buttons)
     }
 
     initTestimonialsSlider();
