@@ -347,7 +347,6 @@
 .footer-bottom {
   margin: 2rem auto 0;
   z-index: 3;
-  background-color: var(--primary-gold-3);
 }
 
 .footer-bottom .row {
@@ -581,9 +580,17 @@
 
 @media (max-width: 767px) {
 
-  .footer .footer-mission, .footer .footer-logo{
-    max-width: 100%;
+  .footer {
+    padding-bottom: 0;
+
+    .footer-mission,
+    .footer-logo {
+      max-width: 100%;
+      padding: 0;
+      gap: 1rem;
+    }
   }
+
   .footer-logos {
     gap: 0;
     justify-content: space-between;
@@ -592,6 +599,18 @@
   .footer-bottom {
     padding-left: 0;
     padding-right: 0;
+    padding-bottom: 2.5rem;
+    .row {
+      >div {
+        padding: 0;
+      }
+    }
+
+    .footer-bottom-links-left {
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      width: 100%;
+    }
   }
 
   .footer .footer-right {

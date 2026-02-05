@@ -769,6 +769,9 @@ body {
   }
 }
 @media (max-width: 575px) {
+  .header-logo {
+    gap: 0.5rem;
+  }
   .header-logo img {
     width: 3.5rem;
   }
@@ -996,7 +999,7 @@ body {
     min-height: auto;
   }
   .hero .hero-title {
-    font-size: 5rem;
+    font-size: 4.5rem;
     letter-spacing: -0.125rem;
   }
   .hero-text p {
@@ -1766,7 +1769,7 @@ body {
     font-size: 1.125rem;
   }
   .statistics-card-number {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
   }
   .statistics-cards .row .statistics-card {
     max-width: 48%;
@@ -2800,10 +2803,13 @@ body {
   width: 100vw;
   overflow: hidden;
 }
+<<<<<<< Updated upstream
 .marquee-track {
   display: flex;
   will-change: transform;
 }
+=======
+>>>>>>> Stashed changes
 .footer-large-text h1 {
   font-family: var(--font-family-helvetica-neue);
   font-size: 13.5449375rem;
@@ -2815,11 +2821,19 @@ body {
   margin: 0;
   padding: 0;
   display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 .footer-bottom {
   margin: 2rem auto 0;
   z-index: 3;
-  background-color: var(--primary-gold-3);
 }
 .footer-bottom .row {
   max-width: 100%;
@@ -3011,9 +3025,14 @@ body {
   }
 }
 @media (max-width: 767px) {
+  .footer {
+    padding-bottom: 0;
+  }
   .footer .footer-mission,
   .footer .footer-logo {
     max-width: 100%;
+    padding: 0;
+    gap: 1rem;
   }
   .footer-logos {
     gap: 0;
@@ -3022,6 +3041,15 @@ body {
   .footer-bottom {
     padding-left: 0;
     padding-right: 0;
+    padding-bottom: 2.5rem;
+  }
+  .footer-bottom .row > div {
+    padding: 0;
+  }
+  .footer-bottom .footer-bottom-links-left {
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    width: 100%;
   }
   .footer .footer-right {
     padding: 0 0.75rem;
