@@ -23,11 +23,6 @@
   display: flex;
   height: 100%;
 }
-@media (min-width: 992px) {
-  .strategic-section .container-fluid {
-    max-width: 90rem;
-  }
-}
 .strategic-content {
   padding-top: 2.0625rem;
   position: relative;

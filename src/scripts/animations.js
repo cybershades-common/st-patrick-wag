@@ -27,7 +27,12 @@ class GSAPAnimations {
   // -----------------------------------------------------------------------
 
   setupAnimations() {
-    document.querySelectorAll('[data-gsap]').forEach(el => {
+    this.setupAnimationsFor(document);
+  }
+
+  setupAnimationsFor(root) {
+    root.querySelectorAll('[data-gsap]:not([data-gsap-initialized])').forEach(el => {
+      el.setAttribute('data-gsap-initialized', 'true');
       const type = el.getAttribute('data-gsap');
       const cfg  = this.readConfig(el);
 
@@ -588,5 +593,9 @@ class GSAPAnimations {
 // Auto-init after fonts are loaded — splitLines measures word positions,
 // so it must run with the final font, not the fallback (font-display: swap).
 document.addEventListener('DOMContentLoaded', () => {
-  document.fonts.ready.then(() => new GSAPAnimations());
+  document.fonts.ready.then(() => {
+    const instance = new GSAPAnimations();
+    window.gsapAnimations = instance;
+    window.gsapInitFor = (root) => instance.setupAnimationsFor(root);
+  });
 });

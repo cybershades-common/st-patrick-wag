@@ -468,9 +468,9 @@
             <!-- Testimonial data (read by JS) -->
             <div class="testimonials-slides" hidden>
                 <div class="testimonials-slide">
-                    <img src="assets/images/testimonial-1.jpg" alt="">
-                    <p class="testimonials-slide-quote">"St Patrick's has given me confidence I never knew I had. My teachers push me, my mates back me and every day I feel like I am becoming a better version of myself."</p>
-                    <p class="testimonials-slide-attr">Liam Dossi, Year 10 Student</p>
+                    <img data-gsap="image-fade-in" src="assets/images/testimonial-1.jpg" alt="">
+                    <p data-gsap="lines" class="testimonials-slide-quote">"St Patrick's has given me confidence I never knew I had. My teachers push me, my mates back me and every day I feel like I am becoming a better version of myself."</p>
+                    <p data-gsap="fade-up" data-gsap-start="top 120%" class="testimonials-slide-attr">Liam Dossi, Year 10 Student</p>
                 </div>
                 <div class="testimonials-slide">
                     <img src="assets/images/about-image.jpg" alt="">
@@ -505,12 +505,12 @@
                         </div>
                         <div   class="row  align-items-center testimonials-bottom-row">
                             <div class="col-lg-6 testimonials-button-col">
-                                <button data-gsap="zoom-in" 
+                                <button data-gsap="zoom-in"  
                                     class="btn-rounded-large-outline testimonials-button">Read more Community
                                     Stories</button>
                             </div>
                             <div class="col-lg-6 testimonials-arrows-col">
-                                <div data-gsap="fade-in" class="testimonials-arrows d-flex align-items-center">
+                                <div data-gsap="fade-in"  class="testimonials-arrows d-flex align-items-center">
                                     <button class="testimonials-arrow-btn" id="testimonialPrev" aria-label="Previous testimonial">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">

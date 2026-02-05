@@ -1,5 +1,3 @@
-// CTA Section Styles
-
 .cta-block-wrap {
   display: flex;
   justify-content: space-between;
@@ -7,20 +5,17 @@
   flex-direction: column;
   min-height: 88vh;
 }
-
 .cta-section {
   position: relative;
   min-height: 100vh;
   overflow: visible;
   padding: 2.5rem 0;
 }
-
 .cta-background {
   top: 0;
   left: 0;
   z-index: 1;
 }
-
 .cta-bg-img {
   position: absolute;
   top: 0;
@@ -30,12 +25,10 @@
   object-fit: cover;
   z-index: 1;
   pointer-events: none;
-
-  &:nth-child(2) {
-    z-index: 2;
-  }
 }
-
+.cta-bg-img:nth-child(2) {
+  z-index: 2;
+}
 .cta-overlay {
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
@@ -43,37 +36,24 @@
   z-index: 3;
   pointer-events: none;
 }
-
 .cta-section .container-fluid {
   position: relative;
   z-index: 4;
-
-
-  // @media (min-width: 992px) {
-  //   max-width: 90rem;
-  // }
 }
-
-
-
-
 .cta-heading {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-h1);
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-h1);
-  letter-spacing: var(--letter-spacing-h1); // -2.7px
+  letter-spacing: var(--letter-spacing-h1);
   color: var(--basic-white);
   margin: 0;
-
 }
-
 .cta-text-wrapper {
   display: flex;
   gap: 1.8125rem;
   flex-direction: column;
 }
-
 .cta-text {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-b1);
@@ -82,70 +62,54 @@
   letter-spacing: 0;
   color: var(--basic-white);
   margin: 0;
-
 }
-
 .cta-buttons {
-  gap: var(--spacing-xs); // 20px
+  gap: var(--spacing-xs);
   flex-wrap: wrap;
 }
-
 .cta-button-solid {
   background-color: var(--basic-white);
   color: var(--basic-black);
   border-color: var(--basic-white);
   margin: 0;
 }
-
 .cta-button-solid:hover {
   background-color: rgba(255, 255, 255, 0.9);
   color: var(--basic-black);
 }
-
 .cta-button-outline {
   border-color: var(--basic-white);
   color: var(--basic-white);
   background-color: transparent;
   margin: 0;
 }
-
 .cta-button-outline:hover {
   background-color: var(--basic-white);
   color: var(--basic-black);
 }
-
-@media (min-width:992px) and (max-width:1200px) {
-  .cta-block-wrap {
-    .cta-heading {
-      font-size: 4.5rem;
-      letter-spacing: -0.0625rem;
-    }
+@media (min-width: 992px) and (max-width: 1200px) {
+  .cta-block-wrap .cta-heading {
+    font-size: 4.5rem;
+    letter-spacing: -0.0625rem;
   }
 }
-
 @media (max-width: 991px) {
-
-
   .cta-section {
     min-height: auto;
-
-    .cta-block-wrap {
-      min-height: auto;
-      gap: 5rem 0;
-    }
   }
-
+  .cta-section .cta-block-wrap {
+    min-height: auto;
+    gap: 5rem 0;
+  }
   .cta-section .container-fluid {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
     min-height: auto;
   }
-
   .cta-content {
     min-height: auto;
     padding-left: 0;
   }
-
   .cta-heading-wrapper {
     position: relative;
     left: auto;
@@ -155,12 +119,10 @@
     max-width: 100%;
     margin-bottom: var(--spacing-small);
   }
-
   .cta-heading {
     font-size: 3rem;
     letter-spacing: 0.0625rem;
   }
-
   .cta-text-wrapper {
     position: relative;
     left: auto;
@@ -169,17 +131,14 @@
     width: 100%;
     max-width: 100%;
   }
-
   .cta-buttons {
     gap: var(--spacing-xs);
   }
 }
-
 @media (max-width: 767px) {
   .cta-heading {
     font-size: 2.5rem;
   }
-
   .cta-text {
     font-size: 1.125rem;
   }

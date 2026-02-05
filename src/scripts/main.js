@@ -793,12 +793,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const slides = document.querySelectorAll('.testimonials-slide');
         if (!slides.length) return;
 
-        const testimonials = [...slides].map(slide => ({
-            image: slide.querySelector('img')?.getAttribute('src') || '',
-            alt: slide.querySelector('img')?.getAttribute('alt') || 'Testimonial',
-            quote: slide.querySelector('.testimonials-slide-quote')?.textContent || '',
-            attribution: slide.querySelector('.testimonials-slide-attr')?.textContent || ''
-        }));
+        const testimonials = [...slides];
 
         const picWrapper = document.querySelector('.testimonials-pic-slider .swiper-wrapper');
         const textWrapper = document.querySelector('.testimonials-text-slider .swiper-wrapper');
@@ -808,15 +803,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!picWrapper || !textWrapper || !prevBtn || !nextBtn) return;
 
+        function copyGsapAttrs(fromEl, toEl) {
+            if (!fromEl || !toEl) return;
+            [...fromEl.attributes].forEach(attr => {
+                if (attr.name.startsWith('data-gsap')) {
+                    toEl.setAttribute(attr.name, attr.value);
+                }
+            });
+        }
+
         // Build slides
-        testimonials.forEach(item => {
+        testimonials.forEach(slide => {
+            const imgSrc = slide.querySelector('img')?.getAttribute('src') || '';
+            const imgAlt = slide.querySelector('img')?.getAttribute('alt') || 'Testimonial';
+            const quoteText = slide.querySelector('.testimonials-slide-quote')?.textContent || '';
+            const attrText = slide.querySelector('.testimonials-slide-attr')?.textContent || '';
+
             const picSlide = document.createElement('div');
             picSlide.className = 'swiper-slide';
 
             const img = document.createElement('img');
             img.className = 'testimonials-img';
-            img.src = item.image;
-            img.alt = item.alt;
+            img.src = imgSrc;
+            img.alt = imgAlt;
+            copyGsapAttrs(slide.querySelector('img'), img);
             picSlide.appendChild(img);
             picWrapper.appendChild(picSlide);
 
@@ -828,11 +838,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const quoteEl = document.createElement('p');
             quoteEl.className = 'testimonials-quote';
-            quoteEl.textContent = item.quote;
+            quoteEl.textContent = quoteText;
+            copyGsapAttrs(slide.querySelector('.testimonials-slide-quote'), quoteEl);
 
             const attrEl = document.createElement('p');
             attrEl.className = 'testimonials-attribution';
-            attrEl.textContent = item.attribution;
+            attrEl.textContent = attrText;
+            copyGsapAttrs(slide.querySelector('.testimonials-slide-attr'), attrEl);
 
             quoteWrap.appendChild(quoteEl);
             quoteWrap.appendChild(attrEl);
@@ -890,6 +902,11 @@ document.addEventListener('DOMContentLoaded', function () {
         nextBtn.addEventListener('click', function() {
             textSlider.slideNext();
         });
+
+        if (window.gsapInitFor) {
+            window.gsapInitFor(textWrapper);
+            window.gsapInitFor(picWrapper);
+        }
 
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
