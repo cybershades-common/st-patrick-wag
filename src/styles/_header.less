@@ -298,6 +298,8 @@
 
 .menu-footer-left {
   gap: var(--spacing-xs);
+  display: flex;
+  align-items: center;
 }
 
 .menu-footer-left span {
@@ -309,6 +311,9 @@
 
 .menu-footer-right {
   gap: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .menu-footer-right .follow-label {
@@ -477,9 +482,12 @@
   .menu-image-wrapper {
     padding-left: 0;
     height: auto;
+
+
+
   }
 
-  .menu-image {
+  .menu-image {    display: none;
     max-width: 100%;
     max-height: 25rem;
   }
@@ -513,7 +521,9 @@
   .header {
     padding: 0.75rem 0;
   }
-
+.mega-menu-inner{
+  padding: 0 0.75rem;
+}
   .logo-text {
     font-size: 1.125rem;
     letter-spacing: -0.01875rem;
@@ -530,8 +540,6 @@
 
   .header-icons-wrapper {
     gap: 1rem;
-
-
   }
 
   .hamburger {
@@ -540,6 +548,11 @@
 
   .menu-sub-item {
     letter-spacing: normal;
+  }
+  .menu-footer-right{
+    gap: 1rem;
+    justify-content: flex-start;
+    margin: 1rem 0;
   }
 }
 

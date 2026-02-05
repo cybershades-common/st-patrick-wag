@@ -249,6 +249,8 @@
 }
 .menu-footer-left {
   gap: var(--spacing-xs);
+  display: flex;
+  align-items: center;
 }
 .menu-footer-left span {
   font-family: var(--font-family-helvetica-neue);
@@ -258,6 +260,9 @@
 }
 .menu-footer-right {
   gap: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 .menu-footer-right .follow-label {
   font-family: var(--font-family-helvetica-neue);
@@ -396,6 +401,7 @@
     height: auto;
   }
   .menu-image {
+    display: none;
     max-width: 100%;
     max-height: 25rem;
   }
@@ -422,6 +428,9 @@
   .header {
     padding: 0.75rem 0;
   }
+  .mega-menu-inner {
+    padding: 0 0.75rem;
+  }
   .logo-text {
     font-size: 1.125rem;
     letter-spacing: -0.01875rem;
@@ -441,6 +450,11 @@
   }
   .menu-sub-item {
     letter-spacing: normal;
+  }
+  .menu-footer-right {
+    gap: 1rem;
+    justify-content: flex-start;
+    margin: 1rem 0;
   }
 }
 @media (max-width: 575px) {
