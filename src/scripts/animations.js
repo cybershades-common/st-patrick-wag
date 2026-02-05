@@ -263,7 +263,7 @@ class GSAPAnimations {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: el,
-        start:   cfg.start,
+        start:   'top 90%',
         end:     end,
         scrub:   1,
         once:    true
@@ -406,5 +406,8 @@ class GSAPAnimations {
   }
 }
 
-// Auto-init on DOM ready
-document.addEventListener('DOMContentLoaded', () => new GSAPAnimations());
+// Auto-init after fonts are loaded — splitLines measures word positions,
+// so it must run with the final font, not the fallback (font-display: swap).
+document.addEventListener('DOMContentLoaded', () => {
+  document.fonts.ready.then(() => new GSAPAnimations());
+});
