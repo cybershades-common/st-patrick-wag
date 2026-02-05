@@ -355,6 +355,7 @@
   }
   .mega-menu {
     padding-top: 6.25rem;
+    padding-left: 0;
   }
   .mega-menu-inner {
     overflow-y: auto;
@@ -372,15 +373,23 @@
   }
   .menu-main-item {
     font-size: 2.1875rem;
+    letter-spacing: normal;
   }
   .menu-main-items {
     height: auto;
     margin-bottom: var(--spacing-xs);
+    padding: 2rem 0;
   }
   .menu-sub-items {
     height: auto;
     margin-bottom: var(--spacing-xs);
     padding-left: 0;
+    position: fixed;
+    padding: 7.5rem 0;
+    top: 0;
+    bottom: 0;
+    background: #fff;
+    margin: auto;
   }
   .menu-image-wrapper {
     padding-left: 0;
@@ -410,6 +419,9 @@
   }
 }
 @media (max-width: 767px) {
+  .header {
+    padding: 0.75rem 0;
+  }
   .logo-text {
     font-size: 1.125rem;
     letter-spacing: -0.01875rem;
@@ -426,6 +438,9 @@
   }
   .hamburger {
     width: 2rem;
+  }
+  .menu-sub-item {
+    letter-spacing: normal;
   }
 }
 @media (max-width: 575px) {
