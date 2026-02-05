@@ -540,6 +540,11 @@ class GSAPAnimations {
     const target  = kids && cfg.stagger ? kids : el;
     const stagger = kids && cfg.stagger ? cfg.stagger : 0;
 
+    const isMobile = window.innerWidth <= 991;
+    const start = (isMobile && el.getAttribute('data-gsap-start-mobile'))
+      || el.getAttribute('data-gsap-start')
+      || 'top 50%';
+
     gsap.set(target, { scale: 1.65, opacity: 0, force3D: true });
     gsap.to(target, {
       scale: 1, opacity: 1,
@@ -548,7 +553,11 @@ class GSAPAnimations {
       delay:    cfg.delay,
       stagger,
       force3D:  true,
-      scrollTrigger: this.triggerCfg(el, cfg)
+      scrollTrigger: {
+        trigger: el,
+        start,
+        toggleActions: 'play none none none'
+      }
     });
   }
 
