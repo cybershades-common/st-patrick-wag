@@ -373,7 +373,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initAboutReveal();
 
-    // Latest news slider (custom)
+    //==================== Latest news slider (custom)===============================================================
+
+
     function initLatestNewsSlider() {
         const track = document.getElementById('latestNewsTrack');
         const slides = document.querySelectorAll('.latest-news-slide');
