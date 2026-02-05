@@ -10,7 +10,7 @@ class GSAPAnimations {
       ease: {
         fade:  'power2.out',
         slide: 'power2.out',
-        zoom:  'back.out(1.05)'
+        zoom:  'none'
       }
     };
     this.init();
@@ -225,10 +225,10 @@ class GSAPAnimations {
     const target  = kids && cfg.stagger ? kids : el;
     const stagger = kids && cfg.stagger ? cfg.stagger : 0;
 
-    gsap.set(target, { scale: 0.7, autoAlpha: 0, force3D: true });
+    gsap.set(target, { scale: 0.9, autoAlpha: 0, force3D: true });
     gsap.to(target, {
       scale: 1, autoAlpha: 1, force3D: true,
-      duration: cfg.duration,
+      duration: 0.2,
       ease:     cfg.ease || this.defaults.ease.zoom,
       delay:    cfg.delay,
       stagger,
@@ -545,11 +545,11 @@ class GSAPAnimations {
       || el.getAttribute('data-gsap-start')
       || 'top 50%';
 
-    gsap.set(target, { scale: 1.65, opacity: 0, force3D: true });
+    gsap.set(target, { scale: 1.2, opacity: 0, force3D: true });
     gsap.to(target, {
       scale: 1, opacity: 1,
-      duration: cfg.duration || 1.2,
-      ease:     cfg.ease || 'power2.out',
+      duration: cfg.duration || 1.8,
+      ease:     cfg.ease || 'power3.out',
       delay:    cfg.delay,
       stagger,
       force3D:  true,
