@@ -540,7 +540,7 @@ class GSAPAnimations {
     const target  = kids && cfg.stagger ? kids : el;
     const stagger = kids && cfg.stagger ? cfg.stagger : 0;
 
-    gsap.set(target, { scale: 1.15, opacity: 0, force3D: true });
+    gsap.set(target, { scale: 1.65, opacity: 0, force3D: true });
     gsap.to(target, {
       scale: 1, opacity: 1,
       duration: cfg.duration || 1.2,
