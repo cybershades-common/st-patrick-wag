@@ -338,33 +338,30 @@ document.addEventListener('DOMContentLoaded', function () {
         gsap.set('.about-text .sentence', { opacity: 0, y: 22 });
 
         const headingPieces = gsap.utils.toArray('.about-heading .word, .about-heading .underline');
-        gsap.to(headingPieces, {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'power3.out',
-            stagger: 0.06,
+
+        const aboutTl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.about-section',
                 start: 'top 80%',
-                end: 'top 40%',
-                scrub: 1
+                toggleActions: 'play none none none'
             }
         });
 
-        gsap.to('.about-text .sentence', {
-            opacity: 1,
-            y: 0,
-            duration: 1.8,
-            ease: 'power3.out',
-            stagger: 0.42,
-            scrollTrigger: {
-                trigger: '.about-section',
-                start: 'top 78%',
-                end: 'top 38%',
-                scrub: 1
-            }
-        });
+        aboutTl
+            .to(headingPieces, {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                stagger: 0.06
+            }, 0)
+            .to('.about-text .sentence', {
+                opacity: 1,
+                y: 0,
+                duration: 1.8,
+                ease: 'power3.out',
+                stagger: 0.42
+            }, 0.3);
     }
 
     initAboutReveal();
