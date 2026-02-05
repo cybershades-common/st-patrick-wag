@@ -476,6 +476,9 @@
   .footer {
     padding-bottom: 0;
   }
+  .footer .footer-gradient {
+    top: 100%;
+  }
   .footer .footer-mission,
   .footer .footer-logo {
     max-width: 100%;

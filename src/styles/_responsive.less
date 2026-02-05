@@ -36,8 +36,31 @@
 
 
 
-@media (min-width:1800px){
-  html{
+@media (min-width:1800px) {
+  html {
     font-size: 21px;
   }
+}
+
+
+@media (max-width:767px) {
+  .section {
+    .gradient-circle {
+      &.right {
+        right: -146%;
+        bottom: -100%;
+      }
+
+      &.left {
+        left: -150%;
+        bottom: -75%;
+      }
+    }
+
+    .testimonials-gradient {
+      left: 92%;
+      top: 95%;
+    }
+  }
+
 }

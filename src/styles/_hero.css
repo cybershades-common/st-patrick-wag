@@ -142,13 +142,15 @@
 }
 @media (min-width: 992px) and (max-width: 1200px) {
   .hero .hero-content-wrap {
-    min-height: auto;
+    height: auto;
     padding-bottom: 0;
+    min-height: auto;
+    padding: 14rem 0 0rem;
   }
-  .hero .hero-content-wrap .hero-content h1 {
-    font-size: 9.25rem;
+  .hero .hero-content h1 {
+    font-size: 8.25rem;
   }
-  .hero .hero-content-wrap .hero-content .hero-gradient {
+  .hero .hero-content .hero-gradient {
     bottom: -16.5rem;
     left: -0.25rem;
     width: 20.75rem;
