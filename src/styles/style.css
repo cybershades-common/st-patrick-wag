@@ -385,7 +385,7 @@ body {
   padding-right: var(--spacing-base);
 }
 .header-logo {
-  opacity: 0;
+  opacity: 1;
   gap: 1rem;
 }
 .header-logo img {
@@ -420,7 +420,7 @@ body {
 }
 .header-nav {
   gap: var(--spacing-xs);
-  opacity: 0;
+  opacity: 1;
 }
 .header-icons-wrapper {
   gap: 1.5625rem;
@@ -866,8 +866,8 @@ body {
   filter: blur(11.625rem);
   pointer-events: none;
   z-index: 0;
-  opacity: 0;
-  visibility: hidden;
+  opacity: 1;
+  visibility: visible;
 }
 .hero-content {
   padding-left: 0;
@@ -891,7 +891,7 @@ body {
   top: -1.25rem;
 }
 .hero-title span {
-  opacity: 0;
+  opacity: 1;
 }
 .hero-text {
   height: 100%;
@@ -906,10 +906,10 @@ body {
   letter-spacing: 0;
   color: var(--basic-black);
   margin: 0;
-  opacity: 0;
+  opacity: 1;
 }
 .hero-text button {
-  clip-path: inset(0 100% 0 0);
+  clip-path: inset(0 0 0 0);
 }
 .sticky-wrapper {
   position: relative;
