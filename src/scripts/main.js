@@ -173,122 +173,122 @@ document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
     // Hero animations
-    function initHeroAnimations() {
-        // Create master timeline
-        const heroTimeline = gsap.timeline();
+    // function initHeroAnimations() {
+    //     // Create master timeline
+    //     const heroTimeline = gsap.timeline();
 
-        // Set initial states before timeline runs — prevents flash of visible content
-        const heroTitleSpans = document.querySelectorAll('.hero-title span');
-        gsap.set(heroTitleSpans, { display: 'inline-block', opacity: 0, y: 150 });
-        // gsap.set('.header-logo', { y: -50, opacity: 0 });
-        // gsap.set('.header-nav', { y: -50, opacity: 0 });
-        gsap.set('.hero-text p', { y: 50, opacity: 0 });
-        gsap.set('.hero-media-wrapper', { opacity: 0 });
+    //     // Set initial states before timeline runs — prevents flash of visible content
+    //     const heroTitleSpans = document.querySelectorAll('.hero-title span');
+    //     gsap.set(heroTitleSpans, { display: 'inline-block', opacity: 0, y: 150 });
+    //     // gsap.set('.header-logo', { y: -50, opacity: 0 });
+    //     // gsap.set('.header-nav', { y: -50, opacity: 0 });
+    //     gsap.set('.hero-text p', { y: 50, opacity: 0 });
+    //     gsap.set('.hero-media-wrapper', { opacity: 0 });
 
-        // Build timeline sequence
-        heroTimeline
-            // Header logo
-            // .to('.header-logo',
-            //     { y: 0, opacity: 1, duration: 0.7, ease: 'Power1.easeOut' },
-            //     0.2
-            // )
-            // Header navigation
-            // .to('.header-nav',
-            //     { y: 0, opacity: 1, duration: 0.7, ease: 'Power1.easeOut' },
-            //     0.2
-            // )
-            // Hero title words (staggered)
-            .to(heroTitleSpans, {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                stagger: 0.4,
-                ease: 'Power1.easeOut'
-            }, 0.5)
-            // Hero description text
-            .to('.hero-text p',
-                { y: 0, opacity: 1, duration: 1.2, ease: 'Power1.easeOut' },
-                1.5
-            );
+    //     // Build timeline sequence
+    //     heroTimeline
+    //         // Header logo
+    //         // .to('.header-logo',
+    //         //     { y: 0, opacity: 1, duration: 0.7, ease: 'Power1.easeOut' },
+    //         //     0.2
+    //         // )
+    //         // Header navigation
+    //         // .to('.header-nav',
+    //         //     { y: 0, opacity: 1, duration: 0.7, ease: 'Power1.easeOut' },
+    //         //     0.2
+    //         // )
+    //         // Hero title words (staggered)
+    //         .to(heroTitleSpans, {
+    //             y: 0,
+    //             opacity: 1,
+    //             duration: 1.2,
+    //             stagger: 0.4,
+    //             ease: 'Power1.easeOut'
+    //         }, 0.5)
+    //         // Hero description text
+    //         .to('.hero-text p',
+    //             { y: 0, opacity: 1, duration: 1.2, ease: 'Power1.easeOut' },
+    //             1.5
+    //         );
 
-        // Hero CTA button - btn-clip-reveal animation
-        const heroCTA = document.querySelector('.hero-text button');
-        if (heroCTA) {
-            // Set initial state for button fill (hidden from right)
-            gsap.set(heroCTA, {
-                autoAlpha: 1,
-                clipPath: 'inset(0 100% 0 0)',
-                webkitClipPath: 'inset(0 100% 0 0)',
-                willChange: 'clip-path'
-            });
+    //     // Hero CTA button - btn-clip-reveal animation
+    //     const heroCTA = document.querySelector('.hero-text button');
+    //     if (heroCTA) {
+    //         // Set initial state for button fill (hidden from right)
+    //         gsap.set(heroCTA, {
+    //             autoAlpha: 1,
+    //             clipPath: 'inset(0 100% 0 0)',
+    //             webkitClipPath: 'inset(0 100% 0 0)',
+    //             willChange: 'clip-path'
+    //         });
 
-            // Wrap text in span if it doesn't exist for clip reveal animation
-            let ctaText = heroCTA.querySelector('span');
-            if (!ctaText && heroCTA.textContent) {
-                const text = heroCTA.textContent.trim();
-                heroCTA.innerHTML = `<span>${text}</span>`;
-                ctaText = heroCTA.querySelector('span');
-            }
+    //         // Wrap text in span if it doesn't exist for clip reveal animation
+    //         let ctaText = heroCTA.querySelector('span');
+    //         if (!ctaText && heroCTA.textContent) {
+    //             const text = heroCTA.textContent.trim();
+    //             heroCTA.innerHTML = `<span>${text}</span>`;
+    //             ctaText = heroCTA.querySelector('span');
+    //         }
 
-            // Set initial clip reveal state for text (hidden from right)
-            if (ctaText) {
-                gsap.set(ctaText, {
-                    clipPath: 'inset(0 100% 0 0)',
-                    webkitClipPath: 'inset(0 100% 0 0)',
-                    display: 'inline-block',
-                    lineHeight: 'normal',
-                    willChange: 'clip-path'
-                });
-            }
+    //         // Set initial clip reveal state for text (hidden from right)
+    //         if (ctaText) {
+    //             gsap.set(ctaText, {
+    //                 clipPath: 'inset(0 100% 0 0)',
+    //                 webkitClipPath: 'inset(0 100% 0 0)',
+    //                 display: 'inline-block',
+    //                 lineHeight: 'normal',
+    //                 willChange: 'clip-path'
+    //             });
+    //         }
 
-            // Add button fill animation to timeline
-            heroTimeline
-                // Step 1: Fill color from right to left
-                .to(heroCTA, {
-                    clipPath: 'inset(0 0% 0 0)',
-                    webkitClipPath: 'inset(0 0% 0 0)',
-                    duration: 0.6,
-                    ease: 'none',
-                    force3D: true,
-                    autoRound: false
-                }, 1.7);
+    //         // Add button fill animation to timeline
+    //         heroTimeline
+    //             // Step 1: Fill color from right to left
+    //             .to(heroCTA, {
+    //                 clipPath: 'inset(0 0% 0 0)',
+    //                 webkitClipPath: 'inset(0 0% 0 0)',
+    //                 duration: 0.6,
+    //                 ease: 'none',
+    //                 force3D: true,
+    //                 autoRound: false
+    //             }, 1.7);
 
-            // Step 2: Reveal text (left to right)
-            if (ctaText) {
-                heroTimeline.to(ctaText, {
-                    clipPath: 'inset(0 0% 0 0)',
-                    webkitClipPath: 'inset(0 0% 0 0)',
-                    duration: 0.7,
-                    ease: 'none',
-                    force3D: true,
-                    autoRound: false
-                }, 2.35); // Start text reveal 0.65s after fill begins
-            }
-        }
+    //         // Step 2: Reveal text (left to right)
+    //         if (ctaText) {
+    //             heroTimeline.to(ctaText, {
+    //                 clipPath: 'inset(0 0% 0 0)',
+    //                 webkitClipPath: 'inset(0 0% 0 0)',
+    //                 duration: 0.7,
+    //                 ease: 'none',
+    //                 force3D: true,
+    //                 autoRound: false
+    //             }, 2.35); // Start text reveal 0.65s after fill begins
+    //         }
+    //     }
 
-        // Hero gradient - subtle fade in from background
-        const heroGradient = document.querySelector('.hero-gradient');
-        if (heroGradient) {
-            gsap.set(heroGradient, {
-                autoAlpha: 0
-            });
+    //     // Hero gradient - subtle fade in from background
+    //     const heroGradient = document.querySelector('.hero-gradient');
+    //     if (heroGradient) {
+    //         gsap.set(heroGradient, {
+    //             autoAlpha: 0
+    //         });
 
-            heroTimeline.to(heroGradient, {
-                autoAlpha: 0.6,
-                duration: 2.5,
-                ease: 'power1.inOut'
-            }, 0.3);
-        }
+    //         heroTimeline.to(heroGradient, {
+    //             autoAlpha: 0.6,
+    //             duration: 2.5,
+    //             ease: 'power1.inOut'
+    //         }, 0.3);
+    //     }
 
-        // Hero video - fade in after title
-        heroTimeline.to('.hero-media-wrapper', {
-            opacity: 1,
-            duration: 1,
-            ease: 'power2.inOut'
-        }, 1.1);
-    }
+    //     // Hero video - fade in after title
+    //     heroTimeline.to('.hero-media-wrapper', {
+    //         opacity: 1,
+    //         duration: 1,
+    //         ease: 'power2.inOut'
+    //     }, 1.1);
+    // }
 
-    initHeroAnimations();
+    // initHeroAnimations();
 
     // Section gradient circles - fade in on section reveal
     function initGradientCircleFades() {
