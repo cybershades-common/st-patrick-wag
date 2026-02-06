@@ -554,12 +554,12 @@ class GSAPAnimations {
       || 'top 50%';
 
     // Reduce scale on mobile for better performance
-    const scaleFrom = isMobile ? 1.08 : 1.2;
+    const scaleFrom = isMobile ? 1.08 : 1.6;
 
     gsap.set(target, { scale: scaleFrom, opacity: 0, force3D: true, willChange: 'transform, opacity' });
     gsap.to(target, {
       scale: 1, opacity: 1,
-      duration: cfg.duration || 1.8,
+      duration: cfg.duration || 1.4,
       ease:     cfg.ease || 'power3.out',
       delay:    cfg.delay,
       stagger,
