@@ -183,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
         gsap.set('.header-logo', { y: -50, opacity: 0 });
         gsap.set('.header-nav', { y: -50, opacity: 0 });
         gsap.set('.hero-text p', { y: 50, opacity: 0 });
+        gsap.set('.hero-media-wrapper', { opacity: 0 });
 
         // Build timeline sequence
         heroTimeline
@@ -584,8 +585,8 @@ document.addEventListener('DOMContentLoaded', function () {
         track.addEventListener('mouseleave', () => {
             if (isDragging) touchEnd();
         });
-        track.addEventListener('touchstart', touchStart);
-        track.addEventListener('touchmove', touchMove);
+        track.addEventListener('touchstart', touchStart, { passive: true });
+        track.addEventListener('touchmove', touchMove, { passive: true });
         track.addEventListener('touchend', touchEnd);
         track.addEventListener('contextmenu', (e) => e.preventDefault());
 
@@ -915,16 +916,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initTestimonialsSlider();
 
-    // Hero video lazy loading
+    // Hero video lazy loading with smooth poster-to-video transition
     const heroVideo = document.getElementById('heroVideo');
     if (heroVideo) {
-        // Load video after page load to not delay initial render
+        // Ensure video has muted attribute for autoplay to work
+        heroVideo.muted = true;
+
+        // Handle smooth transition from poster to video
+        function startVideoPlayback() {
+            heroVideo.play().catch(function(error) {
+                // Silently handle autoplay prevention - this is expected browser behavior
+                // Video will remain paused until user interacts with the page
+            });
+        }
+
+        // Wait for video to be ready before showing it
+        heroVideo.addEventListener('canplay', function onCanPlay() {
+            // Add loaded class to fade in video smoothly over poster
+            heroVideo.classList.add('loaded');
+
+            // Start playing once video is ready
+            startVideoPlayback();
+
+            // Remove listener as we only need it once
+            heroVideo.removeEventListener('canplay', onCanPlay);
+        }, { once: true });
+
+        // Start loading video after page load to not delay initial render
         window.addEventListener('load', function() {
             heroVideo.load();
-            // Ensure video plays (some browsers require user interaction)
-            heroVideo.play().catch(function(error) {
-                console.log('Video autoplay prevented:', error);
-            });
         });
     }
 

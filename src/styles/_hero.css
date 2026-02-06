@@ -118,6 +118,12 @@
   z-index: 0;
   object-position: center;
   transform: translateZ(0);
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.hero-video.loaded {
+  opacity: 1;
 }
 .hero-image {
   position: relative;
