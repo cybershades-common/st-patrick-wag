@@ -411,41 +411,62 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        wrapWords(aboutHeading);
+        // Disable text wrapping on mobile for better performance
+        const isMobileDevice = window.innerWidth <= 991;
 
-        const aboutParagraphs = document.querySelectorAll('.about-text p');
-        aboutParagraphs.forEach(p => wrapSentences(p));
-
-        gsap.set('.about-heading .word, .about-heading .underline', { opacity: 0, y: 32 });
-        gsap.set('.about-text .sentence', { opacity: 0, y: 22 });
-
-        const headingPieces = gsap.utils.toArray('.about-heading .word, .about-heading .underline');
-
-        const aboutTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.about-section',
-                start: 'top 90%',
-                end: 'top 40%',
-                scrub: 1,
-                once: true
-            }
-        });
-
-        aboutTl
-            .to(headingPieces, {
+        if (isMobileDevice) {
+            // Simple fade-in animation on mobile (no text wrapping)
+            gsap.set([aboutHeading, '.about-text p'], { opacity: 0, y: 20 });
+            gsap.to([aboutHeading, '.about-text p'], {
                 opacity: 1,
                 y: 0,
-                duration: 0.7,
-                ease: 'power3.out',
-                stagger: 0.08
-            }, 0)
-            .to('.about-text .sentence', {
-                opacity: 1,
-                y: 0,
-                duration: 1.8,
-                ease: 'power3.out',
-                stagger: 0.42
-            }, 0.3);
+                duration: 0.8,
+                ease: 'power2.out',
+                stagger: 0.2,
+                scrollTrigger: {
+                    trigger: '.about-section',
+                    start: 'top 80%',
+                    once: true
+                }
+            });
+        } else {
+            // Desktop: Use text wrapping animations
+            wrapWords(aboutHeading);
+
+            const aboutParagraphs = document.querySelectorAll('.about-text p');
+            aboutParagraphs.forEach(p => wrapSentences(p));
+
+            gsap.set('.about-heading .word, .about-heading .underline', { opacity: 0, y: 32 });
+            gsap.set('.about-text .sentence', { opacity: 0, y: 22 });
+
+            const headingPieces = gsap.utils.toArray('.about-heading .word, .about-heading .underline');
+
+            const aboutTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.about-section',
+                    start: 'top 90%',
+                    end: 'top 40%',
+                    scrub: 1,
+                    once: true
+                }
+            });
+
+            aboutTl
+                .to(headingPieces, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7,
+                    ease: 'power3.out',
+                    stagger: 0.08
+                }, 0)
+                .to('.about-text .sentence', {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.8,
+                    ease: 'power3.out',
+                    stagger: 0.42
+                }, 0.3);
+        }
     }
 
     initAboutReveal();
@@ -579,16 +600,16 @@ document.addEventListener('DOMContentLoaded', function () {
         prevBtn.addEventListener('click', () => moveToSlide(currentIndex - 1));
         nextBtn.addEventListener('click', () => moveToSlide(currentIndex + 1));
 
-        track.addEventListener('mousedown', touchStart);
-        track.addEventListener('mousemove', touchMove);
-        track.addEventListener('mouseup', touchEnd);
+        track.addEventListener('mousedown', touchStart, { passive: true });
+        track.addEventListener('mousemove', touchMove, { passive: true });
+        track.addEventListener('mouseup', touchEnd, { passive: true });
         track.addEventListener('mouseleave', () => {
             if (isDragging) touchEnd();
-        });
+        }, { passive: true });
         track.addEventListener('touchstart', touchStart, { passive: true });
         track.addEventListener('touchmove', touchMove, { passive: true });
-        track.addEventListener('touchend', touchEnd);
-        track.addEventListener('contextmenu', (e) => e.preventDefault());
+        track.addEventListener('touchend', touchEnd, { passive: true });
+        track.addEventListener('contextmenu', (e) => e.preventDefault()); // Active listener needed for preventDefault
 
         const filterTabs = document.querySelectorAll('.latest-news-filter-btn');
         filterTabs.forEach(tab => {
@@ -746,15 +767,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     tl.set(number, { autoAlpha: 1 }, cardStart + TIMING.counterDelay);
 
                     // Animate the counter
+                    let lastDisplayedValue = startValue;
                     tl.to(counter, {
                         value: targetValue,
                         duration: TIMING.counterDuration,
                         ease: TIMING.counterEase,
                         onUpdate: function() {
                             const currentValue = Math.round(counter.value);
-                            // Format number with commas if needed
-                            const formattedValue = currentValue.toLocaleString();
-                            number.textContent = prefix + formattedValue + suffix;
+                            // Only update DOM if value actually changed (reduces updates from 60fps to ~10-15fps)
+                            if (currentValue !== lastDisplayedValue) {
+                                lastDisplayedValue = currentValue;
+                                const formattedValue = currentValue.toLocaleString();
+                                number.textContent = prefix + formattedValue + suffix;
+                            }
                         }
                     }, cardStart + TIMING.counterDelay);
                 } else {
@@ -905,39 +930,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Footer marquee - ScrollVelocity-style wrap loop (no reset, no snap)
-    document.fonts.ready.then(() => {
-        const marqueeWrapper = document.querySelector('.footer-large-text');
-        const marqueeH1 = marqueeWrapper?.querySelector('h1');
-        if (!marqueeH1) return;
-
-        const track = document.createElement('div');
-        track.className = 'marquee-track';
-        const clone = marqueeH1.cloneNode(true);
-        marqueeWrapper.appendChild(track);
-        track.appendChild(marqueeH1);
-        track.appendChild(clone);
-
-        const copyWidth = marqueeH1.offsetWidth;
-        const duration = Number(marqueeWrapper.getAttribute('data-marquee-duration') || '10');
-        const speed = copyWidth / duration; // px per second
-
-        // Same wrap as ScrollVelocity.tsx — modulo loop, never resets
-        function wrap(min, max, v) {
-            const range = max - min;
-            return (((v - min) % range) + range) % range + min;
-        }
-
-        let pos = 0;
-        let lastTime = performance.now();
-
-        function tick(now) {
-            pos -= speed * ((now - lastTime) / 1000);
-            lastTime = now;
-            track.style.transform = `translate3d(${wrap(-copyWidth, 0, pos)}px, 0, 0)`;
-            requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-    });
+    // Footer marquee - Using CSS animation (defined in _footer.css)
+    // No JavaScript needed - CSS handles the infinite scroll
 
 });

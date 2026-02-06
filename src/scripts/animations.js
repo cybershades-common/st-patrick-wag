@@ -250,6 +250,20 @@ class GSAPAnimations {
 
   // Reveals text one rendered line at a time
   linesAnimation(el, cfg) {
+    // Skip line splitting on mobile for better performance
+    const isMobile = window.innerWidth <= 991;
+    if (isMobile) {
+      gsap.set(el, { autoAlpha: 0, y: 20 });
+      gsap.to(el, {
+        autoAlpha: 1, y: 0,
+        duration: cfg.duration || 0.8,
+        ease: cfg.ease || this.defaults.ease.fade,
+        delay: cfg.delay,
+        scrollTrigger: this.triggerCfg(el, cfg)
+      });
+      return;
+    }
+
     const lines = this.splitLines(el);
     if (!lines.length) return;
 
@@ -586,6 +600,10 @@ class GSAPAnimations {
   // Element should be inside an overflow:hidden section.
   parallaxBg(el, cfg) {
     if (!el) return;
+
+    // Disable parallax on mobile for better performance
+    const isMobile = window.innerWidth <= 991;
+    if (isMobile) return;
 
     const section = el.closest('section') || el.parentElement;
     gsap.to(el, {
