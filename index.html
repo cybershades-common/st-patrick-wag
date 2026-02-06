@@ -310,20 +310,26 @@
                             <div class="col-12 col-md-6 academics-card">
                                 <div class="academics-card-image">
                                     <img data-gsap="image-fade-in"
-                                    data-gsap-start="top 50%"                  data-gsap-start-mobile="top 75%"
+                                    data-gsap-start="top 60%"
+                                    data-gsap-start-mobile="top 80%"
+                                    data-gsap-duration="1.4"
                                     src="assets/images/Entry Point Card-1.jpg"
                                         alt="Middle School" class="w-100 h-100">
                                 </div>
-                                <h4 data-gsap="fade-up" data-gsap-start="top 100%" class="academics-card-title">Middle
+                                <h4 data-gsap="fade-up" data-gsap-start="top 90%" data-gsap-start-mobile="top 95%" class="academics-card-title">Middle
                                     School (Years 5 to 8)</h4>
                             </div>
                             <div class="col-12 col-md-6 academics-card">
                                 <div class="academics-card-image">
-                                    <img data-gsap="image-fade-in"  data-gsap-start="top 50%"                  data-gsap-start-mobile="top 75%"data-gsap-delay="0.3"
+                                    <img data-gsap="image-fade-in"
+                                    data-gsap-start="top 60%"
+                                    data-gsap-start-mobile="top 80%"
+                                    data-gsap-duration="1.4"
+                                    data-gsap-delay="0.2"
                                         src="assets/images/Entry Point Card.jpg" alt="Senior School"
                                         class="w-100 h-100">
                                 </div>
-                                <h4 data-gsap="fade-up" data-gsap-start="top 100%" class="academics-card-title">Senior
+                                <h4 data-gsap="fade-up" data-gsap-start="top 90%" data-gsap-start-mobile="top 95%" class="academics-card-title">Senior
                                     School (Years 9 to 12)</h4>
                             </div>
                         </div>
@@ -466,25 +472,6 @@
         <section class="testimonials-section section">
             <div class="testimonials-gradient position-absolute"></div>
 
-            <!-- Testimonial data (read by JS) -->
-            <div class="testimonials-slides" hidden>
-                <div class="testimonials-slide">
-                    <img data-gsap="image-fade-in" src="assets/images/testimonial-1.jpg" alt="">
-                    <p data-gsap="lines" class="testimonials-slide-quote">"St Patrick's has given me confidence I never knew I had. My teachers push me, my mates back me and every day I feel like I am becoming a better version of myself."</p>
-                    <p data-gsap="fade-up" data-gsap-start="top 120%" class="testimonials-slide-attr">Liam Dossi, Year 10 Student</p>
-                </div>
-                <div class="testimonials-slide">
-                    <img src="assets/images/about-image.jpg" alt="">
-                    <p class="testimonials-slide-quote">"The support I've received at SPC has shaped me in ways I didn't expect. The teachers here don't just teach — they genuinely care about who you become."</p>
-                    <p class="testimonials-slide-attr">Michael Chen, Year 11 Student</p>
-                </div>
-                <div class="testimonials-slide">
-                    <img src="assets/images/parents-community-bg.jpg" alt="">
-                    <p class="testimonials-slide-quote">"Watching our son thrive at St Patrick's has been remarkable. The school strikes the perfect balance between academic excellence and character development."</p>
-                    <p class="testimonials-slide-attr">Catherine Walsh, Parent</p>
-                </div>
-            </div>
-
             <div class="container-fluid">
                 <div class="row ">
                     <div class="col-12 testimonials-content">
@@ -493,14 +480,58 @@
                                 <div class="testimonials-image-wrapper">
                                     <div class="testimonials-image w-100 h-100">
                                         <div class="swiper testimonials-pic-slider">
-                                            <div class="swiper-wrapper"></div>
+                                            <div class="swiper-wrapper">
+                                                <!-- Slide 1 -->
+                                                <div class="swiper-slide">
+                                                    <img data-gsap="image-fade-in"
+                                                         data-gsap-start="top 60%"
+                                                         data-gsap-duration="1.6"
+                                                         src="assets/images/testimonial-1.jpg"
+                                                         alt="Liam Dossi"
+                                                         class="testimonials-img">
+                                                </div>
+                                                <!-- Slide 2 -->
+                                                <div class="swiper-slide">
+                                                    <img src="assets/images/about-image.jpg"
+                                                         alt="Michael Chen"
+                                                         class="testimonials-img">
+                                                </div>
+                                                <!-- Slide 3 -->
+                                                <div class="swiper-slide">
+                                                    <img src="assets/images/parents-community-bg.jpg"
+                                                         alt="Catherine Walsh"
+                                                         class="testimonials-img">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6 col-md-6 offset-lg-0 offset-md-1 testimonials-text-col">
                                 <div class="swiper testimonials-text-slider">
-                                    <div class="swiper-wrapper"></div>
+                                    <div class="swiper-wrapper">
+                                        <!-- Slide 1 -->
+                                        <div class="swiper-slide">
+                                            <div class="testimonials-quote-wrapper">
+                                                <p data-gsap="lines" class="testimonials-quote">"St Patrick's has given me confidence I never knew I had. My teachers push me, my mates back me and every day I feel like I am becoming a better version of myself."</p>
+                                                <p data-gsap="fade-up" data-gsap-start="top 120%" class="testimonials-attribution">Liam Dossi, Year 10 Student</p>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 2 -->
+                                        <div class="swiper-slide">
+                                            <div class="testimonials-quote-wrapper">
+                                                <p class="testimonials-quote">"The support I've received at SPC has shaped me in ways I didn't expect. The teachers here don't just teach — they genuinely care about who you become."</p>
+                                                <p class="testimonials-attribution">Michael Chen, Year 11 Student</p>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 3 -->
+                                        <div class="swiper-slide">
+                                            <div class="testimonials-quote-wrapper">
+                                                <p class="testimonials-quote">"Watching our son thrive at St Patrick's has been remarkable. The school strikes the perfect balance between academic excellence and character development."</p>
+                                                <p class="testimonials-attribution">Catherine Walsh, Parent</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

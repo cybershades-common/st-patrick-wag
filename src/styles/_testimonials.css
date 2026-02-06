@@ -233,7 +233,7 @@
   .testimonials-image-wrapper {
     width: 100%;
     height: auto;
-    aspect-ratio: 446/551;
+    aspect-ratio: 446/440; /* Reduced height by 20% (551 * 0.8 = 440.8) */
   }
   .testimonials-image-wrapper .testimonials-bg-img {
     width: 100%;

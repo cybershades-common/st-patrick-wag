@@ -790,81 +790,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // ==========================================================================
 
     function initTestimonialsSlider() {
-        // Read testimonial data from HTML
-        const slides = document.querySelectorAll('.testimonials-slide');
-        if (!slides.length) return;
-
-        const testimonials = [...slides];
-
-        const picWrapper = document.querySelector('.testimonials-pic-slider .swiper-wrapper');
-        const textWrapper = document.querySelector('.testimonials-text-slider .swiper-wrapper');
         const prevBtn = document.getElementById('testimonialPrev');
         const nextBtn = document.getElementById('testimonialNext');
-        const section = document.querySelector('.testimonials-section');
+        const picWrapper = document.querySelector('.testimonials-pic-slider .swiper-wrapper');
+        const textWrapper = document.querySelector('.testimonials-text-slider .swiper-wrapper');
 
-        if (!picWrapper || !textWrapper || !prevBtn || !nextBtn) return;
+        if (!prevBtn || !nextBtn || !picWrapper || !textWrapper) return;
 
-        function copyGsapAttrs(fromEl, toEl) {
-            if (!fromEl || !toEl) return;
-            [...fromEl.attributes].forEach(attr => {
-                if (attr.name.startsWith('data-gsap')) {
-                    toEl.setAttribute(attr.name, attr.value);
-                }
-            });
-        }
-
-        // Build slides
-        testimonials.forEach(slide => {
-            const imgSrc = slide.querySelector('img')?.getAttribute('src') || '';
-            const imgAlt = slide.querySelector('img')?.getAttribute('alt') || 'Testimonial';
-            const quoteText = slide.querySelector('.testimonials-slide-quote')?.textContent || '';
-            const attrText = slide.querySelector('.testimonials-slide-attr')?.textContent || '';
-
-            const picSlide = document.createElement('div');
-            picSlide.className = 'swiper-slide';
-
-            const img = document.createElement('img');
-            img.className = 'testimonials-img';
-            img.src = imgSrc;
-            img.alt = imgAlt;
-            copyGsapAttrs(slide.querySelector('img'), img);
-            picSlide.appendChild(img);
-            picWrapper.appendChild(picSlide);
-
-            const textSlide = document.createElement('div');
-            textSlide.className = 'swiper-slide';
-
-            const quoteWrap = document.createElement('div');
-            quoteWrap.className = 'testimonials-quote-wrapper';
-
-            const quoteEl = document.createElement('p');
-            quoteEl.className = 'testimonials-quote';
-            quoteEl.textContent = quoteText;
-            copyGsapAttrs(slide.querySelector('.testimonials-slide-quote'), quoteEl);
-
-            const attrEl = document.createElement('p');
-            attrEl.className = 'testimonials-attribution';
-            attrEl.textContent = attrText;
-            copyGsapAttrs(slide.querySelector('.testimonials-slide-attr'), attrEl);
-
-            quoteWrap.appendChild(quoteEl);
-            quoteWrap.appendChild(attrEl);
-            textSlide.appendChild(quoteWrap);
-            textWrapper.appendChild(textSlide);
-        });
-
-        const totalSlides = testimonials.length;
-
+        const totalSlides = picWrapper.querySelectorAll('.swiper-slide').length;
         const isMobile = window.matchMedia('(max-width: 991px)').matches;
 
+        // Picture slider - vertical slides
         const picSlider = new Swiper('.testimonials-pic-slider', {
             direction: 'vertical',
             slidesPerView: 1,
             speed: 1000,
-            allowTouchMove: false,
+            allowTouchMove: isMobile, // Enable touch on mobile
             effect: 'slide'
         });
 
+        // Text slider - fade effect
         const textSlider = new Swiper('.testimonials-text-slider', {
             slidesPerView: 1,
             speed: 1000,
@@ -877,33 +822,36 @@ document.addEventListener('DOMContentLoaded', function () {
             touchMoveStopPropagation: false,
             on: {
                 slideChange: function() {
-                    const index = this.activeIndex;
-                    picSlider.slideTo(index);
-                    const prevDisabled = index === 0;
-                    const nextDisabled = index === totalSlides - 1;
-                    prevBtn.disabled = prevDisabled;
-                    nextBtn.disabled = nextDisabled;
-                    prevBtn.classList.toggle('is-disabled', prevDisabled);
-                    nextBtn.classList.toggle('is-disabled', nextDisabled);
+                    picSlider.slideTo(this.activeIndex);
+                    updateButtons(this.activeIndex);
                 }
             }
         });
 
-        prevBtn.disabled = true;
-        nextBtn.disabled = totalSlides <= 1;
-        prevBtn.classList.add('is-disabled');
-        if (totalSlides <= 1) {
-            nextBtn.classList.add('is-disabled');
+        // Sync picture slider to text slider
+        picSlider.on('slideChange', function() {
+            if (this.activeIndex !== textSlider.activeIndex) {
+                textSlider.slideTo(this.activeIndex);
+            }
+        });
+
+        function updateButtons(index) {
+            const prevDisabled = index === 0;
+            const nextDisabled = index === totalSlides - 1;
+            prevBtn.disabled = prevDisabled;
+            nextBtn.disabled = nextDisabled;
+            prevBtn.classList.toggle('is-disabled', prevDisabled);
+            nextBtn.classList.toggle('is-disabled', nextDisabled);
         }
 
-        prevBtn.addEventListener('click', function() {
-            textSlider.slidePrev();
-        });
+        // Initialize button states
+        updateButtons(0);
 
-        nextBtn.addEventListener('click', function() {
-            textSlider.slideNext();
-        });
+        // Button click handlers
+        prevBtn.addEventListener('click', () => textSlider.slidePrev());
+        nextBtn.addEventListener('click', () => textSlider.slideNext());
 
+        // Initialize GSAP animations
         if (window.gsapInitFor) {
             window.gsapInitFor(textWrapper);
             window.gsapInitFor(picWrapper);

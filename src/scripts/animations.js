@@ -156,7 +156,10 @@ class GSAPAnimations {
     const target  = kids && cfg.stagger ? kids : el;
     const stagger = kids && cfg.stagger ? cfg.stagger : 0;
 
-    gsap.set(target, { y: 50, autoAlpha: 0, force3D: true });
+    // Reduce movement distance on mobile for smoother animation
+    const yDist = window.innerWidth <= 991 ? 30 : 50;
+
+    gsap.set(target, { y: yDist, autoAlpha: 0, force3D: true });
     gsap.to(target, {
       y: 0, autoAlpha: 1, force3D: true,
       duration: cfg.duration,
@@ -233,7 +236,7 @@ class GSAPAnimations {
     gsap.set(target, { scale: 0.9, autoAlpha: 0, force3D: true });
     gsap.to(target, {
       scale: 1, autoAlpha: 1, force3D: true,
-      duration: 0.2,
+      duration: 0.6,  // Increased from 0.2s for smoother animation
       ease:     cfg.ease || this.defaults.ease.zoom,
       delay:    cfg.delay,
       stagger,
@@ -550,7 +553,10 @@ class GSAPAnimations {
       || el.getAttribute('data-gsap-start')
       || 'top 50%';
 
-    gsap.set(target, { scale: 1.2, opacity: 0, force3D: true });
+    // Reduce scale on mobile for better performance
+    const scaleFrom = isMobile ? 1.08 : 1.2;
+
+    gsap.set(target, { scale: scaleFrom, opacity: 0, force3D: true, willChange: 'transform, opacity' });
     gsap.to(target, {
       scale: 1, opacity: 1,
       duration: cfg.duration || 1.8,
@@ -562,6 +568,12 @@ class GSAPAnimations {
         trigger: el,
         start,
         toggleActions: 'play none none none'
+      },
+      onComplete: () => {
+        // Clean up willChange after animation completes
+        (Array.isArray(target) ? target : [target]).forEach(e =>
+          gsap.set(e, { clearProps: 'will-change' })
+        );
       }
     });
   }
