@@ -116,6 +116,14 @@ document.addEventListener('DOMContentLoaded', function () {
         menuOverlay.classList.remove('active');
         document.body.style.overflow = '';
 
+        // Reset mobile menu overlay
+        if (isMobile()) {
+            const menuSubItemsContainer = document.querySelector('.menu-sub-items');
+            if (menuSubItemsContainer) {
+                menuSubItemsContainer.classList.remove('active');
+            }
+        }
+
         btnEnquire.style.display = 'none';
         dropdownWrappers.forEach(wrapper => {
             wrapper.style.display = 'none';
@@ -133,6 +141,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     menuOverlay.addEventListener('click', closeMenu);
+
+    // Mobile menu navigation
+    function isMobile() {
+        return window.innerWidth <= 767;
+    }
+
+    function initMobileMenu() {
+        if (!isMobile()) return;
+
+        const menuSubItemsContainer = document.querySelector('.menu-sub-items');
+
+        // Add click handlers to main menu items
+        menuMainItems.forEach((item) => {
+            item.addEventListener('click', function(e) {
+                if (!isMobile()) return;
+                e.preventDefault();
+
+                // Add back button if it doesn't exist
+                let backBtn = menuSubItemsContainer.querySelector('.menu-sub-back');
+                if (!backBtn) {
+                    backBtn = document.createElement('div');
+                    backBtn.className = 'menu-sub-back';
+                    backBtn.textContent = 'Back';
+                    backBtn.addEventListener('click', function() {
+                        menuSubItemsContainer.classList.remove('active');
+                    });
+                    menuSubItemsContainer.insertBefore(backBtn, menuSubItemsContainer.firstChild);
+                }
+
+                // Show overlay
+                menuSubItemsContainer.classList.add('active');
+            });
+        });
+    }
+
+    // Initialize mobile menu
+    initMobileMenu();
 
     function updateHeaderOnScroll() {
         const currentScrollY = window.scrollY;
