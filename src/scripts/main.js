@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 y: 0,
                 duration: 1.2,
                 ease: 'power3.out',
-                stagger: 0.15,
+                stagger: 0.4,
                 force3D: true
             }, 0);
             
