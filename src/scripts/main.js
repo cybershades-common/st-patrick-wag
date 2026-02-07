@@ -1018,23 +1018,32 @@ document.addEventListener('DOMContentLoaded', function () {
         item.classList.add('footer-marquee-item');
 
         track.appendChild(item);
+        const clone = item.cloneNode(true);
+        track.appendChild(clone);
+
         marquee.innerHTML = '';
         marquee.appendChild(track);
 
-        // Duplicate content to allow seamless looping
-        const ensureCopies = () => {
-            const containerWidth = marquee.offsetWidth;
-            const itemWidth = item.offsetWidth || 1;
-            const minCopies = Math.ceil((containerWidth * 2) / itemWidth);
-            while (track.children.length < minCopies) {
-                const clone = item.cloneNode(true);
-                track.appendChild(clone);
-            }
-            return itemWidth;
+        let itemWidth = 1;
+        let offset = 0;
+
+        const measure = () => {
+            itemWidth = item.offsetWidth || 1;
+            track.style.transform = 'translate3d(0,0,0)';
+            offset = 0;
         };
 
-        let itemWidth = ensureCopies();
-        let offset = 0;
+        measure();
+        window.addEventListener('resize', () => {
+            const isMobileNow = window.innerWidth <= 991;
+            const durationAttrNow = (isMobileNow && marquee.getAttribute('data-marquee-duration-mobile'))
+                || marquee.getAttribute('data-marquee-duration');
+            const parsed = parseFloat(durationAttrNow);
+            if (!Number.isNaN(parsed) && parsed > 0) {
+                duration = parsed;
+            }
+            measure();
+        });
 
         const speed = () => (itemWidth / duration) || 50; // px/sec
         let lastTime = performance.now();
@@ -1051,17 +1060,6 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         requestAnimationFrame(tick);
-        window.addEventListener('resize', () => {
-            itemWidth = ensureCopies();
-            const isMobileNow = window.innerWidth <= 991;
-            const durationAttrNow = (isMobileNow && marquee.getAttribute('data-marquee-duration-mobile'))
-                || marquee.getAttribute('data-marquee-duration');
-            const parsed = parseFloat(durationAttrNow);
-            if (!Number.isNaN(parsed) && parsed > 0) {
-                // update duration used in speed()
-                duration = parsed;
-            }
-        });
     }
 
     initFooterMarquee();
