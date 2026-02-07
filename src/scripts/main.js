@@ -326,56 +326,32 @@ document.addEventListener('DOMContentLoaded', function () {
         initHeroAnimations();
     }, 50);
 
-    // Header animations - smooth slide in from top with stagger
+    // Header animations - smooth slide in from top together
     function initHeaderAnimations() {
-        const headerLogo = document.querySelector('.header-logo');
-        const headerNav = document.querySelector('.header-nav');
-        const headerIcons = document.querySelector('.header-icons-wrapper');
-        const menuToggle = document.querySelector('.menu-toggle');
+        // Get all header items with a single selector
+        const headerItems = document.querySelectorAll(
+            '.header-logo, ' +
+            '.header-nav .btn-header, ' +
+            '.header-nav .menu-dropdown-btn, ' +
+            '.header-icons-wrapper .header-icon-btn, ' +
+            '.menu-toggle'
+        );
         
-        if (!headerLogo || !headerNav || !menuToggle) {
-            console.warn('Header elements not found');
-            return;
-        }
-
-        // Get all individual header items for animation
-        const headerItems = [];
-        
-        // Add logo first
-        if (headerLogo) {
-            headerItems.push(headerLogo);
-        }
-        
-        // Add navigation buttons - ensure Book a Tour button is included
-        const bookTourBtn = headerNav.querySelector('.btn-book-tour');
-        const navButtons = headerNav.querySelectorAll('.btn-header, .menu-dropdown-btn');
-        
-        // Add Book a Tour button first if it exists
-        if (bookTourBtn) {
-            headerItems.push(bookTourBtn);
-        }
-        
-        // Add other navigation buttons
-        navButtons.forEach(btn => {
-            // Skip if already added (Book a Tour button)
-            if (btn !== bookTourBtn) {
-                headerItems.push(btn);
-            }
-        });
-        
-        // Add icons
-        if (headerIcons) {
-            const iconButtons = headerIcons.querySelectorAll('.header-icon-btn');
-            iconButtons.forEach(icon => headerItems.push(icon));
-        }
-        
-        // Add menu toggle
-        if (menuToggle) {
-            headerItems.push(menuToggle);
-        }
-
         if (headerItems.length === 0) {
             console.warn('No header items found');
+            return;
+        }
+        
+        // Filter out items that are display: none (but keep visibility: hidden items since we'll animate them)
+        const visibleItems = Array.from(headerItems).filter(item => {
+            if (!item) return false;
+            const style = window.getComputedStyle(item);
+            // Only filter out if display is none, not visibility hidden (we'll animate those)
+            return style.display !== 'none';
+        });
+
+        if (visibleItems.length === 0) {
+            console.warn('No visible header items found');
             return;
         }
 
@@ -384,27 +360,45 @@ document.addEventListener('DOMContentLoaded', function () {
             delay: 0.1 // Start slightly before hero animation
         });
 
-        // Set initial states - slide from top for all items
-        // Make sure all items are visible (override any CSS display: none)
-        headerItems.forEach(item => {
-            if (item) {
-                gsap.set(item, { 
-                    display: '', // Reset any display: none
-                    autoAlpha: 0,
-                    y: -60,
-                    force3D: true
-                });
+        // Set initial states - slide from top for all items at once
+        // Override CSS visibility: hidden by setting visibility: visible in GSAP
+        // Clear ALL CSS that might interfere (transitions, animations, delays)
+        visibleItems.forEach(item => {
+            // Kill any existing animations first
+            gsap.killTweensOf(item);
+            
+            // Clear CSS properties that might interfere
+            if (item.style) {
+                item.style.transition = 'none';
+                item.style.animation = 'none';
+                item.style.animationDelay = '0s';
+                item.style.transitionDelay = '0s';
             }
+            
+            // Set our initial animation state
+            gsap.set(item, { 
+                visibility: 'visible', // Override CSS visibility: hidden
+                opacity: 0,
+                y: -60,
+                force3D: true
+            });
         });
 
-        // Animate all header items together (no stagger)
-        headerTimeline.to(headerItems, {
-            autoAlpha: 1,
+        // Animate all header items together at exactly the same time (position 0)
+        // Kill any existing tweens first to prevent conflicts
+        visibleItems.forEach(item => {
+            gsap.killTweensOf(item);
+        });
+        
+        headerTimeline.to(visibleItems, {
+            opacity: 1,
             y: 0,
             duration: 0.8,
             ease: 'power3.out',
-            force3D: true
-        }, 0);
+            force3D: true,
+            immediateRender: false,
+            overwrite: 'auto' // Auto-overwrite any existing animations
+        }, 0); // All at position 0 = same time
     }
 
     // Initialize header animations
