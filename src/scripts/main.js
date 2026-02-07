@@ -849,10 +849,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const totalSlides = picWrapper.querySelectorAll('.swiper-slide').length;
         const isMobile = window.matchMedia('(max-width: 991px)').matches;
+        const sliderDirection = isMobile ? 'horizontal' : 'vertical';
 
-        // Picture slider - vertical slides
+        // Picture slider
         const picSlider = new Swiper('.testimonials-pic-slider', {
-            direction: 'vertical',
+            direction: sliderDirection,
             slidesPerView: 1,
             speed: 1000,
             allowTouchMove: isMobile, // Enable touch on mobile
@@ -861,16 +862,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Text slider - fade effect
         const textSlider = new Swiper('.testimonials-text-slider', {
+            direction: sliderDirection,
             slidesPerView: 1,
-            speed: 1000,
+            speed: 0,
             effect: 'fade',
             fadeEffect: {
-                crossFade: true
+                crossFade: false
             },
             allowTouchMove: isMobile,
             touchStartPreventDefault: false,
             touchMoveStopPropagation: false,
             on: {
+                init: function() {
+                    const activeSlide = this.slides[this.activeIndex];
+                    if (!activeSlide) return;
+                    const items = activeSlide.querySelectorAll('.testimonials-quote, .testimonials-attribution');
+                    gsap.set(items, { opacity: 1, y: 0 });
+                },
+                slideChangeTransitionStart: function() {
+                    const prevSlide = this.slides[this.previousIndex];
+                    const nextSlide = this.slides[this.activeIndex];
+
+                    if (prevSlide) {
+                        const prevItems = prevSlide.querySelectorAll('.testimonials-quote, .testimonials-attribution');
+                        gsap.killTweensOf(prevItems);
+                        gsap.to(prevItems, {
+                            y: -16,
+                            opacity: 0,
+                            duration: 0.45,
+                            ease: 'power2.out',
+                            stagger: 0.06,
+                            force3D: true
+                        });
+                    }
+
+                    if (nextSlide) {
+                        const nextItems = nextSlide.querySelectorAll('.testimonials-quote, .testimonials-attribution');
+                        gsap.killTweensOf(nextItems);
+                        gsap.fromTo(
+                            nextItems,
+                            { y: 18, opacity: 0, force3D: true },
+                            {
+                                y: 0,
+                                opacity: 1,
+                                duration: 0.6,
+                                ease: 'power2.out',
+                                delay: 0.08,
+                                stagger: 0.08,
+                                force3D: true
+                            }
+                        );
+                    }
+                },
                 slideChange: function() {
                     picSlider.slideTo(this.activeIndex);
                     updateButtons(this.activeIndex);

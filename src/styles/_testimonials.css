@@ -195,11 +195,12 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  color: var(--primary-blue);
-  transition: opacity 0.3s ease;
+  color: var(--basic-black);
+  transition: all 0.3s ease;
 }
 .testimonials-arrow-btn:hover {
-  opacity: 0.7;
+  color: var(--primary-blue);
+  transform: scale(1.05);
 }
 .testimonials-arrow-btn.is-disabled {
   opacity: 0.35;
@@ -228,7 +229,7 @@
   .testimonials-image-wrapper {
     width: 100%;
     height: auto;
-    aspect-ratio: 446/440; /* Reduced height by 20% (551 * 0.8 = 440.8) */
+    aspect-ratio: 446/441;
   }
   .testimonials-image-wrapper .testimonials-bg-img {
     width: 100%;
@@ -248,6 +249,15 @@
   .testimonials-arrows-col {
     padding-left: 0;
     margin-left: 0;
+  }
+  .testimonials-bottom-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: var(--spacing-xs);
+  }
+  .testimonials-button-col,
+  .testimonials-arrows-col {
+    width: auto;
   }
   .testimonials-quote-wrapper {
     gap: 2rem;
