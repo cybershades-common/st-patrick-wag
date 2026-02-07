@@ -70,10 +70,14 @@
   position: relative;
   z-index: 1;
   top: -1.25rem;
+  
+  // Hide initially to prevent flash
+  opacity: 0;
+  visibility: hidden;
 
-  // span {
-  //   opacity: 0;
-  // }
+  span {
+    display: inline-block;
+  }
 }
 
 
@@ -91,11 +95,16 @@
     letter-spacing: 0;
     color: var(--basic-black);
     margin: 0;
-    // opacity: 0;
+    // Hide initially to prevent flash
+    opacity: 0;
+    visibility: hidden;
   }
 
   button {
     clip-path: none;
+    // Hide initially to prevent flash
+    opacity: 0;
+    visibility: hidden;
   }
 }
 

@@ -218,123 +218,113 @@ document.addEventListener('DOMContentLoaded', function () {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero animations
-    // function initHeroAnimations() {
-    //     // Create master timeline
-    //     const heroTimeline = gsap.timeline();
+    // Hero animations - smooth entrance animation
+    function initHeroAnimations() {
+        const heroTitle = document.querySelector('.hero-title');
+        const heroTitleSpans = document.querySelectorAll('.hero-title span');
+        const heroText = document.querySelector('.hero-text p');
+        const heroButton = document.querySelector('.hero-text button');
+        
+        if (!heroTitle || !heroText) {
+            console.warn('Hero elements not found');
+            return;
+        }
 
-    //     // Set initial states before timeline runs — prevents flash of visible content
-    //     const heroTitleSpans = document.querySelectorAll('.hero-title span');
-    //     gsap.set(heroTitleSpans, { display: 'inline-block', opacity: 0, y: 150 });
-    //     // gsap.set('.header-logo', { y: -50, opacity: 0 });
-    //     // gsap.set('.header-nav', { y: -50, opacity: 0 });
-    //     gsap.set('.hero-text p', { y: 50, opacity: 0 });
-    //     gsap.set('.hero-media-wrapper', { opacity: 0 });
+        // Create master timeline
+        const heroTimeline = gsap.timeline({
+            delay: 0.3 // Small delay for page to settle
+        });
 
-    //     // Build timeline sequence
-    //     heroTimeline
-    //         // Header logo
-    //         // .to('.header-logo',
-    //         //     { y: 0, opacity: 1, duration: 0.7, ease: 'Power1.easeOut' },
-    //         //     0.2
-    //         // )
-    //         // Header navigation
-    //         // .to('.header-nav',
-    //         //     { y: 0, opacity: 1, duration: 0.7, ease: 'Power1.easeOut' },
-    //         //     0.2
-    //         // )
-    //         // Hero title words (staggered)
-    //         .to(heroTitleSpans, {
-    //             y: 0,
-    //             opacity: 1,
-    //             duration: 1.2,
-    //             stagger: 0.4,
-    //             ease: 'Power1.easeOut'
-    //         }, 0.5)
-    //         // Hero description text
-    //         .to('.hero-text p',
-    //             { y: 0, opacity: 1, duration: 1.2, ease: 'Power1.easeOut' },
-    //             1.5
-    //         );
+        // Set initial states - override CSS visibility immediately
+        // Use autoAlpha which handles both opacity and visibility
+        gsap.set(heroTitle, { 
+            autoAlpha: 0, // This sets opacity: 0 and visibility: visible
+            y: 80,
+            force3D: true
+        });
+        
+        if (heroTitleSpans.length > 0) {
+            gsap.set(heroTitleSpans, { 
+                display: 'inline-block',
+                autoAlpha: 0,
+                y: 80,
+                force3D: true
+            });
+        }
+        
+        gsap.set(heroText, { 
+            autoAlpha: 0,
+            y: 50,
+            force3D: true
+        });
+        
+        if (heroButton) {
+            gsap.set(heroButton, { 
+                autoAlpha: 0,
+                scale: 0.9,
+                force3D: true
+            });
+        }
 
-    //     // Hero CTA button - btn-clip-reveal animation
-    //     const heroCTA = document.querySelector('.hero-text button');
-    //     if (heroCTA) {
-    //         // Set initial state for button fill (hidden from right)
-    //         gsap.set(heroCTA, {
-    //             autoAlpha: 1,
-    //             clipPath: 'inset(0 100% 0 0)',
-    //             webkitClipPath: 'inset(0 100% 0 0)',
-    //             willChange: 'clip-path'
-    //         });
+        // Animate hero title - animate parent and spans together
+        if (heroTitleSpans.length > 0) {
+            // First, make parent visible (just visibility, keep opacity at 0)
+            gsap.set(heroTitle, { visibility: 'visible' });
+            
+            // Then animate hero title spans (staggered) - this will make them visible
+            heroTimeline.to(heroTitleSpans, {
+                autoAlpha: 1,
+                y: 0,
+                duration: 1.2,
+                ease: 'power3.out',
+                stagger: 0.15,
+                force3D: true
+            }, 0);
+            
+            // Also animate parent title's opacity to 1 (in sync with spans)
+            heroTimeline.to(heroTitle, {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: 'power3.out',
+                force3D: true
+            }, 0);
+        } else {
+            // If no spans, animate the title directly
+            heroTimeline.to(heroTitle, {
+                autoAlpha: 1,
+                y: 0,
+                duration: 1.2,
+                ease: 'power3.out',
+                force3D: true
+            }, 0);
+        }
+        
+        // Animate hero text
+        heroTimeline.to(heroText, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 1.1,
+            ease: 'power2.out',
+            force3D: true
+        }, 0.6);
+        
+        // Animate hero button
+        if (heroButton) {
+            heroTimeline.to(heroButton, {
+                autoAlpha: 1,
+                scale: 1,
+                duration: 0.8,
+                ease: 'back.out(1.2)',
+                force3D: true
+            }, 1.2);
+        }
+    }
 
-    //         // Wrap text in span if it doesn't exist for clip reveal animation
-    //         let ctaText = heroCTA.querySelector('span');
-    //         if (!ctaText && heroCTA.textContent) {
-    //             const text = heroCTA.textContent.trim();
-    //             heroCTA.innerHTML = `<span>${text}</span>`;
-    //             ctaText = heroCTA.querySelector('span');
-    //         }
-
-    //         // Set initial clip reveal state for text (hidden from right)
-    //         if (ctaText) {
-    //             gsap.set(ctaText, {
-    //                 clipPath: 'inset(0 100% 0 0)',
-    //                 webkitClipPath: 'inset(0 100% 0 0)',
-    //                 display: 'inline-block',
-    //                 lineHeight: 'normal',
-    //                 willChange: 'clip-path'
-    //             });
-    //         }
-
-    //         // Add button fill animation to timeline
-    //         heroTimeline
-    //             // Step 1: Fill color from right to left
-    //             .to(heroCTA, {
-    //                 clipPath: 'inset(0 0% 0 0)',
-    //                 webkitClipPath: 'inset(0 0% 0 0)',
-    //                 duration: 0.6,
-    //                 ease: 'none',
-    //                 force3D: true,
-    //                 autoRound: false
-    //             }, 1.7);
-
-    //         // Step 2: Reveal text (left to right)
-    //         if (ctaText) {
-    //             heroTimeline.to(ctaText, {
-    //                 clipPath: 'inset(0 0% 0 0)',
-    //                 webkitClipPath: 'inset(0 0% 0 0)',
-    //                 duration: 0.7,
-    //                 ease: 'none',
-    //                 force3D: true,
-    //                 autoRound: false
-    //             }, 2.35); // Start text reveal 0.65s after fill begins
-    //         }
-    //     }
-
-    //     // Hero gradient - subtle fade in from background
-    //     const heroGradient = document.querySelector('.hero-gradient');
-    //     if (heroGradient) {
-    //         gsap.set(heroGradient, {
-    //             autoAlpha: 0
-    //         });
-
-    //         heroTimeline.to(heroGradient, {
-    //             autoAlpha: 0.6,
-    //             duration: 2.5,
-    //             ease: 'power1.inOut'
-    //         }, 0.3);
-    //     }
-
-    //     // Hero video - fade in after title
-    //     heroTimeline.to('.hero-media-wrapper', {
-    //         opacity: 1,
-    //         duration: 1,
-    //         ease: 'power2.inOut'
-    //     }, 1.1);
-    // }
-
-    // initHeroAnimations();
+    // Initialize hero animations - wait a tiny bit to ensure DOM is fully ready
+    setTimeout(function() {
+        initHeroAnimations();
+    }, 50);
 
     // Section gradient circles - fade in on section reveal
     function initGradientCircleFades() {
