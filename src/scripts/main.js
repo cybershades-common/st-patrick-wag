@@ -468,11 +468,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const headingPieces = gsap.utils.toArray('.about-heading .word, .about-heading .underline');
 
+        const isMobile = window.innerWidth <= 991;
         const aboutTl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.about-section',
-                start: 'top 90%',
-                end: 'top 40%',
+                start: isMobile ? 'top 80%' : 'top 85%',
+                end: isMobile ? 'top 40%' : 'top 20%',
                 scrub: 1,
                 once: true
             }
