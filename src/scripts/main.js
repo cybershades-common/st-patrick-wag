@@ -326,6 +326,90 @@ document.addEventListener('DOMContentLoaded', function () {
         initHeroAnimations();
     }, 50);
 
+    // Header animations - smooth slide in from top with stagger
+    function initHeaderAnimations() {
+        const headerLogo = document.querySelector('.header-logo');
+        const headerNav = document.querySelector('.header-nav');
+        const headerIcons = document.querySelector('.header-icons-wrapper');
+        const menuToggle = document.querySelector('.menu-toggle');
+        
+        if (!headerLogo || !headerNav || !menuToggle) {
+            console.warn('Header elements not found');
+            return;
+        }
+
+        // Get all individual header items for animation
+        const headerItems = [];
+        
+        // Add logo first
+        if (headerLogo) {
+            headerItems.push(headerLogo);
+        }
+        
+        // Add navigation buttons - ensure Book a Tour button is included
+        const bookTourBtn = headerNav.querySelector('.btn-book-tour');
+        const navButtons = headerNav.querySelectorAll('.btn-header, .menu-dropdown-btn');
+        
+        // Add Book a Tour button first if it exists
+        if (bookTourBtn) {
+            headerItems.push(bookTourBtn);
+        }
+        
+        // Add other navigation buttons
+        navButtons.forEach(btn => {
+            // Skip if already added (Book a Tour button)
+            if (btn !== bookTourBtn) {
+                headerItems.push(btn);
+            }
+        });
+        
+        // Add icons
+        if (headerIcons) {
+            const iconButtons = headerIcons.querySelectorAll('.header-icon-btn');
+            iconButtons.forEach(icon => headerItems.push(icon));
+        }
+        
+        // Add menu toggle
+        if (menuToggle) {
+            headerItems.push(menuToggle);
+        }
+
+        if (headerItems.length === 0) {
+            console.warn('No header items found');
+            return;
+        }
+
+        // Create master timeline
+        const headerTimeline = gsap.timeline({
+            delay: 0.1 // Start slightly before hero animation
+        });
+
+        // Set initial states - slide from top for all items
+        // Make sure all items are visible (override any CSS display: none)
+        headerItems.forEach(item => {
+            if (item) {
+                gsap.set(item, { 
+                    display: '', // Reset any display: none
+                    autoAlpha: 0,
+                    y: -60,
+                    force3D: true
+                });
+            }
+        });
+
+        // Animate all header items together (no stagger)
+        headerTimeline.to(headerItems, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            force3D: true
+        }, 0);
+    }
+
+    // Initialize header animations
+    initHeaderAnimations();
+
     // Section gradient circles - fade in on section reveal
     function initGradientCircleFades() {
         const circles = gsap.utils.toArray('.section .gradient-circle');

@@ -36,7 +36,8 @@
 
 
 .header-logo {
-  opacity: 1;
+  opacity: 0;
+  visibility: hidden;
   gap: 1rem;
 }
 
@@ -78,11 +79,23 @@
 
 .header-nav {
   gap: var(--spacing-xs);
-  opacity: 1;
+  // Don't hide the container, just the items inside
+}
+
+.header-nav .btn-header,
+.header-nav .menu-dropdown-btn {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .header-icons-wrapper {
   gap: 1.5625rem;
+  // Don't hide the container, just the items inside
+}
+
+.header-icon-btn {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .header-icon-btn {
@@ -112,6 +125,8 @@
   gap: 1rem;
   background: transparent;
   border: none;
+  opacity: 0;
+  visibility: hidden;
   cursor: pointer;
   padding: 0.3125rem;
 }
