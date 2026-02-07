@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Clean up after animation
                     gsap.set(heroMedia, { clearProps: 'will-change' });
                 }
-            }, 1.2 + 0.8); // Start after button animation completes (1.2s + 0.8s duration = 2.0s)
+            }, 1.2 + 0.4); // Start earlier - 0.4s after button starts (instead of after it completes)
         }
     }
 
