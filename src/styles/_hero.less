@@ -43,12 +43,11 @@
   pointer-events: none;
   z-index: 0;
   // opacity: 0;
-  visibility: hidden;
+  //visibility: hidden;
 }
 
 .hero-content {
-  padding-left: 0;
-  padding-right: 0;
+
   position: relative;
   z-index: 2;
 
@@ -201,14 +200,10 @@
       padding: 14rem 0 0rem;
     }
 
-    .hero-content {
-
-      h1 {
-        font-size: 8.25rem;
-      }
+    .hero-content {    
 
       .hero-gradient {
-        bottom: -16.5rem;
+        bottom: -20.5rem;
         left: -0.25rem;
         width: 20.75rem;
         height: 26.75rem;
@@ -241,6 +236,11 @@
   .hero {
     padding-top: 7.5rem;
 
+      .hero-title {
+    font-size: 6.375rem;
+    letter-spacing: -0.125rem;
+  }
+
     .hero-content-wrap {
       padding: 5rem 0 0;
       height: auto;
@@ -267,14 +267,9 @@
     margin-bottom: var(--spacing-small);
   }
 
-  .hero-title {
-    font-size: 6.375rem;
-    letter-spacing: -0.125rem;
-  }
 
-  .hero-text {
-    padding-left: 0;
-  }
+
+ 
 
   .hero-media {
     min-height: 25rem;

@@ -29,11 +29,8 @@
   filter: blur(11.625rem);
   pointer-events: none;
   z-index: 0;
-  visibility: hidden;
 }
 .hero-content {
-  padding-left: 0;
-  padding-right: 0;
   position: relative;
   z-index: 2;
 }
@@ -142,11 +139,8 @@
     min-height: auto;
     padding: 14rem 0 0rem;
   }
-  .hero .hero-content h1 {
-    font-size: 8.25rem;
-  }
   .hero .hero-content .hero-gradient {
-    bottom: -16.5rem;
+    bottom: -20.5rem;
     left: -0.25rem;
     width: 20.75rem;
     height: 26.75rem;
@@ -171,6 +165,10 @@
   .hero {
     padding-top: 7.5rem;
   }
+  .hero .hero-title {
+    font-size: 6.375rem;
+    letter-spacing: -0.125rem;
+  }
   .hero .hero-content-wrap {
     padding: 5rem 0 0;
     height: auto;
@@ -188,13 +186,6 @@
   }
   .hero-content {
     margin-bottom: var(--spacing-small);
-  }
-  .hero-title {
-    font-size: 6.375rem;
-    letter-spacing: -0.125rem;
-  }
-  .hero-text {
-    padding-left: 0;
   }
   .hero-media {
     min-height: 25rem;

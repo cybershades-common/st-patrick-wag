@@ -1,6 +1,6 @@
 .footer {
   background-color: var(--primary-gold-3);
-  padding: 2.75rem 0;
+  padding: 2.75rem 0 0;
   position: relative;
   overflow: hidden;
 }
@@ -283,11 +283,10 @@
 .footer-bottom {
   margin: 2rem auto 0;
   z-index: 3;
+  padding-bottom: 2rem;
 }
 .footer-bottom .row {
   max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
 }
 .footer-copyright {
   flex-shrink: 0;
@@ -351,13 +350,12 @@
 }
 @media (max-width: 991px) {
   .footer {
-    padding-top: 1.25rem;
-    padding-bottom: 0.9375rem;
     min-height: auto;
   }
   .footer .footer-mission,
   .footer .footer-logo {
     max-width: 50%;
+    padding: 0 1rem;
   }
   .footer .container-fluid {
     padding-left: 1.25rem;
@@ -398,7 +396,7 @@
     margin-bottom: 1.25rem;
   }
   .footer-logos {
-    margin-top: 0;
+    margin-top: 1.875rem;
     margin-left: 0;
     margin-bottom: 1.875rem;
     flex-wrap: wrap;
@@ -449,8 +447,6 @@
     position: relative;
     bottom: auto;
     margin-top: 1.875rem;
-    padding-left: 0;
-    padding-right: 0;
   }
   .footer-bottom .row {
     width: 100%;
@@ -460,14 +456,12 @@
     margin-bottom: 0.625rem;
   }
   .footer-bottom-links {
-    flex-direction: column;
     gap: 0.625rem;
     width: 100%;
   }
   .footer-bottom-links-left {
     flex-wrap: wrap;
     gap: 1.875rem;
-    width: 100%;
   }
   .footer .footer-right {
     padding: 0 0.75rem;
@@ -491,8 +485,6 @@
     justify-content: space-between;
   }
   .footer-bottom {
-    padding-left: 0;
-    padding-right: 0;
     padding-bottom: 2.5rem;
   }
   .footer-bottom .row > div {

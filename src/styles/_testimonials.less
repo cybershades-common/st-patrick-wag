@@ -40,13 +40,7 @@
   margin-bottom: 2.8125rem; // 45px gap (639 - 551 - 40 = 48px, but let's use 45px)
 }
 
-.testimonials-image-col {
-  padding-right: 0;
 
-  @media (min-width: 992px) {
-    padding-right: 15.875rem; // 254px gap (700 - 446 = 254px)
-  }
-}
 
 .testimonials-image-wrapper {
   position: relative;
@@ -114,11 +108,11 @@
 }
 
 .testimonials-text-col {
-  padding-left: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 34.4375rem; // 551px to match image height
+  height: 100%; // to match image height
 }
 
 .testimonials-text-slider,
@@ -184,22 +178,12 @@
 
 }
 
-.testimonials-button-col {
-  padding-right: 0;
-}
+
 
 .testimonials-button {
   margin-top: 0;
 }
 
-.testimonials-arrows-col {
-  padding-left: 0;
-
-  @media (min-width: 992px) {
-    margin-left: auto;
-    padding-left: 0;
-  }
-}
 
 .testimonials-bottom-row {
   display: flex;
@@ -256,10 +240,7 @@
     gap: var(--spacing-small);
   }
 
-  .testimonials-image-col {
-  padding: 0.625rem;
-    margin-bottom: 1.5rem;
-  }
+
 
   .testimonials-image-wrapper {
     width: 100%;
@@ -273,7 +254,7 @@
   .testimonials-text-col {
     padding: 0 0.625rem;
     margin-bottom: var(--spacing-small);
-    height: auto;
+  
   }
 
   .testimonials-quote-wrapper {
@@ -287,7 +268,6 @@
   }
 
   .testimonials-arrows-col {
-    padding-left: 0;
     margin-left: 0;
     flex: 0 0 auto;
   }
@@ -324,3 +304,12 @@
   }
 }
 
+@media (max-width:767px){
+  .testimonials-text-col{
+    height: auto;
+  }
+    .testimonials-image-col {
+  padding: 0.625rem;
+    margin-bottom: 1.5rem;
+  }
+}

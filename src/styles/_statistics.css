@@ -9,14 +9,6 @@
 .statistics-cards {
   margin-top: 12.0625rem;
 }
-.statistics-heading-col {
-  padding-right: 0;
-}
-@media (min-width: 992px) {
-  .statistics-heading-col {
-    padding-right: 8.5625rem;
-  }
-}
 .statistics-heading {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-h2);
@@ -25,14 +17,6 @@
   letter-spacing: -0.0375rem;
   color: var(--primary-blue);
   margin: 0;
-}
-.statistics-content-col {
-  padding-left: 0;
-}
-@media (min-width: 992px) {
-  .statistics-content-col {
-    padding-left: 0;
-  }
 }
 .statistics-text {
   font-family: var(--font-family-helvetica-neue);
@@ -160,11 +144,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
   .statistics-heading-col {
-    padding-right: 0;
     margin-bottom: var(--spacing-xs);
-  }
-  .statistics-content-col {
-    padding-left: 0;
   }
   .statistics-text {
     margin-bottom: var(--spacing-xs);

@@ -45,7 +45,6 @@
   min-height: 100%;
 }
 .cocurricular-left {
-  padding-right: 0;
   padding-top: 1.25rem;
 }
 .cocurricular-label {
@@ -123,7 +122,6 @@
     min-height: auto;
   }
   .cocurricular-left {
-    padding-right: 0;
     padding-top: 0;
     margin-bottom: 2.5rem;
   }
