@@ -68,13 +68,21 @@ class GSAPAnimations {
   }
 
   readConfig(el) {
-    const s = el.getAttribute('data-gsap-stagger');
+    const isMobile = window.innerWidth <= 991;
+    const s = (isMobile && el.getAttribute('data-gsap-stagger-mobile')) || el.getAttribute('data-gsap-stagger');
+    const durationAttr = (isMobile && el.getAttribute('data-gsap-duration-mobile')) || el.getAttribute('data-gsap-duration');
+    const delayAttr = (isMobile && el.getAttribute('data-gsap-delay-mobile')) || el.getAttribute('data-gsap-delay');
+    const easeAttr = (isMobile && el.getAttribute('data-gsap-ease-mobile')) || el.getAttribute('data-gsap-ease');
+    const startAttr = (isMobile && el.getAttribute('data-gsap-start-mobile')) || el.getAttribute('data-gsap-start');
+    const duration = parseFloat(durationAttr);
+    const delay = parseFloat(delayAttr);
+    const stagger = s ? parseFloat(s) : null;
     return {
-      delay:    parseFloat(el.getAttribute('data-gsap-delay'))    || 0,
-      duration: parseFloat(el.getAttribute('data-gsap-duration')) || this.defaults.duration,
-      stagger:  s ? parseFloat(s) : null,
-      start:    el.getAttribute('data-gsap-start') || this.defaults.start,
-      ease:     el.getAttribute('data-gsap-ease')  || null
+      delay:    Number.isFinite(delay) ? delay : 0,
+      duration: Number.isFinite(duration) ? duration : this.defaults.duration,
+      stagger,
+      start:    startAttr || this.defaults.start,
+      ease:     easeAttr || null
     };
   }
 
@@ -201,6 +209,8 @@ class GSAPAnimations {
     const stagger = kids && cfg.stagger ? cfg.stagger : 0;
     const dist    = window.innerWidth <= 991 ? 80 : 300;
 
+    const targets = Array.isArray(target) ? target : [target];
+    gsap.set(targets, { transition: 'none' });
     gsap.set(target, { x: -dist, autoAlpha: 0, force3D: true });
     gsap.to(target, {
       x: 0, autoAlpha: 1, force3D: true,
@@ -208,7 +218,10 @@ class GSAPAnimations {
       ease:     cfg.ease || this.defaults.ease.slide,
       delay:    cfg.delay,
       stagger,
-      scrollTrigger: this.triggerCfg(el, cfg)
+      scrollTrigger: this.triggerCfg(el, cfg),
+      onComplete: () => {
+        targets.forEach(t => gsap.set(t, { clearProps: 'transition' }));
+      }
     });
   }
 
@@ -218,6 +231,8 @@ class GSAPAnimations {
     const stagger = kids && cfg.stagger ? cfg.stagger : 0;
     const dist    = window.innerWidth <= 991 ? 80 : 300;
 
+    const targets = Array.isArray(target) ? target : [target];
+    gsap.set(targets, { transition: 'none' });
     gsap.set(target, { x: dist, autoAlpha: 0, force3D: true });
     gsap.to(target, {
       x: 0, autoAlpha: 1, force3D: true,
@@ -225,7 +240,10 @@ class GSAPAnimations {
       ease:     cfg.ease || this.defaults.ease.slide,
       delay:    cfg.delay,
       stagger,
-      scrollTrigger: this.triggerCfg(el, cfg)
+      scrollTrigger: this.triggerCfg(el, cfg),
+      onComplete: () => {
+        targets.forEach(t => gsap.set(t, { clearProps: 'transition' }));
+      }
     });
   }
 
@@ -450,7 +468,7 @@ class GSAPAnimations {
     gsap.set(target, { clipPath: hidden, webkitClipPath: hidden, willChange: 'clip-path', force3D: true });
     gsap.to(target, {
       clipPath: shown, webkitClipPath: shown,
-      duration: cfg.duration || 0.1,
+      duration: cfg.duration || 0.6,
       ease:     cfg.ease || 'power2.inOut',
       delay:    cfg.delay,
       stagger,
