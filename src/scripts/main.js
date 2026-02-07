@@ -224,6 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const heroTitleSpans = document.querySelectorAll('.hero-title span');
         const heroText = document.querySelector('.hero-text p');
         const heroButton = document.querySelector('.hero-text button');
+        const heroGradient = document.querySelector('.hero-gradient');
         
         if (!heroTitle || !heroText) {
             console.warn('Hero elements not found');
@@ -254,9 +255,17 @@ document.addEventListener('DOMContentLoaded', function () {
         
         gsap.set(heroText, { 
             autoAlpha: 0,
-            y: 50,
+            y: 20,
             force3D: true
         });
+
+        if (heroGradient) {
+            gsap.set(heroGradient, {
+                autoAlpha: 0,
+               
+                force3D: true
+            });
+        }
         
         if (heroButton) {
             gsap.set(heroButton, { 
@@ -294,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function () {
             heroTimeline.to(heroTitle, {
                 autoAlpha: 1,
                 y: 0,
-                duration: 1.2,
+                duration: 0.6,
                 ease: 'power3.out',
                 force3D: true
             }, 0);
@@ -307,7 +316,17 @@ document.addEventListener('DOMContentLoaded', function () {
             duration: 1.1,
             ease: 'power2.out',
             force3D: true
-        }, 0.6);
+        }, 1.3);
+
+        if (heroGradient) {
+            heroTimeline.to(heroGradient, {
+                autoAlpha: 1,
+               
+                duration: 3,
+                ease: 'power2.out',
+                force3D: true
+            }, 0.4);
+        }
         
         // Animate hero button
         if (heroButton) {
@@ -317,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 duration: 0.8,
                 ease: 'back.out(1.2)',
                 force3D: true
-            }, 1.2);
+            }, 1.6);
         }
         
         // Animate hero media with clip-reveal from left to right (after button)
@@ -349,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Clean up after animation
                     gsap.set(heroMedia, { clearProps: 'will-change' });
                 }
-            }, 1.2 + 0.4); // Start earlier - 0.4s after button starts (instead of after it completes)
+            }, 0.2 ); // Start earlier - 0.4s after button starts (instead of after it completes)
         }
     }
 
