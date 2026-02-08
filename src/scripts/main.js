@@ -466,6 +466,86 @@ document.addEventListener('DOMContentLoaded', function () {
         initHeroAnimations();
     }, 50);
 
+    // Dropdown animation: clip-path curtain + stagger items
+    function initDropdownAnimations() {
+        const dropdowns = document.querySelectorAll('.dropdown');
+        if (!dropdowns.length) return;
+
+        dropdowns.forEach((dropdown) => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            if (!toggle || !menu) return;
+
+            dropdown.addEventListener('show.bs.dropdown', () => {
+                gsap.killTweensOf(menu);
+                const items = menu.querySelectorAll('.dropdown-item');
+
+                menu.style.display = 'block';
+                menu.style.overflow = 'hidden';
+
+                gsap.set(menu, {
+                    clipPath: 'inset(0 0 100% 0)',
+                    opacity: 1,
+                    willChange: 'clip-path,opacity'
+                });
+
+                gsap.set(items, { opacity: 0, x: -12, force3D: true });
+
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        gsap.set(menu, { clearProps: 'will-change,overflow,clipPath' });
+                    }
+                });
+
+                tl.to(menu, {
+                    clipPath: 'inset(0 0 0% 0)',
+                    duration: 0.35,
+                    ease: 'power2.out'
+                }, 0)
+                .to(items, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.3,
+                    ease: 'power2.out',
+                    stagger: 0.04
+                }, 0.08);
+            });
+
+            dropdown.addEventListener('hide.bs.dropdown', (e) => {
+                e.preventDefault();
+                gsap.killTweensOf(menu);
+                const items = menu.querySelectorAll('.dropdown-item');
+
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        menu.classList.remove('show');
+                        dropdown.classList.remove('show');
+                        menu.style.display = 'none';
+                        menu.style.overflow = '';
+                        toggle.setAttribute('aria-expanded', 'false');
+                        gsap.set(menu, { clearProps: 'clipPath' });
+                        gsap.set(items, { clearProps: 'opacity,transform' });
+                    }
+                });
+
+                tl.to(items, {
+                    opacity: 0,
+                    x: -12,
+                    duration: 0.2,
+                    ease: 'power2.in',
+                    stagger: 0.03
+                }, 0)
+                .to(menu, {
+                    clipPath: 'inset(0 0 100% 0)',
+                    duration: 0.25,
+                    ease: 'power2.in'
+                }, 0.05);
+            });
+        });
+    }
+
+    initDropdownAnimations();
+
     // Header animations - smooth slide in from top together
     function initHeaderAnimations() {
         // Get all header items with a single selector
