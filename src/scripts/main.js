@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         isHeaderHidden = false;
         megaMenu.classList.add('active');
         menuOverlay.classList.add('active');
+        menuOverlay.style.pointerEvents = 'none';
         hamburger.classList.add('active');
         menuText.textContent = 'CLOSE';
         document.body.style.overflow = 'hidden';
@@ -120,7 +121,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 { opacity: 0, y: 20 },
                 { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' },
                 isMobileView ? 1.25 : 2.1
-            );
+            )
+            .call(() => {
+                menuOverlay.style.pointerEvents = 'auto';
+            }, null, 0.35);
 
     }
 
@@ -171,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 megaMenu.classList.remove('active');
                 menuOverlay.classList.remove('active');
+                menuOverlay.style.pointerEvents = '';
                 document.body.style.overflow = '';
 
                 if (bookTourBtn) {
