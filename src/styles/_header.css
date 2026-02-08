@@ -26,7 +26,8 @@
   padding-right: var(--spacing-base);
 }
 .header-logo {
-  opacity: 1;
+  opacity: 0;
+  visibility: hidden;
   gap: 1rem;
 }
 .header-logo img {
@@ -61,10 +62,20 @@
 }
 .header-nav {
   gap: var(--spacing-xs);
-  opacity: 1;
+  width: 100%;
+  justify-content: flex-end;
+}
+.header-nav .btn-header,
+.header-nav .menu-dropdown-btn {
+  opacity: 0;
+  visibility: hidden;
 }
 .header-icons-wrapper {
   gap: 1.5625rem;
+}
+.header-icon-btn {
+  opacity: 0;
+  visibility: hidden;
 }
 .header-icon-btn {
   width: 1.875rem;
@@ -90,6 +101,8 @@
   gap: 1rem;
   background: transparent;
   border: none;
+  opacity: 0;
+  visibility: hidden;
   cursor: pointer;
   padding: 0.3125rem;
 }
@@ -315,7 +328,7 @@
 .header .header-row .right-block {
   max-width: 33.33333333%;
   padding: 0;
-  transition: all ease 0.25s;
+  transition: none;
 }
 .header .header-row .right-block .header-icons-wrapper {
   margin-left: auto;
@@ -339,10 +352,16 @@
 .header .dropdown-menu li a {
   color: var(--basic-black);
 }
+.header .dropdown-menu .dropdown-item:active,
+.header .dropdown-menu .dropdown-item:focus,
+.header .dropdown-menu .dropdown-item.active {
+  color: var(--basic-black);
+  background-color: transparent;
+}
 .header .hide-header-items {
   display: none;
   opacity: 0;
-  transition: all ease 0.25s;
+  transition: opacity ease 0.25s;
 }
 .header.menu-open .header-row .right-block {
   max-width: 65.875%;
@@ -350,6 +369,7 @@
 .header.menu-open .hide-header-items {
   display: flex;
   opacity: 1;
+  visibility: visible;
 }
 @media (min-width: 992px) and (max-width: 1200px) {
   .header.menu-open .dropdown-wrapper.hide-header-items {
@@ -420,12 +440,15 @@
   .header-logo-text {
     padding-top: 0.9375rem;
   }
-  body .header.menu-open .header-row .right-block {
+  .header.menu-open .header-row .right-block {
     max-width: 57.875%;
   }
 }
 @media (max-width: 767px) {
   .header-nav .btn-book-tour {
+    display: none;
+  }
+  .header-nav .btn-enquire {
     display: none;
   }
   .menu-dropdown-btn {
@@ -508,6 +531,9 @@
   .header-logo {
     width: auto;
   }
+  .header .header-row .right-block {
+    max-width: 57.875%;
+  }
   .header-logo-text {
     padding-top: 0.9375rem;
   }
@@ -550,6 +576,12 @@
     justify-content: flex-start;
     margin: 1rem 0;
   }
+  body .menu-main-items {
+    padding: 1rem 0;
+  }
+  body .mega-menu-footer {
+    padding: 0.5rem 0;
+  }
   body .header.menu-open .header-row .right-block {
     max-width: 40%;
   }
@@ -565,7 +597,7 @@
     padding-top: 0.3125rem;
   }
   .menu-main-item {
-    font-size: 2.25rem;
+    font-size: 2.2875rem;
   }
   .menu-sub-item {
     font-size: 1rem;

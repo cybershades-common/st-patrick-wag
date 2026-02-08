@@ -920,6 +920,12 @@ body {
     justify-content: flex-start;
     margin: 1rem 0;
   }
+  body .menu-main-items {
+    padding: 1rem 0;
+  }
+  body .mega-menu-footer {
+    padding: 0.5rem 0;
+  }
   body .header.menu-open .header-row .right-block {
     max-width: 40%;
   }
@@ -935,7 +941,7 @@ body {
     padding-top: 0.3125rem;
   }
   .menu-main-item {
-    font-size: 2.25rem;
+    font-size: 2.2875rem;
   }
   .menu-sub-item {
     font-size: 1rem;

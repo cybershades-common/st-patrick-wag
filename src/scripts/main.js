@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Clear any existing properties
         gsap.set([menuMainItems, menuSubItems, menuImage], { clearProps: 'all' });
 
+        const isMobileView = isMobile();
+
         menuTimeline
             // Mega menu + overlay quick fade in
             .fromTo(megaMenu,
@@ -113,11 +115,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out', force3D: true },
                 1.45
             )
-            // Menu footer (after image)
+            // Menu footer (earlier on mobile since image is hidden)
             .fromTo(menuFooter,
                 { opacity: 0, y: 20 },
                 { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' },
-                2.1
+                isMobileView ? 1.25 : 2.1
             );
 
     }
