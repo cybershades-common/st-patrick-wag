@@ -606,16 +606,24 @@
   .menu-sub-items {
     position: fixed;
     top: 0;
-    bottom: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    height: 85vh;
+    max-height: 85vh;
     background: #fff;
-    padding: 7.5rem var(--spacing-xs);
+    padding: 7.5rem var(--spacing-xs) 1.5rem;
     transform: translateX(-100%);
-    transition: transform 0.4s cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    z-index: 100;
+    transition: transform 0.35s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    z-index: 1000;
     overflow-y: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
 
     &.active {
       transform: translateX(0);
+      pointer-events: auto;
     }
   }
 
@@ -625,7 +633,7 @@
     font-family: var(--font-family-helvetica-neue);
     font-size: 1rem;
     font-weight: var(--font-weight-regular);
-    color: var(--primary-blue);
+    color: var(--basic-black);
     text-decoration: none;
     margin-bottom: 1rem;
     cursor: pointer;
@@ -636,6 +644,10 @@
       margin-right: 0.5rem;
       font-size: 1.25rem;
     }
+  }
+
+  .menu-sub-back:hover {
+    color: var(--primary-blue);
   }
 
   .menu-image-wrapper {
@@ -735,6 +747,7 @@
     .mega-menu-footer {
       padding: 0.5rem 0;
     }
+
 
     .header.menu-open .header-row .right-block {
       max-width: 40%;

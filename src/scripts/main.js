@@ -219,6 +219,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const menuSubItemsContainer = document.querySelector('.menu-sub-items');
             if (menuSubItemsContainer) {
                 menuSubItemsContainer.classList.remove('active');
+                const items = menuSubItemsContainer.querySelectorAll('.menu-sub-item');
+                gsap.set(items, { opacity: 0, x: -20 });
             }
         }
 
@@ -263,13 +265,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     backBtn.className = 'menu-sub-back';
                     backBtn.textContent = 'Back';
                     backBtn.addEventListener('click', function() {
+                        const items = menuSubItemsContainer.querySelectorAll('.menu-sub-item');
                         menuSubItemsContainer.classList.remove('active');
+                        gsap.set(items, { opacity: 0, x: -20 });
                     });
                     menuSubItemsContainer.insertBefore(backBtn, menuSubItemsContainer.firstChild);
                 }
 
                 // Show overlay
                 menuSubItemsContainer.classList.add('active');
+
+                // Animate submenu items (stagger like desktop)
+                const items = menuSubItemsContainer.querySelectorAll('.menu-sub-item');
+                gsap.killTweensOf(items);
+                gsap.set(items, { opacity: 0, x: -20, force3D: true });
+                gsap.to(items, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.35,
+                    ease: 'power2.out',
+                    stagger: 0.05,
+                    force3D: true
+                });
             });
         });
     }
