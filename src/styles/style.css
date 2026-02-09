@@ -370,8 +370,8 @@ body {
   padding-right: var(--spacing-base);
 }
 .header-logo {
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
   gap: 1rem;
 }
 .header-logo img {
@@ -411,15 +411,15 @@ body {
 }
 .header-nav .btn-header,
 .header-nav .menu-dropdown-btn {
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
 }
 .header-icons-wrapper {
   gap: 1.5625rem;
 }
 .header-icon-btn {
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
 }
 .header-icon-btn {
   width: 1.875rem;
@@ -445,8 +445,8 @@ body {
   gap: 1rem;
   background: transparent;
   border: none;
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
   cursor: pointer;
   padding: 0.3125rem;
 }
@@ -985,12 +985,12 @@ body {
   width: 43.75rem;
   height: 43.75rem;
   border-radius: 128.1875rem;
-  background: var(--primary-yellow-bright, #FFF02A);
+  background: var(--primary-yellow-bright, #fff02a);
   filter: blur(11.625rem);
   pointer-events: none;
   z-index: 0;
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
 }
 .hero-content {
   position: relative;
@@ -1010,8 +1010,8 @@ body {
   position: relative;
   z-index: 1;
   top: -1.25rem;
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
 }
 .hero-title span {
   display: inline-block;
@@ -1029,13 +1029,13 @@ body {
   letter-spacing: 0;
   color: var(--basic-black);
   margin: 0;
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
 }
 .hero-text button {
   clip-path: none;
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
 }
 .sticky-wrapper {
   position: relative;
@@ -1067,8 +1067,8 @@ body {
   height: 100%;
   transform: translateZ(0);
   overflow: hidden;
-  clip-path: none;
-  -webkit-clip-path: none;
+  opacity: 0;
+  visibility: hidden;
 }
 .hero-image,
 .hero-video {

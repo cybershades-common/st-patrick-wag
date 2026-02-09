@@ -460,36 +460,32 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 1.1);
         }
 
-        // Animate hero media with clip-reveal from left to right (after button)
-        // Using same pattern as imageClipLeft in animations.js
+        // Animate hero media wrapper with clip-reveal from left to right
         const heroMedia = document.querySelector('.hero-media-wrapper');
-        if (!heroMedia) {
-            console.warn('Hero media wrapper not found');
-        } else {
-            // Set initial state - clip from left (same as imageClipLeft)
+        if (heroMedia) {
             const hidden = 'inset(0 100% 0 0)'; // Hidden from left
             const shown = 'inset(0 0% 0 0)';    // Fully revealed
 
             gsap.set(heroMedia, {
                 clipPath: hidden,
                 webkitClipPath: hidden,
+                opacity: 1,
+                visibility: 'visible',
                 willChange: 'clip-path',
                 force3D: true
             });
 
-            // Animate clip reveal from left to right
             heroTimeline.to(heroMedia, {
                 clipPath: shown,
                 webkitClipPath: shown,
                 duration: 1.2,
-                ease: 'power2.inOut', // Same ease as imageClipLeft
+                ease: 'power2.inOut',
                 force3D: true,
                 autoRound: false,
                 onComplete: () => {
-                    // Clean up after animation
                     gsap.set(heroMedia, { clearProps: 'will-change' });
                 }
-            }, 0.2); // Start earlier - 0.4s after button starts (instead of after it completes)
+            }, 0.2);
         }
     }
 
