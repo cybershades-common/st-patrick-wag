@@ -1747,4 +1747,127 @@ document.addEventListener('DOMContentLoaded', function () {
         initFooterGradientCursorEffect();
     }, 2000);
 
+    // Cursor-following effect for TESTIMONIALS gradient - left and up movement
+    function initTestimonialsGradientCursorEffect() {
+        // Only run on desktop
+        if (window.innerWidth <= 991) {
+            console.log('Testimonials gradient: Skipped (mobile)');
+            return;
+        }
+
+        const testimonialsGradient = document.querySelector('.testimonials-gradient');
+        const testimonialsSection = document.querySelector('.testimonials-section');
+        const testimonialsContent = document.querySelector('.testimonials-quote-wrapper');
+
+        if (!testimonialsGradient || !testimonialsSection || !testimonialsContent) {
+            console.warn('Testimonials gradient elements not found');
+            return;
+        }
+
+        // ============================================
+        // CONFIGURATION - Left and Up movement (mirror of hero)
+        // ============================================
+        const CONFIG = {
+            // Maximum movement distance
+            maxLeft: 400,              // Max 400px to the left
+            maxUp: 400,                // Max 400px upward
+
+            // Active area: How far from content should cursor trigger movement?
+            activeRadius: 400,         // Movement triggers within this radius from content center
+
+            // Follow speed: How smoothly gradient follows
+            followEase: 0.08,          // Very smooth (same as hero)
+
+            // Return speed: How slowly it returns to original
+            returnEase: 0.03,          // Very slow return (same as hero)
+        };
+        // ============================================
+
+        let mouseX = null;
+        let mouseY = null;
+        let currentX = 0;
+        let currentY = 0;
+        let hasMouseMoved = false;
+        let isInActiveArea = false;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!hasMouseMoved) {
+                hasMouseMoved = true;
+                console.log('Testimonials gradient will now follow cursor (left & up only)');
+            }
+        });
+
+        // Animate gradient
+        function animate() {
+            // Wait for mouse movement
+            if (!hasMouseMoved || mouseX === null || mouseY === null) {
+                requestAnimationFrame(animate);
+                return;
+            }
+
+            const testimonialsRect = testimonialsSection.getBoundingClientRect();
+            const contentRect = testimonialsContent.getBoundingClientRect();
+
+            // Calculate content center
+            const contentCenterX = contentRect.left + (contentRect.width / 2);
+            const contentCenterY = contentRect.top + (contentRect.height / 2);
+
+            // Check if mouse is within active radius from content center
+            const distanceFromContent = Math.sqrt(
+                Math.pow(mouseX - contentCenterX, 2) +
+                Math.pow(mouseY - contentCenterY, 2)
+            );
+
+            isInActiveArea = distanceFromContent <= CONFIG.activeRadius;
+
+            let targetX = 0;
+            let targetY = 0;
+
+            if (isInActiveArea) {
+                // Calculate how far mouse is from content center
+                const deltaX = mouseX - contentCenterX;
+                const deltaY = contentCenterY - mouseY; // Invert Y (up is positive)
+
+                // Only move left and up (negative deltaX = left, positive deltaY = up)
+                const moveLeft = Math.max(0, -deltaX);  // Only when mouse is left of center
+                const moveUp = Math.max(0, deltaY);     // Only when mouse is above center
+
+                // Calculate movement as percentage of distance from content
+                // Normalize by active radius so movement scales smoothly
+                const leftPercent = Math.min(1, moveLeft / CONFIG.activeRadius);
+                const upPercent = Math.min(1, moveUp / CONFIG.activeRadius);
+
+                // Apply movement with max limits
+                const offsetX = leftPercent * CONFIG.maxLeft;
+                const offsetY = upPercent * CONFIG.maxUp;
+
+                // Calculate new position (moving left = negative, moving up = positive)
+                targetX = -offsetX;  // Negative for left movement
+                targetY = offsetY;   // Positive for up movement
+            }
+
+            // Smooth interpolation - different speeds for following vs returning
+            const currentEase = isInActiveArea ? CONFIG.followEase : CONFIG.returnEase;
+            currentX += (targetX - currentX) * currentEase;
+            currentY += (targetY - currentY) * currentEase;
+
+            // Apply transform
+            testimonialsGradient.style.transform = `translate(${currentX}px, ${-currentY}px)`;
+
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        console.log('Testimonials gradient cursor effect initialized - restricted to content area');
+        animate();
+    }
+
+    // Initialize testimonials gradient effect
+    setTimeout(() => {
+        initTestimonialsGradientCursorEffect();
+    }, 2000);
+
 });
