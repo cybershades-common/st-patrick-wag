@@ -994,6 +994,8 @@ body {
   z-index: 0;
   opacity: 0;
   visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  will-change: left, bottom;
 }
 .hero-content {
   position: relative;
@@ -1337,7 +1339,7 @@ body {
   z-index: 1;
 }
 .strategic-overlay {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
@@ -2056,8 +2058,8 @@ body {
 }
 .testimonials-gradient {
   position: absolute;
-  left: 80%;
-  top: 80%;
+  left: 72%;
+  top: 72%;
   width: 62.6875rem;
   height: 62.6875rem;
   border-radius: 50%;
@@ -2745,7 +2747,9 @@ body {
   position: absolute;
   top: 86%;
   left: 50%;
-  transform: translateX(-50%);
+  --gradient-offset-x: 0px;
+  --gradient-offset-y: 0px;
+  transform: translate(calc(-50% + var(--gradient-offset-x)), var(--gradient-offset-y));
   width: 128.1875rem;
   height: 128.1875rem;
   border-radius: 50%;
@@ -2754,6 +2758,7 @@ body {
   background: var(--primary-yellow-bright, #FFF02A);
   opacity: 0;
   visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 .footer .container-fluid {
   position: relative;
