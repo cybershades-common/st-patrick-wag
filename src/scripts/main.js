@@ -1148,324 +1148,229 @@ document.addEventListener('DOMContentLoaded', function () {
     initStatsAnimation();
 
 
-    //  Custom Testimonials Slider with GSAP Animations
-    (function initTestimonialsSlider() {
-        // =====================
-        // LOAD TESTIMONIAL DATA FROM HTML
-        // =====================
-        const testimonialsDataContainer = document.querySelector('.testimonials-data');
-        if (!testimonialsDataContainer) {
-            console.warn('Testimonials data container not found');
-            return;
-        }
+    // ==========================================================================
+    // TESTIMONIALS SLIDER
+    // ==========================================================================
 
-        const testimonialItems = testimonialsDataContainer.querySelectorAll('.testimonial-item');
-        if (!testimonialItems.length) {
-            console.warn('No testimonial items found');
-            return;
-        }
+    // Simplified Custom Testimonials Slider with GSAP Animations
+(function initTestimonialsSlider() {
+    // =====================
+    // GET ELEMENTS
+    // =====================
+    const imageWrapper = document.getElementById('testimonialsImageWrapper');
+    const contentWrapper = document.getElementById('testimonialsContentWrapper');
+    const prevBtn = document.getElementById('testimonialPrev');
+    const nextBtn = document.getElementById('testimonialNext');
 
-        // Build testimonials array from HTML
-        const testimonials = Array.from(testimonialItems).map(item => {
-            const image = item.getAttribute('data-image');
-            const quoteEl = item.querySelector('.testimonial-quote');
-            const nameEl = item.querySelector('.testimonial-name');
+    if (!imageWrapper || !contentWrapper || !prevBtn || !nextBtn) {
+        console.warn('Testimonials slider elements not found');
+        return;
+    }
 
-            return {
-                image: image || '',
-                quote: quoteEl ? quoteEl.textContent.trim() : '',
-                name: nameEl ? nameEl.textContent.trim() : ''
-            };
+    const imageSlides = imageWrapper.querySelectorAll('.testimonials-image');
+    const contentSlides = contentWrapper.querySelectorAll('.testimonials-slide-content');
+
+    if (!imageSlides.length || !contentSlides.length) {
+        console.warn('No testimonial slides found in HTML');
+        return;
+    }
+
+    // =====================
+    // STATE
+    // =====================
+    let currentIndex = 0;
+    let isAnimating = false;
+    const totalSlides = imageSlides.length;
+
+    // =====================
+    // INITIALIZE
+    // =====================
+    function initSlides() {
+        // Set initial state for images
+        imageSlides.forEach((slide, index) => {
+            if (index === 0) {
+                gsap.set(slide, { clipPath: 'inset(0% 0% 0% 0%)', zIndex: 1 });
+                gsap.set(slide.querySelector('.testimonials-img'), { scale: 1, x: 0 });
+            } else {
+                gsap.set(slide, { clipPath: 'inset(0% 100% 0% 0%)', zIndex: 0 });
+            }
         });
 
-        // =====================
-        // STATE
-        // =====================
-        let currentIndex = 0;
-        let isAnimating = false;
-        let activeContentTL = null;
-        let activeExitTL = null;
-        const totalSlides = testimonials.length;
-        const preloadedImages = new Map(); // Store preloaded images
+        // Animate first content slide in
+        contentSlides.forEach((slide, index) => {
+            const quote = slide.querySelector('.testimonials-quote');
+            const attr = slide.querySelector('.testimonials-attribution');
 
-        const imageWrapper = document.getElementById('testimonialsImageWrapper');
-        const contentWrapper = document.getElementById('testimonialsContentWrapper');
-        const prevBtn = document.getElementById('testimonialPrev');
-        const nextBtn = document.getElementById('testimonialNext');
-
-        // Check if elements exist
-        if (!imageWrapper || !contentWrapper || !prevBtn || !nextBtn) {
-            console.warn('Testimonials slider elements not found');
-            return;
-        }
-
-        // =====================
-        // PRELOAD IMAGES
-        // =====================
-        function preloadImage(src) {
-            return new Promise((resolve, reject) => {
-                if (preloadedImages.has(src)) {
-                    resolve(preloadedImages.get(src));
-                    return;
-                }
-                const img = new Image();
-                img.onload = () => {
-                    preloadedImages.set(src, img);
-                    resolve(img);
-                };
-                img.onerror = reject;
-                img.src = src;
-            });
-        }
-
-        // Preload all images on init
-        function preloadAllImages() {
-            const promises = testimonials.map(t => preloadImage(t.image));
-            Promise.all(promises).catch(err => console.error('Image preload error:', err));
-        }
-
-        // =====================
-        // CREATE IMAGE SLIDE
-        // =====================
-        function createImageSlide(index, isInitial) {
-            const data = testimonials[index];
-            const slideDiv = document.createElement('div');
-            slideDiv.className = 'testimonials-image';
-            slideDiv.setAttribute('data-index', index);
-
-            const img = document.createElement('img');
-            img.className = 'testimonials-img';
-
-            // Use preloaded image if available
-            if (preloadedImages.has(data.image)) {
-                img.src = preloadedImages.get(data.image).src;
-            } else {
-                img.src = data.image;
-                preloadImage(data.image).catch(err => console.error('Image load error:', err));
-            }
-
-            img.alt = data.name;
-            img.style.opacity = '1';
-            img.style.display = 'block';
-
-            slideDiv.appendChild(img);
-            imageWrapper.appendChild(slideDiv);
-
-            if (isInitial) {
-                gsap.set(slideDiv, { clipPath: 'inset(0% 0% 0% 0%)' });
-                gsap.set(img, { scale: 1, x: 0 });
-            }
-
-            return { slideDiv, img };
-        }
-
-        // =====================
-        // CREATE CONTENT SLIDE
-        // =====================
-        function createContentSlide(index, isInitial) {
-            const data = testimonials[index];
-
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'testimonials-slide-content';
-            contentDiv.setAttribute('data-index', index);
-
-            const quoteP = document.createElement('p');
-            quoteP.className = 'testimonials-quote';
-            quoteP.textContent = data.quote;
-
-            const attrP = document.createElement('p');
-            attrP.className = 'testimonials-attribution';
-            attrP.textContent = data.name;
-
-            contentDiv.appendChild(quoteP);
-            contentDiv.appendChild(attrP);
-            contentWrapper.appendChild(contentDiv);
-
-            if (isInitial) {
-                contentDiv.classList.add('active');
+            if (index === 0) {
+                slide.classList.add('active');
                 const tl = gsap.timeline({ delay: 0.3 });
-                tl.fromTo(quoteP,
+                tl.fromTo(quote,
                     { opacity: 0, y: 40 },
                     { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
-                )
-                    .fromTo(attrP,
-                        { opacity: 0, y: 20 },
-                        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
-                        '-=0.4'
-                    );
+                ).fromTo(attr,
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+                    '-=0.4'
+                );
+            } else {
+                slide.classList.remove('active');
+                gsap.set([quote, attr], { opacity: 0 });
             }
+        });
+    }
 
-            return contentDiv;
-        }
+    // =====================
+    // GO TO SLIDE
+    // =====================
+    function goToSlide(newIndex, direction) {
+        if (isAnimating || newIndex === currentIndex) return;
+        isAnimating = true;
 
-        // =====================
-        // GO TO SLIDE
-        // =====================
-        function goToSlide(newIndex, direction) {
-            if (isAnimating || newIndex === currentIndex) return;
-            isAnimating = true;
+        const oldIndex = currentIndex;
+        currentIndex = newIndex;
 
-            if (activeContentTL) { activeContentTL.kill(); activeContentTL = null; }
-            if (activeExitTL) { activeExitTL.kill(); activeExitTL = null; }
+        // ── IMAGE PARALLAX TRANSITION ──
+        const newImageSlide = imageSlides[currentIndex];
+        const oldImageSlide = imageSlides[oldIndex];
+        const newImg = newImageSlide.querySelector('.testimonials-img');
+        const oldImg = oldImageSlide.querySelector('.testimonials-img');
 
-            const oldIndex = currentIndex;
-            currentIndex = newIndex;
+        const clipFrom = direction === 1 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)';
+        const oldClipTo = direction === 1 ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)';
+        const parallaxFrom = direction === 1 ? -100 : 100;
+        const oldParallaxTo = direction === 1 ? 100 : -100;
 
-            // ── IMAGE PARALLAX TRANSITION ──
-            const { slideDiv: newImageSlide, img: newImg } = createImageSlide(currentIndex, false);
+        // Set up new image
+        gsap.set(newImageSlide, { clipPath: clipFrom, zIndex: 2 });
+        gsap.set(newImg, { scale: 1.3, x: parallaxFrom });
 
-            const clipFrom = direction === 1 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)';
-            const oldClipTo = direction === 1 ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)';
-            const parallaxFrom = direction === 1 ? -100 : 100;
-            const oldParallaxTo = direction === 1 ? 100 : -100;
-
-            gsap.set(newImageSlide, { clipPath: clipFrom, zIndex: 2 });
-            gsap.set(newImg, { scale: 1.3, x: parallaxFrom });
-
-            const oldImages = imageWrapper.querySelectorAll(`.testimonials-image[data-index="${oldIndex}"]`);
-            let animationCompleted = 0;
-            const totalOldImages = oldImages.length;
-
-            oldImages.forEach(el => {
-                gsap.set(el, { zIndex: 1 });
-                gsap.to(el.querySelector('.testimonials-img'), {
-                    x: oldParallaxTo, scale: 1.1, duration: 1.2, ease: 'power3.inOut'
-                });
-                gsap.to(el, {
-                    clipPath: oldClipTo,
-                    duration: 1.2,
-                    ease: 'power3.inOut',
-                    delay: 0.05,
-                    onComplete: () => {
-                        animationCompleted++;
-                        // Only remove after all animations complete and new image exists
-                        if (animationCompleted === totalOldImages) {
-                            const newImageExists = imageWrapper.querySelector(`.testimonials-image[data-index="${currentIndex}"]`);
-                            if (newImageExists) {
-                                const stale = imageWrapper.querySelectorAll(`.testimonials-image[data-index="${oldIndex}"]`);
-                                stale.forEach(el => el.remove());
-                            }
-                        }
-                    }
-                });
-            });
-
-            gsap.to(newImageSlide, {
-                clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power3.inOut'
-            });
-            gsap.to(newImg, {
-                scale: 1, x: 0, duration: 1.4, ease: 'power3.out'
-            });
-
-            // ── CONTENT TRANSITION ──
-            const oldContent = contentWrapper.querySelector(`.testimonials-slide-content[data-index="${oldIndex}"]`);
-            const exitY = direction === 1 ? -50 : 50;
-            const enterFromY = direction === 1 ? 60 : -60;
-
-            if (oldContent) {
-                const oldQuote = oldContent.querySelector('.testimonials-quote');
-                const oldAttr = oldContent.querySelector('.testimonials-attribution');
-
-                activeExitTL = gsap.timeline({
-                    onComplete: () => {
-                        oldContent.remove();
-                        activeExitTL = null;
-                    }
-                });
-
-                activeExitTL
-                    .to(oldAttr, {
-                        opacity: 0,
-                        y: exitY * 0.5,
-                        duration: 0.35,
-                        ease: 'power3.in'
-                    }, 0)
-                    .to(oldQuote, {
-                        opacity: 0,
-                        y: exitY,
-                        duration: 0.4,
-                        ease: 'power3.in'
-                    }, 0.05);
-            }
-
-            const newContent = createContentSlide(currentIndex, false);
-            newContent.classList.add('active');
-
-            const newQuote = newContent.querySelector('.testimonials-quote');
-            const newAttr = newContent.querySelector('.testimonials-attribution');
-
-            gsap.set(newQuote, { opacity: 0, y: enterFromY });
-            gsap.set(newAttr, { opacity: 0, y: enterFromY * 0.5 });
-
-            activeContentTL = gsap.timeline({
-                delay: 0.5,
-                onComplete: () => {
-                    // Add small buffer to ensure all animations complete
-                    setTimeout(() => {
-                        isAnimating = false;
-                        activeContentTL = null;
-                    }, 100);
-                }
-            });
-
-            activeContentTL
-                .to(newQuote, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    ease: 'power3.out'
-                }, 0)
-                .to(newAttr, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.65,
-                    ease: 'power3.out'
-                }, 0.15);
-        }
-
-        // =====================
-        // NAVIGATION
-        // =====================
-        function nextSlide() {
-            goToSlide((currentIndex + 1) % totalSlides, 1);
-        }
-
-        function prevSlide() {
-            goToSlide((currentIndex - 1 + totalSlides) % totalSlides, -1);
-        }
-
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
+        // Animate old image out
+        gsap.set(oldImageSlide, { zIndex: 1 });
+        gsap.to(oldImg, {
+            x: oldParallaxTo,
+            scale: 1.1,
+            duration: 1.2,
+            ease: 'power3.inOut'
+        });
+        gsap.to(oldImageSlide, {
+            clipPath: oldClipTo,
+            duration: 1.2,
+            ease: 'power3.inOut',
+            delay: 0.05
         });
 
-        let touchStartX = 0;
-        const testimonialsSection = document.querySelector('.testimonials-section');
-        if (testimonialsSection) {
-            testimonialsSection.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-            });
-            testimonialsSection.addEventListener('touchend', (e) => {
-                const diff = touchStartX - e.changedTouches[0].screenX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) nextSlide(); else prevSlide();
-                }
-            });
-        }
+        // Animate new image in
+        gsap.to(newImageSlide, {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 1.2,
+            ease: 'power3.inOut'
+        });
+        gsap.to(newImg, {
+            scale: 1,
+            x: 0,
+            duration: 1.4,
+            ease: 'power3.out'
+        });
 
-        // =====================
-        // INIT
-        // =====================
-        // Preload all images first
-        preloadAllImages();
+        // ── CONTENT TRANSITION ──
+        const oldContent = contentSlides[oldIndex];
+        const newContent = contentSlides[currentIndex];
+        const exitY = direction === 1 ? -50 : 50;
+        const enterFromY = direction === 1 ? 60 : -60;
 
-        // Create initial slides
-        createImageSlide(0, true);
-        createContentSlide(0, true);
-    })();
+        // Animate old content out
+        const oldQuote = oldContent.querySelector('.testimonials-quote');
+        const oldAttr = oldContent.querySelector('.testimonials-attribution');
+
+        gsap.timeline({
+            onComplete: () => {
+                oldContent.classList.remove('active');
+            }
+        })
+            .to(oldAttr, {
+                opacity: 0,
+                y: exitY * 0.5,
+                duration: 0.35,
+                ease: 'power3.in'
+            }, 0)
+            .to(oldQuote, {
+                opacity: 0,
+                y: exitY,
+                duration: 0.4,
+                ease: 'power3.in'
+            }, 0.05);
+
+        // Animate new content in
+        newContent.classList.add('active');
+        const newQuote = newContent.querySelector('.testimonials-quote');
+        const newAttr = newContent.querySelector('.testimonials-attribution');
+
+        gsap.set(newQuote, { opacity: 0, y: enterFromY });
+        gsap.set(newAttr, { opacity: 0, y: enterFromY * 0.5 });
+
+        gsap.timeline({
+            delay: 0.5,
+            onComplete: () => {
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 100);
+            }
+        })
+            .to(newQuote, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out'
+            }, 0)
+            .to(newAttr, {
+                opacity: 1,
+                y: 0,
+                duration: 0.65,
+                ease: 'power3.out'
+            }, 0.15);
+    }
+
+    // =====================
+    // NAVIGATION
+    // =====================
+    function nextSlide() {
+        goToSlide((currentIndex + 1) % totalSlides, 1);
+    }
+
+    function prevSlide() {
+        goToSlide((currentIndex - 1 + totalSlides) % totalSlides, -1);
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Touch navigation
+    let touchStartX = 0;
+    const testimonialsSection = document.querySelector('.testimonials-section');
+    if (testimonialsSection) {
+        testimonialsSection.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        testimonialsSection.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextSlide();
+                else prevSlide();
+            }
+        });
+    }
+
+    // =====================
+    // INIT
+    // =====================
+    initSlides();
+})();
 
     // Hero video lazy loading with smooth poster-to-video transition
     const heroVideo = document.getElementById('heroVideo');
