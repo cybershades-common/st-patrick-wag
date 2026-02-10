@@ -57,7 +57,9 @@
   position: absolute;
   top: 86%;
   left: 50%;
-  transform: translateX(-50%);
+  --gradient-offset-x: 0px;
+  --gradient-offset-y: 0px;
+  transform: translate(calc(-50% + var(--gradient-offset-x)), var(--gradient-offset-y));
   width: 128.1875rem;
   height: 128.1875rem;
   border-radius: 50%;
@@ -66,7 +68,7 @@
   background: var(--primary-yellow-bright, #FFF02A);
   opacity: 0;
   visibility: hidden;
-
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .footer .container-fluid {

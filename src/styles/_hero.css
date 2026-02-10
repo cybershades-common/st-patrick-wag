@@ -31,6 +31,8 @@
   z-index: 0;
   opacity: 0;
   visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  will-change: left, bottom;
 }
 .hero-content {
   position: relative;
@@ -143,7 +145,7 @@
 }
 @media (max-width: 1400px) {
   .hero .hero-title {
-    font-size: 10rem;
+    font-size: 8.5rem;
   }
 }
 @media (min-width: 992px) and (max-width: 1200px) {

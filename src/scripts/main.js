@@ -1153,224 +1153,224 @@ document.addEventListener('DOMContentLoaded', function () {
     // ==========================================================================
 
     // Simplified Custom Testimonials Slider with GSAP Animations
-(function initTestimonialsSlider() {
-    // =====================
-    // GET ELEMENTS
-    // =====================
-    const imageWrapper = document.getElementById('testimonialsImageWrapper');
-    const contentWrapper = document.getElementById('testimonialsContentWrapper');
-    const prevBtn = document.getElementById('testimonialPrev');
-    const nextBtn = document.getElementById('testimonialNext');
+    (function initTestimonialsSlider() {
+        // =====================
+        // GET ELEMENTS
+        // =====================
+        const imageWrapper = document.getElementById('testimonialsImageWrapper');
+        const contentWrapper = document.getElementById('testimonialsContentWrapper');
+        const prevBtn = document.getElementById('testimonialPrev');
+        const nextBtn = document.getElementById('testimonialNext');
 
-    if (!imageWrapper || !contentWrapper || !prevBtn || !nextBtn) {
-        console.warn('Testimonials slider elements not found');
-        return;
-    }
+        if (!imageWrapper || !contentWrapper || !prevBtn || !nextBtn) {
+            console.warn('Testimonials slider elements not found');
+            return;
+        }
 
-    const imageSlides = imageWrapper.querySelectorAll('.testimonials-image');
-    const contentSlides = contentWrapper.querySelectorAll('.testimonials-slide-content');
+        const imageSlides = imageWrapper.querySelectorAll('.testimonials-image');
+        const contentSlides = contentWrapper.querySelectorAll('.testimonials-slide-content');
 
-    if (!imageSlides.length || !contentSlides.length) {
-        console.warn('No testimonial slides found in HTML');
-        return;
-    }
+        if (!imageSlides.length || !contentSlides.length) {
+            console.warn('No testimonial slides found in HTML');
+            return;
+        }
 
-    // =====================
-    // STATE
-    // =====================
-    let currentIndex = 0;
-    let isAnimating = false;
-    const totalSlides = imageSlides.length;
+        // =====================
+        // STATE
+        // =====================
+        let currentIndex = 0;
+        let isAnimating = false;
+        const totalSlides = imageSlides.length;
 
-    // =====================
-    // INITIALIZE
-    // =====================
-    function initSlides() {
-        // Set initial state for images
-        imageSlides.forEach((slide, index) => {
-            if (index === 0) {
-                gsap.set(slide, { clipPath: 'inset(0% 0% 0% 0%)', zIndex: 1 });
-                gsap.set(slide.querySelector('.testimonials-img'), { scale: 1, x: 0 });
-            } else {
-                gsap.set(slide, { clipPath: 'inset(0% 100% 0% 0%)', zIndex: 0 });
-            }
-        });
+        // =====================
+        // INITIALIZE
+        // =====================
+        function initSlides() {
+            // Set initial state for images
+            imageSlides.forEach((slide, index) => {
+                if (index === 0) {
+                    gsap.set(slide, { clipPath: 'inset(0% 0% 0% 0%)', zIndex: 1 });
+                    gsap.set(slide.querySelector('.testimonials-img'), { scale: 1, x: 0 });
+                } else {
+                    gsap.set(slide, { clipPath: 'inset(0% 100% 0% 0%)', zIndex: 0 });
+                }
+            });
 
-        // Animate first content slide in
-        contentSlides.forEach((slide, index) => {
-            const quote = slide.querySelector('.testimonials-quote');
-            const attr = slide.querySelector('.testimonials-attribution');
+            // Animate first content slide in
+            contentSlides.forEach((slide, index) => {
+                const quote = slide.querySelector('.testimonials-quote');
+                const attr = slide.querySelector('.testimonials-attribution');
 
-            if (index === 0) {
-                slide.classList.add('active');
-                const tl = gsap.timeline({ delay: 0.3 });
-                tl.fromTo(quote,
-                    { opacity: 0, y: 40 },
-                    { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
-                ).fromTo(attr,
-                    { opacity: 0, y: 20 },
-                    { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
-                    '-=0.4'
-                );
-            } else {
-                slide.classList.remove('active');
-                gsap.set([quote, attr], { opacity: 0 });
-            }
-        });
-    }
+                if (index === 0) {
+                    slide.classList.add('active');
+                    const tl = gsap.timeline({ delay: 0.3 });
+                    tl.fromTo(quote,
+                        { opacity: 0, y: 40 },
+                        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+                    ).fromTo(attr,
+                        { opacity: 0, y: 20 },
+                        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+                        '-=0.4'
+                    );
+                } else {
+                    slide.classList.remove('active');
+                    gsap.set([quote, attr], { opacity: 0 });
+                }
+            });
+        }
 
-    // =====================
-    // GO TO SLIDE
-    // =====================
-    function goToSlide(newIndex, direction) {
-        if (isAnimating || newIndex === currentIndex) return;
-        isAnimating = true;
+        // =====================
+        // GO TO SLIDE
+        // =====================
+        function goToSlide(newIndex, direction) {
+            if (isAnimating || newIndex === currentIndex) return;
+            isAnimating = true;
 
-        const oldIndex = currentIndex;
-        currentIndex = newIndex;
+            const oldIndex = currentIndex;
+            currentIndex = newIndex;
 
-        // ── IMAGE PARALLAX TRANSITION ──
-        const newImageSlide = imageSlides[currentIndex];
-        const oldImageSlide = imageSlides[oldIndex];
-        const newImg = newImageSlide.querySelector('.testimonials-img');
-        const oldImg = oldImageSlide.querySelector('.testimonials-img');
+            // ── IMAGE PARALLAX TRANSITION ──
+            const newImageSlide = imageSlides[currentIndex];
+            const oldImageSlide = imageSlides[oldIndex];
+            const newImg = newImageSlide.querySelector('.testimonials-img');
+            const oldImg = oldImageSlide.querySelector('.testimonials-img');
 
-        const clipFrom = direction === 1 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)';
-        const oldClipTo = direction === 1 ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)';
-        const parallaxFrom = direction === 1 ? -100 : 100;
-        const oldParallaxTo = direction === 1 ? 100 : -100;
+            const clipFrom = direction === 1 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)';
+            const oldClipTo = direction === 1 ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)';
+            const parallaxFrom = direction === 1 ? -100 : 100;
+            const oldParallaxTo = direction === 1 ? 100 : -100;
 
-        // Set up new image
-        gsap.set(newImageSlide, { clipPath: clipFrom, zIndex: 2 });
-        gsap.set(newImg, { scale: 1.3, x: parallaxFrom });
+            // Set up new image
+            gsap.set(newImageSlide, { clipPath: clipFrom, zIndex: 2 });
+            gsap.set(newImg, { scale: 1.3, x: parallaxFrom });
 
-        // Animate old image out
-        gsap.set(oldImageSlide, { zIndex: 1 });
-        gsap.to(oldImg, {
-            x: oldParallaxTo,
-            scale: 1.1,
-            duration: 1.2,
-            ease: 'power3.inOut'
-        });
-        gsap.to(oldImageSlide, {
-            clipPath: oldClipTo,
-            duration: 1.2,
-            ease: 'power3.inOut',
-            delay: 0.05
-        });
+            // Animate old image out
+            gsap.set(oldImageSlide, { zIndex: 1 });
+            gsap.to(oldImg, {
+                x: oldParallaxTo,
+                scale: 1.1,
+                duration: 1.2,
+                ease: 'power3.inOut'
+            });
+            gsap.to(oldImageSlide, {
+                clipPath: oldClipTo,
+                duration: 1.2,
+                ease: 'power3.inOut',
+                delay: 0.05
+            });
 
-        // Animate new image in
-        gsap.to(newImageSlide, {
-            clipPath: 'inset(0% 0% 0% 0%)',
-            duration: 1.2,
-            ease: 'power3.inOut'
-        });
-        gsap.to(newImg, {
-            scale: 1,
-            x: 0,
-            duration: 1.4,
-            ease: 'power3.out'
-        });
-
-        // ── CONTENT TRANSITION ──
-        const oldContent = contentSlides[oldIndex];
-        const newContent = contentSlides[currentIndex];
-        const exitY = direction === 1 ? -50 : 50;
-        const enterFromY = direction === 1 ? 60 : -60;
-
-        // Animate old content out
-        const oldQuote = oldContent.querySelector('.testimonials-quote');
-        const oldAttr = oldContent.querySelector('.testimonials-attribution');
-
-        gsap.timeline({
-            onComplete: () => {
-                oldContent.classList.remove('active');
-            }
-        })
-            .to(oldAttr, {
-                opacity: 0,
-                y: exitY * 0.5,
-                duration: 0.35,
-                ease: 'power3.in'
-            }, 0)
-            .to(oldQuote, {
-                opacity: 0,
-                y: exitY,
-                duration: 0.4,
-                ease: 'power3.in'
-            }, 0.05);
-
-        // Animate new content in
-        newContent.classList.add('active');
-        const newQuote = newContent.querySelector('.testimonials-quote');
-        const newAttr = newContent.querySelector('.testimonials-attribution');
-
-        gsap.set(newQuote, { opacity: 0, y: enterFromY });
-        gsap.set(newAttr, { opacity: 0, y: enterFromY * 0.5 });
-
-        gsap.timeline({
-            delay: 0.5,
-            onComplete: () => {
-                setTimeout(() => {
-                    isAnimating = false;
-                }, 100);
-            }
-        })
-            .to(newQuote, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
+            // Animate new image in
+            gsap.to(newImageSlide, {
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 1.2,
+                ease: 'power3.inOut'
+            });
+            gsap.to(newImg, {
+                scale: 1,
+                x: 0,
+                duration: 1.4,
                 ease: 'power3.out'
-            }, 0)
-            .to(newAttr, {
-                opacity: 1,
-                y: 0,
-                duration: 0.65,
-                ease: 'power3.out'
-            }, 0.15);
-    }
+            });
 
-    // =====================
-    // NAVIGATION
-    // =====================
-    function nextSlide() {
-        goToSlide((currentIndex + 1) % totalSlides, 1);
-    }
+            // ── CONTENT TRANSITION ──
+            const oldContent = contentSlides[oldIndex];
+            const newContent = contentSlides[currentIndex];
+            const exitY = direction === 1 ? -50 : 50;
+            const enterFromY = direction === 1 ? 60 : -60;
 
-    function prevSlide() {
-        goToSlide((currentIndex - 1 + totalSlides) % totalSlides, -1);
-    }
+            // Animate old content out
+            const oldQuote = oldContent.querySelector('.testimonials-quote');
+            const oldAttr = oldContent.querySelector('.testimonials-attribution');
 
-    prevBtn.addEventListener('click', prevSlide);
-    nextBtn.addEventListener('click', nextSlide);
+            gsap.timeline({
+                onComplete: () => {
+                    oldContent.classList.remove('active');
+                }
+            })
+                .to(oldAttr, {
+                    opacity: 0,
+                    y: exitY * 0.5,
+                    duration: 0.35,
+                    ease: 'power3.in'
+                }, 0)
+                .to(oldQuote, {
+                    opacity: 0,
+                    y: exitY,
+                    duration: 0.4,
+                    ease: 'power3.in'
+                }, 0.05);
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') nextSlide();
-        if (e.key === 'ArrowLeft') prevSlide();
-    });
+            // Animate new content in
+            newContent.classList.add('active');
+            const newQuote = newContent.querySelector('.testimonials-quote');
+            const newAttr = newContent.querySelector('.testimonials-attribution');
 
-    // Touch navigation
-    let touchStartX = 0;
-    const testimonialsSection = document.querySelector('.testimonials-section');
-    if (testimonialsSection) {
-        testimonialsSection.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
+            gsap.set(newQuote, { opacity: 0, y: enterFromY });
+            gsap.set(newAttr, { opacity: 0, y: enterFromY * 0.5 });
+
+            gsap.timeline({
+                delay: 0.5,
+                onComplete: () => {
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 100);
+                }
+            })
+                .to(newQuote, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: 'power3.out'
+                }, 0)
+                .to(newAttr, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.65,
+                    ease: 'power3.out'
+                }, 0.15);
+        }
+
+        // =====================
+        // NAVIGATION
+        // =====================
+        function nextSlide() {
+            goToSlide((currentIndex + 1) % totalSlides, 1);
+        }
+
+        function prevSlide() {
+            goToSlide((currentIndex - 1 + totalSlides) % totalSlides, -1);
+        }
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
         });
-        testimonialsSection.addEventListener('touchend', (e) => {
-            const diff = touchStartX - e.changedTouches[0].screenX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) nextSlide();
-                else prevSlide();
-            }
-        });
-    }
 
-    // =====================
-    // INIT
-    // =====================
-    initSlides();
-})();
+        // Touch navigation
+        let touchStartX = 0;
+        const testimonialsSection = document.querySelector('.testimonials-section');
+        if (testimonialsSection) {
+            testimonialsSection.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            testimonialsSection.addEventListener('touchend', (e) => {
+                const diff = touchStartX - e.changedTouches[0].screenX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) nextSlide();
+                    else prevSlide();
+                }
+            });
+        }
+
+        // =====================
+        // INIT
+        // =====================
+        initSlides();
+    })();
 
     // Hero video lazy loading with smooth poster-to-video transition
     const heroVideo = document.getElementById('heroVideo');
@@ -1478,5 +1478,128 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     initFooterMarquee();
+
+    // Cursor-following gradient effect - gradient follows cursor around hero title only
+    function initGradientCursorEffect() {
+        // Only run on desktop
+        if (window.innerWidth <= 991) return;
+
+        const heroGradient = document.querySelector('.hero-gradient');
+        const heroSection = document.querySelector('.hero');
+        const heroTitle = document.querySelector('.hero-title');
+
+        if (!heroGradient || !heroSection || !heroTitle) return;
+
+        // ============================================
+        // CONFIGURATION - Up and Right movement only
+        // ============================================
+        const CONFIG = {
+            // Maximum movement distance
+            maxRight: 300,             // Max 300px to the right
+            maxUp: 300,                // Max 300px upward
+
+            // Active area: How far from title should cursor trigger movement?
+            activeRadius: 400,         // Movement triggers within this radius from title center
+
+            // Follow speed: How smoothly gradient follows (lower = smoother, like sunrise)
+            followEase: 0.08,          // Very smooth (try: 0.05-0.15)
+
+            // Return speed: How slowly it returns to original (lower = slower)
+            returnEase: 0.03,          // Very slow return (try: 0.02-0.08)
+        };
+        // ============================================
+
+        // Original position
+        const originalLeft = -212; // -13.25rem in pixels
+        const originalBottom = -536; // -33.5rem in pixels
+
+        let mouseX = null;
+        let mouseY = null;
+        let currentX = originalLeft;
+        let currentY = originalBottom;
+        let hasMouseMoved = false;
+        let isInActiveArea = false;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!hasMouseMoved) {
+                hasMouseMoved = true;
+                console.log('Gradient will now follow cursor (right & up only)');
+            }
+        });
+
+        // Animate gradient
+        function animate() {
+            // Wait for mouse movement
+            if (!hasMouseMoved || mouseX === null || mouseY === null) {
+                requestAnimationFrame(animate);
+                return;
+            }
+
+            const heroRect = heroSection.getBoundingClientRect();
+            const titleRect = heroTitle.getBoundingClientRect();
+
+            // Calculate title center
+            const titleCenterX = titleRect.left + (titleRect.width / 2);
+            const titleCenterY = titleRect.top + (titleRect.height / 2);
+
+            // Check if mouse is within active radius from title center
+            const distanceFromTitle = Math.sqrt(
+                Math.pow(mouseX - titleCenterX, 2) +
+                Math.pow(mouseY - titleCenterY, 2)
+            );
+
+            isInActiveArea = distanceFromTitle <= CONFIG.activeRadius;
+
+            let targetLeft = originalLeft;
+            let targetBottom = originalBottom;
+
+            if (isInActiveArea) {
+                // Calculate how far mouse is from title center
+                const deltaX = mouseX - titleCenterX;
+                const deltaY = titleCenterY - mouseY; // Invert Y (up is positive)
+
+                // Only move right and up (positive values only)
+                const moveRight = Math.max(0, deltaX);
+                const moveUp = Math.max(0, deltaY);
+
+                // Calculate movement as percentage of distance from title
+                // Normalize by active radius so movement scales smoothly
+                const rightPercent = Math.min(1, moveRight / CONFIG.activeRadius);
+                const upPercent = Math.min(1, moveUp / CONFIG.activeRadius);
+
+                // Apply movement with max limits
+                const offsetX = rightPercent * CONFIG.maxRight;
+                const offsetY = upPercent * CONFIG.maxUp;
+
+                // Calculate new position (moving right increases left, moving up increases bottom)
+                targetLeft = originalLeft + offsetX;
+                targetBottom = originalBottom + offsetY;
+            }
+
+            // Smooth interpolation - different speeds for following vs returning
+            const currentEase = isInActiveArea ? CONFIG.followEase : CONFIG.returnEase;
+            currentX += (targetLeft - currentX) * currentEase;
+            currentY += (targetBottom - currentY) * currentEase;
+
+            // Apply new position
+            heroGradient.style.left = `${currentX}px`;
+            heroGradient.style.bottom = `${currentY}px`;
+
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        console.log('Hero gradient cursor effect initialized - restricted to title area');
+        animate();
+    }
+
+    // Run after delay to ensure GSAP has made gradient visible
+    setTimeout(() => {
+        initGradientCursorEffect();
+    }, 2000);
+
 
 });
