@@ -1601,5 +1601,150 @@ document.addEventListener('DOMContentLoaded', function () {
         initGradientCursorEffect();
     }, 2000);
 
+    // Cursor-following effect for FOOTER gradient - entire footer area
+    function initFooterGradientCursorEffect() {
+        // Only run on desktop
+        if (window.innerWidth <= 991) {
+            console.log('Footer gradient: Skipped (mobile)');
+            return;
+        }
+
+        const footerGradient = document.querySelector('.footer-gradient');
+        const footerSection = document.querySelector('footer.footer');
+
+        if (!footerGradient || !footerSection) {
+            console.warn('Footer gradient elements not found');
+            return;
+        }
+
+        console.log('Footer gradient element found:', footerGradient);
+
+        // ============================================
+        // FOOTER GRADIENT CONFIGURATION
+        // ============================================
+        const CONFIG = {
+            // Maximum movement distance
+            maxLeft: 300,              // Max 300px to the left
+            maxRight: 300,             // Max 300px to the right
+            maxUp: 300,                // Max 300px upward
+
+            // Follow speed
+            followEase: 0.08,          // Smooth following
+
+            // Return speed
+            returnEase: 0.03,          // Slow return
+        };
+        // ============================================
+
+        let mouseX = null;
+        let mouseY = null;
+        let currentX = 0;
+        let currentY = 0;
+        let hasMouseMoved = false;
+        let isInFooter = false;
+        let frameCount = 0;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!hasMouseMoved) {
+                hasMouseMoved = true;
+                console.log('Footer gradient: Mouse movement detected');
+            }
+        });
+
+        // Animate gradient
+        function animate() {
+            // Wait for mouse movement
+            if (!hasMouseMoved || mouseX === null || mouseY === null) {
+                requestAnimationFrame(animate);
+                return;
+            }
+
+            const footerRect = footerSection.getBoundingClientRect();
+
+            // Check if footer is in viewport
+            const isFooterVisible = (
+                footerRect.top < window.innerHeight &&
+                footerRect.bottom > 0
+            );
+
+            if (!isFooterVisible) {
+                requestAnimationFrame(animate);
+                return;
+            }
+
+            // Check if mouse is within footer bounds - lower 60% height (bottom portion), full width
+            const activeHeightStart = footerRect.top + (footerRect.height * 0.4); // Start from 40% down
+            isInFooter = (
+                mouseX >= footerRect.left &&
+                mouseX <= footerRect.right &&
+                mouseY >= activeHeightStart &&  // Skip top 40%
+                mouseY <= footerRect.bottom     // Bottom 60% is active
+            );
+
+            let targetX = 0;
+            let targetY = 0;
+
+            if (isInFooter) {
+                // Calculate footer center
+                const footerCenterX = footerRect.left + (footerRect.width / 2);
+                const footerCenterY = footerRect.top + (footerRect.height / 2);
+
+                // Calculate how far mouse is from footer center (in pixels)
+                const deltaX = mouseX - footerCenterX;
+                const deltaY = footerCenterY - mouseY; // Positive = up
+
+                // Move left, right, and up (no down movement)
+                const moveUp = Math.max(0, deltaY);
+
+                // Scale the movement (higher = more responsive)
+                const scale = 1.2;
+
+                // Apply movement directly with max limits
+                targetX = Math.max(-CONFIG.maxLeft, Math.min(CONFIG.maxRight, deltaX * scale));
+                targetY = Math.max(0, Math.min(CONFIG.maxUp, moveUp * scale));
+
+                // Debug log every 60 frames
+                if (frameCount % 60 === 0) {
+                    const computedTransform = window.getComputedStyle(footerGradient).transform;
+                    console.log('Footer gradient:', {
+                        isInFooter,
+                        targetX: targetX.toFixed(2),
+                        targetY: targetY.toFixed(2),
+                        currentX: currentX.toFixed(2),
+                        currentY: currentY.toFixed(2),
+                        transform: computedTransform
+                    });
+                }
+
+                // Visual debug: pulse opacity when moving
+                if (frameCount % 30 === 0) {
+                    footerGradient.style.opacity = isInFooter ? '1' : '0.8';
+                }
+            }
+
+            // Smooth interpolation
+            const currentEase = isInFooter ? CONFIG.followEase : CONFIG.returnEase;
+            currentX += (targetX - currentX) * currentEase;
+            currentY += (targetY - currentY) * currentEase;
+
+            // Apply directly to transform (preserving the -50% centering)
+            footerGradient.style.transform = `translate(calc(-50% + ${currentX}px), ${-currentY}px)`;
+
+            frameCount++;
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        console.log('Footer gradient cursor effect initialized - entire footer area');
+        animate();
+    }
+
+    // Initialize footer gradient effect
+    setTimeout(() => {
+        initFooterGradientCursorEffect();
+    }, 2000);
 
 });
