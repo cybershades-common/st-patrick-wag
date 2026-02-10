@@ -47,6 +47,9 @@
 .testimonials-pic-slider .swiper-slide {
   overflow: hidden;
 }
+.testimonials-pic-slider .swiper-slide:not(:first-child) {
+  display: none;
+}
 .testimonials-pic-slider .testimonials-img {
   width: 100%;
   height: 100%;
@@ -99,12 +102,20 @@
   height: 100%;
 }
 .testimonials-text-slider .swiper-slide {
-  opacity: 0 !important;
+  opacity: 1 !important;
   display: flex;
   align-items: stretch;
 }
+.testimonials-text-slider .swiper-slide:not(:first-child) {
+  display: none;
+}
 .testimonials-text-slider .swiper-slide-active {
   opacity: 1 !important;
+}
+.testimonials-text-slider .testimonials-quote,
+.testimonials-text-slider .testimonials-attribution {
+  opacity: 1;
+  visibility: visible;
 }
 .testimonials-quote-wrapper {
   display: flex;

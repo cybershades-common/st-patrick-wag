@@ -90,56 +90,56 @@ a[href^=tel] {
 }
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('../../assets/fonts/HelveticaNeueLTProLt.otf') format('opentype');
+  src: url('../../assets/fonts/HelveticaNeueLTProLt.woff2') format('woff2'), url('../../assets/fonts/HelveticaNeueLTProLt.woff') format('woff');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('../../assets/fonts/HelveticaNeueLTProLtIt.otf') format('opentype');
+  src: url('../../assets/fonts/HelveticaNeueLTProLtIt.woff2') format('woff2'), url('../../assets/fonts/HelveticaNeueLTProLtIt.woff') format('woff');
   font-weight: 300;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('../../assets/fonts/HelveticaNeueLTProRoman.otf') format('opentype');
+  src: url('../../assets/fonts/HelveticaNeueLTProRoman.woff2') format('woff2'), url('../../assets/fonts/HelveticaNeueLTProRoman.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('../../assets/fonts/HelveticaNeueLTProIt.otf') format('opentype');
+  src: url('../../assets/fonts/HelveticaNeueLTProIt.woff2') format('woff2'), url('../../assets/fonts/HelveticaNeueLTProIt.woff') format('woff');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('../../assets/fonts/HelveticaNeueLTProMd.otf') format('opentype');
+  src: url('../../assets/fonts/HelveticaNeueLTProMd.woff2') format('woff2'), url('../../assets/fonts/HelveticaNeueLTProMd.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('../../assets/fonts/HelveticaNeueLTProMdIt.otf') format('opentype');
+  src: url('../../assets/fonts/HelveticaNeueLTProMdIt.woff2') format('woff2'), url('../../assets/fonts/HelveticaNeueLTProMdIt.woff') format('woff');
   font-weight: 500;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('../../assets/fonts/HelveticaNeueLTProBd.otf') format('opentype');
+  src: url('../../assets/fonts/HelveticaNeueLTProBd.woff2') format('woff2'), url('../../assets/fonts/HelveticaNeueLTProBd.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('../../assets/fonts/HelveticaNeueLTProBdIt.otf') format('opentype');
+  src: url('../../assets/fonts/HelveticaNeueLTProBdIt.woff2') format('woff2'), url('../../assets/fonts/HelveticaNeueLTProBdIt.woff') format('woff');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -2063,7 +2063,7 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
-  background: var(--primary-yellow-bright, #FFF02A);
+  background: var(--primary-yellow-bright, #fff02a);
   filter: blur(15.625rem);
   opacity: 0;
   visibility: hidden;
