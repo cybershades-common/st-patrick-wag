@@ -1106,7 +1106,7 @@ body {
 }
 @media (max-width: 1400px) {
   .hero .hero-title {
-    font-size: 10rem;
+    font-size: 8.5rem;
   }
 }
 @media (min-width: 992px) and (max-width: 1200px) {

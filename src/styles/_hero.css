@@ -109,8 +109,6 @@
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  clip-path: none;
-  -webkit-clip-path: none;
 }
 .hero-image,
 .hero-video {
