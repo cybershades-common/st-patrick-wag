@@ -699,12 +699,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Section-specific gradients (slow fade on entry)
     function initSectionGradientFades() {
         const items = [
-            { selector: '.about-section .gradient-circle', trigger: '.about-section' },
-            { selector: '.academics-gradient', trigger: '.academics-section' },
-            { selector: '.testimonials-gradient', trigger: '.testimonials-section' }
+            { selector: '.about-section .gradient-circle', trigger: '.about-section', start: 'top 85%' },
+            { selector: '.academics-gradient', trigger: '.academics-section', start: 'top 85%' },
+            { selector: '.testimonials-gradient', trigger: '.testimonials-section', start: 'top 60%' }
         ];
 
-        items.forEach(({ selector, trigger }) => {
+        items.forEach(({ selector, trigger, start }) => {
             const el = document.querySelector(selector);
             const section = document.querySelector(trigger);
             if (!el || !section) return;
@@ -716,7 +716,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ease: 'power1.out',
                 scrollTrigger: {
                     trigger: section,
-                    start: 'top 85%',
+                    start: start,
                     once: true
                 }
             });
