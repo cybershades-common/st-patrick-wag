@@ -1481,7 +1481,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Cursor-following gradient effect - gradient follows cursor around hero title only
     function initGradientCursorEffect() {
-        // Only run on desktop
         if (window.innerWidth <= 991) return;
 
         const heroGradient = document.querySelector('.hero-gradient');
@@ -1490,28 +1489,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!heroGradient || !heroSection || !heroTitle) return;
 
-        // ============================================
-        // CONFIGURATION - Up and Right movement only
-        // ============================================
         const CONFIG = {
-            // Maximum movement distance
-            maxRight: 300,             // Max 300px to the right
-            maxUp: 300,                // Max 300px upward
-
-            // Active area: How far from title should cursor trigger movement?
-            activeRadius: 400,         // Movement triggers within this radius from title center
-
-            // Follow speed: How smoothly gradient follows (lower = smoother, like sunrise)
-            followEase: 0.08,          // Very smooth (try: 0.05-0.15)
-
-            // Return speed: How slowly it returns to original (lower = slower)
-            returnEase: 0.03,          // Very slow return (try: 0.02-0.08)
+            maxRight: 300,
+            maxUp: 300,
+            activeRadius: 400,
+            followEase: 0.08,
+            returnEase: 0.03,
         };
-        // ============================================
 
-        // Original position
-        const originalLeft = -212; // -13.25rem in pixels
-        const originalBottom = -536; // -33.5rem in pixels
+        const originalLeft = -212;
+        const originalBottom = -536;
 
         let mouseX = null;
         let mouseY = null;
@@ -1520,7 +1507,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let hasMouseMoved = false;
         let isInActiveArea = false;
 
-        // Track mouse position
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -1530,9 +1516,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Animate gradient
         function animate() {
-            // Wait for mouse movement
             if (!hasMouseMoved || mouseX === null || mouseY === null) {
                 requestAnimationFrame(animate);
                 return;
@@ -1541,11 +1525,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const heroRect = heroSection.getBoundingClientRect();
             const titleRect = heroTitle.getBoundingClientRect();
 
-            // Calculate title center
             const titleCenterX = titleRect.left + (titleRect.width / 2);
             const titleCenterY = titleRect.top + (titleRect.height / 2);
 
-            // Check if mouse is within active radius from title center
             const distanceFromTitle = Math.sqrt(
                 Math.pow(mouseX - titleCenterX, 2) +
                 Math.pow(mouseY - titleCenterY, 2)
@@ -1557,53 +1539,42 @@ document.addEventListener('DOMContentLoaded', function () {
             let targetBottom = originalBottom;
 
             if (isInActiveArea) {
-                // Calculate how far mouse is from title center
                 const deltaX = mouseX - titleCenterX;
-                const deltaY = titleCenterY - mouseY; // Invert Y (up is positive)
+                const deltaY = titleCenterY - mouseY;
 
-                // Only move right and up (positive values only)
                 const moveRight = Math.max(0, deltaX);
                 const moveUp = Math.max(0, deltaY);
 
-                // Calculate movement as percentage of distance from title
-                // Normalize by active radius so movement scales smoothly
                 const rightPercent = Math.min(1, moveRight / CONFIG.activeRadius);
                 const upPercent = Math.min(1, moveUp / CONFIG.activeRadius);
 
-                // Apply movement with max limits
                 const offsetX = rightPercent * CONFIG.maxRight;
                 const offsetY = upPercent * CONFIG.maxUp;
 
-                // Calculate new position (moving right increases left, moving up increases bottom)
                 targetLeft = originalLeft + offsetX;
                 targetBottom = originalBottom + offsetY;
             }
 
-            // Smooth interpolation - different speeds for following vs returning
             const currentEase = isInActiveArea ? CONFIG.followEase : CONFIG.returnEase;
             currentX += (targetLeft - currentX) * currentEase;
             currentY += (targetBottom - currentY) * currentEase;
 
-            // Apply new position
             heroGradient.style.left = `${currentX}px`;
             heroGradient.style.bottom = `${currentY}px`;
 
             requestAnimationFrame(animate);
         }
 
-        // Start animation
         console.log('Hero gradient cursor effect initialized - restricted to title area');
         animate();
     }
 
-    // Run after delay to ensure GSAP has made gradient visible
     setTimeout(() => {
         initGradientCursorEffect();
     }, 2000);
 
     // Cursor-following effect for FOOTER gradient - entire footer area
     function initFooterGradientCursorEffect() {
-        // Only run on desktop
         if (window.innerWidth <= 991) {
             console.log('Footer gradient: Skipped (mobile)');
             return;
@@ -1619,22 +1590,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         console.log('Footer gradient element found:', footerGradient);
 
-        // ============================================
-        // FOOTER GRADIENT CONFIGURATION
-        // ============================================
         const CONFIG = {
-            // Maximum movement distance
-            maxLeft: 300,              // Max 300px to the left
-            maxRight: 300,             // Max 300px to the right
-            maxUp: 300,                // Max 300px upward
-
-            // Follow speed
-            followEase: 0.08,          // Smooth following
-
-            // Return speed
-            returnEase: 0.03,          // Slow return
+            maxLeft: 300,
+            maxRight: 300,
+            maxUp: 300,
+            followEase: 0.08,
+            returnEase: 0.03,
         };
-        // ============================================
 
         let mouseX = null;
         let mouseY = null;
@@ -1644,7 +1606,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let isInFooter = false;
         let frameCount = 0;
 
-        // Track mouse position
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -1654,9 +1615,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Animate gradient
         function animate() {
-            // Wait for mouse movement
             if (!hasMouseMoved || mouseX === null || mouseY === null) {
                 requestAnimationFrame(animate);
                 return;
@@ -1664,7 +1623,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const footerRect = footerSection.getBoundingClientRect();
 
-            // Check if footer is in viewport
             const isFooterVisible = (
                 footerRect.top < window.innerHeight &&
                 footerRect.bottom > 0
@@ -1675,38 +1633,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Check if mouse is within footer bounds - lower 60% height (bottom portion), full width
-            const activeHeightStart = footerRect.top + (footerRect.height * 0.4); // Start from 40% down
+            const activeHeightStart = footerRect.top + (footerRect.height * 0.4);
             isInFooter = (
                 mouseX >= footerRect.left &&
                 mouseX <= footerRect.right &&
-                mouseY >= activeHeightStart &&  // Skip top 40%
-                mouseY <= footerRect.bottom     // Bottom 60% is active
+                mouseY >= activeHeightStart &&
+                mouseY <= footerRect.bottom
             );
 
             let targetX = 0;
             let targetY = 0;
 
             if (isInFooter) {
-                // Calculate footer center
                 const footerCenterX = footerRect.left + (footerRect.width / 2);
                 const footerCenterY = footerRect.top + (footerRect.height / 2);
 
-                // Calculate how far mouse is from footer center (in pixels)
                 const deltaX = mouseX - footerCenterX;
-                const deltaY = footerCenterY - mouseY; // Positive = up
+                const deltaY = footerCenterY - mouseY;
 
-                // Move left, right, and up (no down movement)
                 const moveUp = Math.max(0, deltaY);
 
-                // Scale the movement (higher = more responsive)
                 const scale = 1.2;
 
-                // Apply movement directly with max limits
                 targetX = Math.max(-CONFIG.maxLeft, Math.min(CONFIG.maxRight, deltaX * scale));
                 targetY = Math.max(0, Math.min(CONFIG.maxUp, moveUp * scale));
 
-                // Debug log every 60 frames
                 if (frameCount % 60 === 0) {
                     const computedTransform = window.getComputedStyle(footerGradient).transform;
                     console.log('Footer gradient:', {
@@ -1719,37 +1670,31 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 }
 
-                // Visual debug: pulse opacity when moving
                 if (frameCount % 30 === 0) {
                     footerGradient.style.opacity = isInFooter ? '1' : '0.8';
                 }
             }
 
-            // Smooth interpolation
             const currentEase = isInFooter ? CONFIG.followEase : CONFIG.returnEase;
             currentX += (targetX - currentX) * currentEase;
             currentY += (targetY - currentY) * currentEase;
 
-            // Apply directly to transform (preserving the -50% centering)
             footerGradient.style.transform = `translate(calc(-50% + ${currentX}px), ${-currentY}px)`;
 
             frameCount++;
             requestAnimationFrame(animate);
         }
 
-        // Start animation
         console.log('Footer gradient cursor effect initialized - entire footer area');
         animate();
     }
 
-    // Initialize footer gradient effect
     setTimeout(() => {
         initFooterGradientCursorEffect();
     }, 2000);
 
     // Cursor-following effect for TESTIMONIALS gradient - left and up movement
     function initTestimonialsGradientCursorEffect() {
-        // Only run on desktop
         if (window.innerWidth <= 991) {
             console.log('Testimonials gradient: Skipped (mobile)');
             return;
@@ -1764,24 +1709,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // ============================================
-        // CONFIGURATION - Left and Up movement (mirror of hero)
-        // ============================================
         const CONFIG = {
-            // Maximum movement distance
-            maxLeft: 400,              // Max 400px to the left
-            maxUp: 400,                // Max 400px upward
-
-            // Active area: How far from content should cursor trigger movement?
-            activeRadius: 400,         // Movement triggers within this radius from content center
-
-            // Follow speed: How smoothly gradient follows
-            followEase: 0.08,          // Very smooth (same as hero)
-
-            // Return speed: How slowly it returns to original
-            returnEase: 0.03,          // Very slow return (same as hero)
+            maxLeft: 400,
+            maxUp: 400,
+            activeRadius: 400,
+            followEase: 0.08,
+            returnEase: 0.03,
         };
-        // ============================================
 
         let mouseX = null;
         let mouseY = null;
@@ -1790,7 +1724,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let hasMouseMoved = false;
         let isInActiveArea = false;
 
-        // Track mouse position
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -1800,9 +1733,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Animate gradient
         function animate() {
-            // Wait for mouse movement
             if (!hasMouseMoved || mouseX === null || mouseY === null) {
                 requestAnimationFrame(animate);
                 return;
@@ -1811,11 +1742,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const testimonialsRect = testimonialsSection.getBoundingClientRect();
             const contentRect = testimonialsContent.getBoundingClientRect();
 
-            // Calculate content center
             const contentCenterX = contentRect.left + (contentRect.width / 2);
             const contentCenterY = contentRect.top + (contentRect.height / 2);
 
-            // Check if mouse is within active radius from content center
             const distanceFromContent = Math.sqrt(
                 Math.pow(mouseX - contentCenterX, 2) +
                 Math.pow(mouseY - contentCenterY, 2)
@@ -1827,45 +1756,35 @@ document.addEventListener('DOMContentLoaded', function () {
             let targetY = 0;
 
             if (isInActiveArea) {
-                // Calculate how far mouse is from content center
                 const deltaX = mouseX - contentCenterX;
-                const deltaY = contentCenterY - mouseY; // Invert Y (up is positive)
+                const deltaY = contentCenterY - mouseY;
 
-                // Only move left and up (negative deltaX = left, positive deltaY = up)
-                const moveLeft = Math.max(0, -deltaX);  // Only when mouse is left of center
-                const moveUp = Math.max(0, deltaY);     // Only when mouse is above center
+                const moveLeft = Math.max(0, -deltaX);
+                const moveUp = Math.max(0, deltaY);
 
-                // Calculate movement as percentage of distance from content
-                // Normalize by active radius so movement scales smoothly
                 const leftPercent = Math.min(1, moveLeft / CONFIG.activeRadius);
                 const upPercent = Math.min(1, moveUp / CONFIG.activeRadius);
 
-                // Apply movement with max limits
                 const offsetX = leftPercent * CONFIG.maxLeft;
                 const offsetY = upPercent * CONFIG.maxUp;
 
-                // Calculate new position (moving left = negative, moving up = positive)
-                targetX = -offsetX;  // Negative for left movement
-                targetY = offsetY;   // Positive for up movement
+                targetX = -offsetX;
+                targetY = offsetY;
             }
 
-            // Smooth interpolation - different speeds for following vs returning
             const currentEase = isInActiveArea ? CONFIG.followEase : CONFIG.returnEase;
             currentX += (targetX - currentX) * currentEase;
             currentY += (targetY - currentY) * currentEase;
 
-            // Apply transform
             testimonialsGradient.style.transform = `translate(${currentX}px, ${-currentY}px)`;
 
             requestAnimationFrame(animate);
         }
 
-        // Start animation
         console.log('Testimonials gradient cursor effect initialized - restricted to content area');
         animate();
     }
 
-    // Initialize testimonials gradient effect
     setTimeout(() => {
         initTestimonialsGradientCursorEffect();
     }, 2000);
