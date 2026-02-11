@@ -213,20 +213,27 @@
                             <div class="row about-content-wrap">
 
 
-                                <div class="col-12 col-lg-4 col-md-6 about-content">
+                                <div class="col-12 col-lg-4 col-md-6 about-content" data-gsap-children='{
+                                        "p":"fade-up", start:"top 40%",
+                                        "button":{"type":"zoom-in","ease":"power2.out"}
+                                    }' data-gsap-children-mobile='{
+                                        "p":"fade-up",
+                                        "button":{"type":"zoom-in","ease":"none", "start":"top 40%",}
+
+                                        
+                                    }'>
                                     <div class="about-text">
-                                        <p data-gsap="fade-up">St Patrick's College continues to be a 'lighthouse'
+                                        <p>St Patrick's College continues to be a 'lighthouse'
                                             school for boys' education in Australia. As a College, we wish to stand tall
                                             and strong, illuminating our community from within and shining a light over
                                             our students to guide them to a safe harbour.</p>
-                                        <p data-gsap="fade-up" data-gsap-delay="0.3">As reflected in our motto,
+                                        <p>As reflected in our motto,
                                             Luceat Lux Vestra, we are
                                             committed to nurturing and challenging each boy to let his light shine. Our
                                             graduates will be men of integrity and wisdom who are called to share their
                                             light with others.</p>
                                     </div>
-                                    <div data-gsap="zoom-in" data-gsap-stagger="0.5"
-                                        class="about-buttons d-flex align-items-center">
+                                    <div class="about-buttons d-flex align-items-center">
                                         <button class="btn-rounded-large-outline">Hear from
                                             our Principal</button>
                                         <button class="btn-rounded-large-no-border">Our Ideal
@@ -238,10 +245,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-5 offset-md-1 col-lg-6 offset-lg-2 about-image">
-                                    <img data-gsap="image-fade-in" data-gsap-start="top 50%"
-                                        data-gsap-start-mobile="top 60%" src="assets/images/about-image.jpg"
-                                        alt="St Patrick's College" class="w-100 h-100" loading="lazy">
+                                <div class="col-12 col-md-5 offset-md-1 col-lg-6 offset-lg-2 about-image"
+                                    data-gsap-children='{"img":"image-fade-in"}' data-gsap-start="top 50%"
+                                    data-gsap-start-mobile="top 70%">
+                                    <img src="assets/images/about-image.jpg" alt="St Patrick's College"
+                                        class="w-100 h-100" loading="lazy">
                                 </div>
                             </div>
                         </div>
@@ -364,8 +372,8 @@
         <!-- Co-Curricular Section -->
         <section class="cocurricular-section position-relative section">
             <div class="cocurricular-background position-absolute w-100 h-100">
-                <img src="assets/images/cocurricular-bg.jpg" alt="Co-Curricular Background"
-                    loading="lazy" onerror="this.style.display='none'">
+                <img src="assets/images/cocurricular-bg.jpg" alt="Co-Curricular Background" loading="lazy"
+                    onerror="this.style.display='none'">
                 <div class="cocurricular-overlay position-absolute w-100 h-100"></div>
             </div>
             <div class="container-fluid position-relative">
@@ -380,8 +388,8 @@
                                 <p data-gsap="fade-up">Students take part in ensembles, bands,
                                     drama groups and
                                     productions that develop skill, discipline and joy in performance.</p>
-                                <button data-gsap="zoom-in" data-gsap-delay="0.1"
-                                    class="btn-rounded-large-outline">See performing arts
+                                <button data-gsap="zoom-in" data-gsap-delay="0.1" class="btn-rounded-large-outline">See
+                                    performing arts
                                     opportunities</button>
                             </div>
                         </div>

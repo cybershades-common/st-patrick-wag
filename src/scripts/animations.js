@@ -28,6 +28,7 @@ class GSAPAnimations {
 
   setupAnimations() {
     this.setupAnimationsFor(document);
+    this.setupSectionAnimations(document);
   }
 
   setupAnimationsFor(root) {
@@ -84,6 +85,152 @@ class GSAPAnimations {
       start:    startAttr || this.defaults.start,
       ease:     easeAttr || null
     };
+  }
+
+  // -----------------------------------------------------------------------
+  // Section-Level Animations (data-gsap-children)
+  // -----------------------------------------------------------------------
+  //
+  // Allows you to define animations for multiple child elements using one
+  // data attribute on the parent, instead of adding data-gsap to each child.
+  //
+  // BASIC USAGE (Same animation for desktop & mobile):
+  // ------------------------------------------------
+  // <section data-gsap-children='{"h2":"fade-up","p":"slide-left","button":"zoom-in"}'>
+  //   <h2>Heading</h2>
+  //   <p>Paragraph</p>
+  //   <button>Button</button>
+  // </section>
+  //
+  // ADVANCED USAGE (Custom timing, easing, duration):
+  // ------------------------------------------------
+  // <section data-gsap-children='{
+  //   "h2": {"type":"fade-up", "delay":0, "duration":1.5, "start":"top 90%", "ease":"power2.out"},
+  //   "p": {"type":"slide-left", "delay":0.2, "duration":1.2, "ease":"power3.out"},
+  //   "button": {"type":"zoom-in", "delay":0.4, "duration":0.8, "ease":"back.out(1.7)"}
+  // }'>
+  //
+  // MOBILE-SPECIFIC ANIMATIONS:
+  // ------------------------------------------------
+  // <section
+  //   data-gsap-children='{"h2":"slide-left","p":"slide-right"}'
+  //   data-gsap-children-mobile='{"h2":"fade-up","p":"fade-up"}'>
+  //   <!-- Desktop: slide animations -->
+  //   <!-- Mobile: simpler fade animations -->
+  // </section>
+  //
+  // MOBILE-SPECIFIC TIMING:
+  // ------------------------------------------------
+  // <section
+  //   data-gsap-children='{
+  //     "button": {"type":"zoom-in", "ease":"back.out(1.7)"}
+  //   }'
+  //   data-gsap-children-mobile='{
+  //     "button": {"type":"zoom-in", "ease":"power2.out"}
+  //   }'
+  //   data-gsap-start="top 80%"
+  //   data-gsap-start-mobile="top 90%">
+  //   <!-- Desktop: bouncy ease, triggers at 80% -->
+  //   <!-- Mobile: simpler ease, triggers at 90% -->
+  // </section>
+  //
+  // AVAILABLE ANIMATIONS:
+  // - fade-up, fade-in, slide-left, slide-right, zoom-in, image-fade-in
+  //
+  // AVAILABLE PROPERTIES PER ELEMENT:
+  // - type: animation name (required if using object config)
+  // - delay: delay in seconds (default: auto-stagger 0.1s increments)
+  // - duration: animation duration (default: 1.25s)
+  // - start: ScrollTrigger start position (default: inherits from parent or "top 80%")
+  // - ease: GSAP easing function (default: power2.out)
+  //
+  // PARENT ATTRIBUTES:
+  // - data-gsap-children: Desktop animation config (required)
+  // - data-gsap-children-mobile: Mobile animation config (optional, falls back to desktop)
+  // - data-gsap-start: Desktop trigger start (optional, default: "top 80%")
+  // - data-gsap-start-mobile: Mobile trigger start (optional, falls back to desktop)
+  // - data-gsap-delay: Base delay for all animations (optional, default: 0)
+  // - data-gsap-delay-mobile: Mobile base delay (optional, falls back to desktop)
+  //
+  // -----------------------------------------------------------------------
+
+  setupSectionAnimations(root) {
+    const isMobile = window.innerWidth <= 991;
+
+    root.querySelectorAll('[data-gsap-children],[data-gsap-children-mobile]').forEach(section => {
+      if (section.hasAttribute('data-gsap-children-initialized')) return;
+      section.setAttribute('data-gsap-children-initialized', 'true');
+
+      // Get config based on screen size
+      const mobileConfigAttr = section.getAttribute('data-gsap-children-mobile');
+      const desktopConfigAttr = section.getAttribute('data-gsap-children');
+      const configAttr = (isMobile && mobileConfigAttr) ? mobileConfigAttr : desktopConfigAttr;
+
+      if (!configAttr) return;
+
+      let config;
+      try {
+        config = JSON.parse(configAttr);
+      } catch (err) {
+        console.error('[GSAPAnimations] Invalid JSON in data-gsap-children:', err);
+        return;
+      }
+
+      // Get trigger start (check mobile-specific first)
+      const triggerStart = (isMobile && section.getAttribute('data-gsap-start-mobile'))
+        || section.getAttribute('data-gsap-start')
+        || 'top 80%';
+
+      // Get base delay (check mobile-specific first)
+      const baseDelay = parseFloat(
+        (isMobile && section.getAttribute('data-gsap-delay-mobile'))
+        || section.getAttribute('data-gsap-delay')
+      ) || 0;
+
+      // Process each selector in the config
+      Object.entries(config).forEach(([selector, animConfig], index) => {
+        const elements = section.querySelectorAll(selector);
+        if (!elements.length) return;
+
+        // Parse animation config (can be string or object)
+        let animation, delay, duration, start, ease;
+        if (typeof animConfig === 'string') {
+          animation = animConfig;
+          delay = baseDelay + (index * 0.1);
+        } else {
+          animation = animConfig.type || 'fade-up';
+          delay = animConfig.delay !== undefined ? animConfig.delay : (baseDelay + (index * 0.1));
+          duration = animConfig.duration;
+          start = animConfig.start;
+          ease = animConfig.ease;
+        }
+
+        // Apply animation to each element
+        elements.forEach(el => {
+          const cfg = {
+            delay: delay,
+            duration: duration || this.defaults.duration,
+            start: start || triggerStart,
+            ease: ease || null,
+            stagger: null
+          };
+
+          try {
+            switch (animation) {
+              case 'fade-up':         this.fadeUp(el, cfg);        break;
+              case 'fade-in':         this.fadeIn(el, cfg);        break;
+              case 'slide-left':      this.slideLeft(el, cfg);     break;
+              case 'slide-right':     this.slideRight(el, cfg);    break;
+              case 'zoom-in':         this.zoomIn(el, cfg);        break;
+              case 'image-fade-in':   this.imageFadeIn(el, cfg);   break;
+              default: console.warn(`Unknown animation: "${animation}"`);
+            }
+          } catch (err) {
+            console.error(`[GSAPAnimations] Error applying "${animation}":`, err);
+          }
+        });
+      });
+    });
   }
 
   // -----------------------------------------------------------------------
@@ -309,7 +456,7 @@ class GSAPAnimations {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: el,
-        start:   'top 90%',
+        start:   cfg.start || 'top 90%',
         end:     end,
         scrub:   1,
         once:    true
@@ -318,7 +465,7 @@ class GSAPAnimations {
 
     tl.to(lines, {
       y: 0, autoAlpha: 1, force3D: true,
-      duration: 1,
+      duration: cfg.duration || 1,
       ease:     cfg.ease || this.defaults.ease.fade,
       stagger:  0.5
     });
@@ -381,7 +528,7 @@ class GSAPAnimations {
     inners.forEach((inner, i) => {
       tl.to(inner, {
         y: 0,
-        duration: 0.6,
+        duration: cfg.duration || 0.6,
         ease:     cfg.ease || this.defaults.ease.fade,
         force3D:  true
       }, i * (cfg.stagger || 0.65));
@@ -411,7 +558,7 @@ class GSAPAnimations {
     gsap.to(target, {
       clipPath: shown, webkitClipPath: shown,
       opacity: 1, y: 0,
-      duration: 1.6,
+      duration: cfg.duration || 1.6,
       ease:  cfg.ease || 'power2.out',
       delay: cfg.delay,
       scrollTrigger: this.triggerCfg(el, cfg),
@@ -582,9 +729,7 @@ class GSAPAnimations {
     const stagger = kids && cfg.stagger ? cfg.stagger : 0;
 
     const isMobile = window.innerWidth <= 991;
-    const start = (isMobile && el.getAttribute('data-gsap-start-mobile'))
-      || el.getAttribute('data-gsap-start')
-      || 'top 50%';
+    const start = cfg.start || 'top 50%';
 
     const scaleFrom = isMobile ? 1.3 : 1.3;
 
