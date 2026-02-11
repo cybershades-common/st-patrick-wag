@@ -10,15 +10,15 @@
   top: 0;
   left: 0;
   z-index: 1;
-}
 
-.cocurricular-bg-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .cocurricular-overlay {
@@ -55,53 +55,37 @@
 
 .cocurricular-left {
   padding-top: 1.25rem;
-}
 
-.cocurricular-label {
-  font-family: var(--font-family-helvetica-neue);
-  font-size: var(--font-size-b2);
-  font-weight: var(--font-weight-regular);
-  line-height: 1;
-  letter-spacing: 0.046875rem;
-  color: var(--basic-white);
-  text-transform: uppercase;
-  margin-bottom: 1.875rem;
-  white-space: nowrap;
-}
+  // Typography - only override what's different from global
+  small {
+    color: var(--basic-white);
+    text-transform: uppercase;
+    margin-bottom: 1.875rem;
+    display: block;
+  }
 
-.cocurricular-heading {
-  font-family: var(--font-family-helvetica-neue);
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-light);
-  line-height: 1.15;
-  letter-spacing: -0.0375rem;
-  color: var(--basic-white);
-  margin: 0;
-  margin-bottom: 1.875rem;
-  max-width: 35rem;
-}
+  h2 {
+    color: var(--basic-white);
+    margin-bottom: 1.875rem;
+    max-width: 35rem;
+  }
 
-.cocurricular-text {
-  font-family: var(--font-family-helvetica-neue);
-  font-size: var(--font-size-b1);
-  font-weight: var(--font-weight-light);
-  line-height: 1.5;
-  letter-spacing: 0;
-  color: rgba(255, 255, 255, 0.85);
-  width: 34.9375rem;
-  max-width: 100%;
-  margin: 0;
-  margin-bottom: 2.5rem;
-}
+  p {
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 34.9375rem;
+    margin-bottom: 2.5rem;
+  }
 
-.cocurricular-button {
-  border-color: var(--basic-white);
-  color: var(--basic-white);
-}
+  // Buttons
+  button {
+    border-color: var(--basic-white);
+    color: var(--basic-white);
 
-.cocurricular-button:hover {
-  background-color: var(--basic-white);
-  color: var(--basic-black);
+    &:hover {
+      background-color: var(--basic-white);
+      color: var(--basic-black);
+    }
+  }
 }
 
 .cocurricular-nav {
@@ -112,22 +96,22 @@
 .cocurricular-nav-buttons {
   gap: 1.25rem;
   flex-wrap: wrap;
-}
 
-.cocurricular-nav-btn {
-  border-color: var(--basic-white);
-  color: var(--basic-white);
-  white-space: nowrap;
-}
+  button {
+    border-color: var(--basic-white);
+    color: var(--basic-white);
+    white-space: nowrap;
 
-.cocurricular-nav-btn:hover {
-  background-color: var(--basic-white);
-  color: var(--basic-black);
-}
+    &:hover {
+      background-color: var(--basic-white);
+      color: var(--basic-black);
+    }
 
-.cocurricular-nav-btn.active {
-  background-color: var(--basic-white);
-  color: var(--basic-black);
+    &.active {
+      background-color: var(--basic-white);
+      color: var(--basic-black);
+    }
+  }
 }
 
 @media (max-width: 991px) {
@@ -144,17 +128,16 @@
   }
 
   .cocurricular-left {
- 
     padding-top: 0;
     margin-bottom: 2.5rem;
-  }
 
-  .cocurricular-heading {
-    font-size: 2.5rem;
-  }
+    h2 {
+      font-size: 2.5rem;
+    }
 
-  .cocurricular-text {
-    width: 100%;
+    p {
+      max-width: 100%;
+    }
   }
 
   .cocurricular-nav {
@@ -168,19 +151,21 @@
 }
 
 @media (max-width: 767px) {
-  .cocurricular-heading {
-    font-size: 1.875rem;
-  }
+  .cocurricular-left {
+    h2 {
+      font-size: 1.875rem;
+    }
 
-  .cocurricular-text {
-    font-size: 1.125rem;
+    p {
+      font-size: 1.125rem;
+    }
   }
 
   .cocurricular-nav-buttons {
     gap: 0.625rem;
   }
 
-  .cocurricular-section .container-fluid{
+  .cocurricular-section .container-fluid {
     min-height: 50.625rem;
   }
 }

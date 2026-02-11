@@ -1,6 +1,8 @@
 // Typography
-// Base typography for core HTML tags
+// Base typography for core HTML tags - these styles apply globally
+// Sections can override specific properties (like color) as needed
 
+// Headings
 h1 {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-h1);
@@ -8,6 +10,7 @@ h1 {
   line-height: var(--line-height-h1);
   letter-spacing: var(--letter-spacing-h1);
   color: var(--basic-black);
+  margin: 0;
 }
 
 h2 {
@@ -17,6 +20,17 @@ h2 {
   line-height: var(--line-height-h2);
   letter-spacing: var(--letter-spacing-h2);
   color: var(--basic-black);
+  margin: 0;
+}
+
+h3 {
+  font-family: var(--font-family-helvetica-neue);
+  font-size: var(--font-size-lead); // 1.875rem (30px)
+  font-weight: var(--font-weight-light);
+  line-height: 1.2;
+  letter-spacing: -0.03rem;
+  color: var(--basic-black);
+  margin: 0;
 }
 
 h4 {
@@ -26,8 +40,30 @@ h4 {
   line-height: var(--line-height-h4);
   letter-spacing: 0;
   color: var(--basic-black);
+  margin: 0;
 }
 
+h5 {
+  font-family: var(--font-family-helvetica-neue);
+  font-size: var(--font-size-b1); // 1.25rem (20px)
+  font-weight: var(--font-weight-regular);
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--basic-black);
+  margin: 0;
+}
+
+h6 {
+  font-family: var(--font-family-helvetica-neue);
+  font-size: var(--font-size-b2); // 0.9375rem (15px)
+  font-weight: var(--font-weight-regular);
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--basic-black);
+  margin: 0;
+}
+
+// Paragraph
 p {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-b1);
@@ -35,8 +71,21 @@ p {
   line-height: var(--line-height-b1);
   letter-spacing: 0;
   color: var(--basic-black);
+  margin: 0;
 }
 
+// Small text (labels, captions, secondary text)
+small {
+  font-family: var(--font-family-helvetica-neue);
+  font-size: var(--font-size-b2);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-b2);
+  letter-spacing: 0.046875rem;
+  color: var(--basic-black);
+  display: inline;
+}
+
+// Body
 body {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-b2);
@@ -50,4 +99,18 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+}
+
+// Additional common elements
+strong, b {
+  font-weight: var(--font-weight-regular);
+}
+
+em, i {
+  font-style: italic;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

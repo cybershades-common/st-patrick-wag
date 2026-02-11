@@ -202,6 +202,7 @@ h1 {
   line-height: var(--line-height-h1);
   letter-spacing: var(--letter-spacing-h1);
   color: var(--basic-black);
+  margin: 0;
 }
 h2 {
   font-family: var(--font-family-helvetica-neue);
@@ -210,6 +211,16 @@ h2 {
   line-height: var(--line-height-h2);
   letter-spacing: var(--letter-spacing-h2);
   color: var(--basic-black);
+  margin: 0;
+}
+h3 {
+  font-family: var(--font-family-helvetica-neue);
+  font-size: var(--font-size-lead);
+  font-weight: var(--font-weight-light);
+  line-height: 1.2;
+  letter-spacing: -0.03rem;
+  color: var(--basic-black);
+  margin: 0;
 }
 h4 {
   font-family: var(--font-family-helvetica-neue);
@@ -218,6 +229,25 @@ h4 {
   line-height: var(--line-height-h4);
   letter-spacing: 0;
   color: var(--basic-black);
+  margin: 0;
+}
+h5 {
+  font-family: var(--font-family-helvetica-neue);
+  font-size: var(--font-size-b1);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--basic-black);
+  margin: 0;
+}
+h6 {
+  font-family: var(--font-family-helvetica-neue);
+  font-size: var(--font-size-b2);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--basic-black);
+  margin: 0;
 }
 p {
   font-family: var(--font-family-helvetica-neue);
@@ -226,6 +256,16 @@ p {
   line-height: var(--line-height-b1);
   letter-spacing: 0;
   color: var(--basic-black);
+  margin: 0;
+}
+small {
+  font-family: var(--font-family-helvetica-neue);
+  font-size: var(--font-size-b2);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-b2);
+  letter-spacing: 0.046875rem;
+  color: var(--basic-black);
+  display: inline;
 }
 body {
   font-family: var(--font-family-helvetica-neue);
@@ -240,6 +280,18 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+}
+strong,
+b {
+  font-weight: var(--font-weight-regular);
+}
+em,
+i {
+  font-style: italic;
+}
+a {
+  color: inherit;
+  text-decoration: none;
 }
 .btn-rounded-large {
   display: inline-flex;
@@ -1602,7 +1654,7 @@ body {
   left: 0;
   z-index: 1;
 }
-.cocurricular-bg-img {
+.cocurricular-background img {
   position: absolute;
   top: 0;
   left: 0;
@@ -1641,45 +1693,27 @@ body {
 .cocurricular-left {
   padding-top: 1.25rem;
 }
-.cocurricular-label {
-  font-family: var(--font-family-helvetica-neue);
-  font-size: var(--font-size-b2);
-  font-weight: var(--font-weight-regular);
-  line-height: 1;
-  letter-spacing: 0.046875rem;
+.cocurricular-left small {
   color: var(--basic-white);
   text-transform: uppercase;
   margin-bottom: 1.875rem;
-  white-space: nowrap;
+  display: block;
 }
-.cocurricular-heading {
-  font-family: var(--font-family-helvetica-neue);
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-light);
-  line-height: 1.15;
-  letter-spacing: -0.0375rem;
+.cocurricular-left h2 {
   color: var(--basic-white);
-  margin: 0;
   margin-bottom: 1.875rem;
   max-width: 35rem;
 }
-.cocurricular-text {
-  font-family: var(--font-family-helvetica-neue);
-  font-size: var(--font-size-b1);
-  font-weight: var(--font-weight-light);
-  line-height: 1.5;
-  letter-spacing: 0;
+.cocurricular-left p {
   color: rgba(255, 255, 255, 0.85);
-  width: 34.9375rem;
-  max-width: 100%;
-  margin: 0;
+  max-width: 34.9375rem;
   margin-bottom: 2.5rem;
 }
-.cocurricular-button {
+.cocurricular-left button {
   border-color: var(--basic-white);
   color: var(--basic-white);
 }
-.cocurricular-button:hover {
+.cocurricular-left button:hover {
   background-color: var(--basic-white);
   color: var(--basic-black);
 }
@@ -1691,16 +1725,16 @@ body {
   gap: 1.25rem;
   flex-wrap: wrap;
 }
-.cocurricular-nav-btn {
+.cocurricular-nav-buttons button {
   border-color: var(--basic-white);
   color: var(--basic-white);
   white-space: nowrap;
 }
-.cocurricular-nav-btn:hover {
+.cocurricular-nav-buttons button:hover {
   background-color: var(--basic-white);
   color: var(--basic-black);
 }
-.cocurricular-nav-btn.active {
+.cocurricular-nav-buttons button.active {
   background-color: var(--basic-white);
   color: var(--basic-black);
 }
@@ -1719,11 +1753,11 @@ body {
     padding-top: 0;
     margin-bottom: 2.5rem;
   }
-  .cocurricular-heading {
+  .cocurricular-left h2 {
     font-size: 2.5rem;
   }
-  .cocurricular-text {
-    width: 100%;
+  .cocurricular-left p {
+    max-width: 100%;
   }
   .cocurricular-nav {
     margin-top: auto;
@@ -1734,10 +1768,10 @@ body {
   }
 }
 @media (max-width: 767px) {
-  .cocurricular-heading {
+  .cocurricular-left h2 {
     font-size: 1.875rem;
   }
-  .cocurricular-text {
+  .cocurricular-left p {
     font-size: 1.125rem;
   }
   .cocurricular-nav-buttons {
