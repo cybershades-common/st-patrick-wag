@@ -53,11 +53,7 @@
   max-width: 100%;
 }
 
-.parents-community-heading {
-  width: 100%;
-}
-
-.parents-community-heading {
+.parents-community-content h2 {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-h2);
   font-weight: var(--font-weight-light);
@@ -65,10 +61,10 @@
   letter-spacing: -0.0375rem; // -0.6px
   color: var(--basic-white);
   margin: 0;
-
+  width: 100%;
 }
 
-.parents-community-text {
+.parents-community-content p {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-b1);
   font-weight: var(--font-weight-regular);
@@ -78,24 +74,24 @@
   margin: 0;
   width: 33.4375rem; // 535px
   max-width: 100%;
-
 }
 
-.parents-community-button {
+.parents-community-content button {
   border-color: var(--basic-white);
   color: var(--basic-white);
   margin-top: 0;
 }
 
-.parents-community-button:hover {
+.parents-community-content button:hover {
   background-color: var(--basic-white);
   color: var(--basic-black);
 }
 
 @media (min-width:992px) and (max-width:1200px){
-  .parents-community-heading {
-font-size: 3rem;
-  }}
+  .parents-community-content h2 {
+    font-size: 3rem;
+  }
+}
 
 @media (max-width: 991px) {
   .parents-community-section {
@@ -115,30 +111,32 @@ font-size: 3rem;
     padding-left: 1rem;
     min-height: auto;
     width: 100%;
-  }
 
-  .parents-community-heading {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-xs);
-  }
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: var(--spacing-xs);
+    }
 
-  .parents-community-text {
-    width: 100%;
-    margin-bottom: var(--spacing-xs);
+    p {
+      width: 100%;
+      margin-bottom: var(--spacing-xs);
+    }
   }
 }
 
 @media (max-width: 767px) {
-  .parents-community-heading {
-    font-size: 1.875rem;
-  }
-
-  .parents-community-text {
-    font-size: 1.125rem;
-  }
-  .parents-community-content{
+  .parents-community-content {
     min-height: 44rem;
-    .parents-community-button{
+
+    h2 {
+      font-size: 1.875rem;
+    }
+
+    p {
+      font-size: 1.125rem;
+    }
+
+    button {
       margin-top: auto;
     }
   }

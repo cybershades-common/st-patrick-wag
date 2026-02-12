@@ -21,21 +21,20 @@
   }
 }
 
-.latest-news-heading {
+.latest-news-heading-col h2 {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-h2);
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-h2);
   letter-spacing: -0.0375rem; // -0.6px
   color: var(--primary-blue);
-  margin: 0; 
+  margin: 0;
   max-width: 100%;
-
 }
 
 
 
-.latest-news-description {
+.latest-news-content-col p {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-b1);
   font-weight: var(--font-weight-light);
@@ -46,7 +45,6 @@
   margin-bottom: var(--spacing-small-2);
   width: 35.125rem; // 562px
   max-width: 100%;
-
 }
 
 .latest-news-buttons {
@@ -204,18 +202,18 @@
 
 
 
-.latest-news-card-title {
-color: var(--primary-blue, #10069F);
-leading-trim: both;
-text-edge: cap;
-font-family: var(--font-family-helvetica-neue, "Helvetica Neue LT Pro");
-font-size: var(--font-size-b1, 1.25rem);
-font-style: normal;
-font-weight: 300;
-line-height: 140%; /* 1.75rem */
+.latest-news-card-content h3 {
+  color: var(--primary-blue, #10069F);
+  leading-trim: both;
+  text-edge: cap;
+  font-family: var(--font-family-helvetica-neue, "Helvetica Neue LT Pro");
+  font-size: var(--font-size-b1, 1.25rem);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 140%; /* 1.75rem */
 }
 
-.latest-news-slide.active .latest-news-card-title {
+.latest-news-slide.active .latest-news-card-content h3 {
   color: var(--primary-blue, #10069F);
   leading-trim: both;
   text-edge: cap;
@@ -226,7 +224,7 @@ line-height: 140%; /* 1.75rem */
   line-height: normal;
 }
 
-.latest-news-card-date {
+.latest-news-card-content p {
   font-family: var(--font-family-helvetica-neue);
   font-size: 0.6875rem;
   font-weight: var(--font-weight-regular);
@@ -237,7 +235,7 @@ line-height: 140%; /* 1.75rem */
   transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.latest-news-slide.active .latest-news-card-date {
+.latest-news-slide.active .latest-news-card-content p {
   font-size: 0.9375rem;
 }
 
@@ -261,7 +259,7 @@ line-height: 140%; /* 1.75rem */
   }
 
  
-  .latest-news-description {
+  .latest-news-content-col p {
     margin-bottom: var(--spacing-xs);
   }
 
@@ -292,11 +290,11 @@ line-height: 140%; /* 1.75rem */
   .latest-news-slider{
     min-height: 28.5rem;
   }
-  .latest-news-heading {
+  .latest-news-heading-col h2 {
     font-size: 2.5rem;
   }
 
-  .latest-news-description {
+  .latest-news-content-col p {
     font-size: 1.125rem;
   }
 
