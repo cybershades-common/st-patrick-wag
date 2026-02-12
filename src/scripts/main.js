@@ -1016,8 +1016,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // Set initial states for all cards
         cards.forEach(card => {
             const divider = card.querySelector('.statistics-card-divider');
-            const label = card.querySelector('.statistics-card-label');
-            const number = card.querySelector('.statistics-card-number');
+            const content = card.querySelector('.statistics-card-content');
+            const label = content ? content.querySelector('p:first-child') : null;
+            const number = content ? content.querySelector('p:last-child') : null;
 
             // Line starts fully clipped (will reveal top to bottom)
             if (divider) {
@@ -1056,8 +1057,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // Animate each card
         cards.forEach((card, index) => {
             const divider = card.querySelector('.statistics-card-divider');
-            const label = card.querySelector('.statistics-card-label');
-            const number = card.querySelector('.statistics-card-number');
+            const content = card.querySelector('.statistics-card-content');
+            const label = content ? content.querySelector('p:first-child') : null;
+            const number = content ? content.querySelector('p:last-child') : null;
 
             const cardStart = index * TIMING.lineStagger;
 

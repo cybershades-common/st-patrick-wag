@@ -1860,21 +1860,16 @@ hr {
 .statistics-cards {
   margin-top: 12.0625rem;
 }
-.statistics-heading {
-  font-family: var(--font-family-helvetica-neue);
+.statistics-section h2 {
   font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-light);
   line-height: var(--line-height-h2);
   letter-spacing: -0.0375rem;
   color: var(--primary-blue);
   margin: 0;
 }
-.statistics-text {
-  font-family: var(--font-family-helvetica-neue);
+.statistics-top p {
   font-size: var(--font-size-b1);
-  font-weight: var(--font-weight-light);
   line-height: var(--line-height-b1);
-  letter-spacing: 0;
   color: var(--basic-black);
   margin: 0;
   margin-bottom: var(--spacing-base);
@@ -1935,8 +1930,7 @@ hr {
   justify-content: space-between;
   flex: 1;
 }
-.statistics-card-label {
-  font-family: var(--font-family-helvetica-neue);
+.statistics-card-content p:first-child {
   font-size: var(--font-size-b2);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-b2);
@@ -1944,10 +1938,8 @@ hr {
   color: var(--basic-black);
   margin: 0;
 }
-.statistics-card-number {
-  font-family: var(--font-family-helvetica-neue);
+.statistics-card-content p:last-child {
   font-size: var(--font-size-h1);
-  font-weight: var(--font-weight-light);
   line-height: var(--line-height-h1);
   letter-spacing: var(--letter-spacing-h1);
   color: var(--primary-blue);
@@ -1957,13 +1949,13 @@ hr {
   .statistics-heading-col {
     padding-right: 6rem;
   }
-  .statistics-heading-col .statistics-heading {
+  .statistics-heading-col h2 {
     font-size: 2.75rem;
   }
   .statistics-card {
     height: 13rem;
   }
-  .statistics-card-number {
+  .statistics-card-content p:last-child {
     font-size: 4.25rem;
   }
 }
@@ -1997,7 +1989,7 @@ hr {
   .statistics-heading-col {
     margin-bottom: var(--spacing-xs);
   }
-  .statistics-text {
+  .statistics-top p {
     margin-bottom: var(--spacing-xs);
   }
   .statistics-button {
@@ -2005,13 +1997,13 @@ hr {
   }
 }
 @media (max-width: 767px) {
-  .statistics-heading {
+  .statistics-section h2 {
     font-size: 2.5rem;
   }
-  .statistics-text {
+  .statistics-top p {
     font-size: 1.125rem;
   }
-  .statistics-card-number {
+  .statistics-card-content p:last-child {
     font-size: 3.5rem;
   }
   .statistics-cards .row .statistics-card {
