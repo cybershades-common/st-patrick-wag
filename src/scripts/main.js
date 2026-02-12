@@ -1200,8 +1200,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Animate first content slide in
             contentSlides.forEach((slide, index) => {
-                const quote = slide.querySelector('.testimonials-quote');
-                const attr = slide.querySelector('.testimonials-attribution');
+                const paragraphs = slide.querySelectorAll('p');
+                const quote = paragraphs[0]; // First p is the quote
+                const attr = paragraphs[1];  // Second p is the attribution
 
                 if (index === 0) {
                     slide.classList.add('active');
@@ -1281,8 +1282,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const enterFromY = direction === 1 ? 60 : -60;
 
             // Animate old content out
-            const oldQuote = oldContent.querySelector('.testimonials-quote');
-            const oldAttr = oldContent.querySelector('.testimonials-attribution');
+            const oldParagraphs = oldContent.querySelectorAll('p');
+            const oldQuote = oldParagraphs[0];
+            const oldAttr = oldParagraphs[1];
 
             gsap.timeline({
                 onComplete: () => {
@@ -1304,8 +1306,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Animate new content in
             newContent.classList.add('active');
-            const newQuote = newContent.querySelector('.testimonials-quote');
-            const newAttr = newContent.querySelector('.testimonials-attribution');
+            const newParagraphs = newContent.querySelectorAll('p');
+            const newQuote = newParagraphs[0];
+            const newAttr = newParagraphs[1];
 
             gsap.set(newQuote, { opacity: 0, y: enterFromY });
             gsap.set(newAttr, { opacity: 0, y: enterFromY * 0.5 });

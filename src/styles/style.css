@@ -2248,17 +2248,13 @@ hr {
 .testimonials-slide-content.active {
   visibility: visible;
 }
-.testimonials-quote {
-  font-family: var(--font-family-helvetica-neue);
+.testimonials-slide-content p:first-child {
   font-size: var(--font-size-quote-large);
-  font-weight: var(--font-weight-light);
   line-height: var(--line-height-quote-large);
-  letter-spacing: 0;
   color: var(--primary-blue);
   margin: 0;
 }
-.testimonials-attribution {
-  font-family: var(--font-family-helvetica-neue);
+.testimonials-slide-content p:last-child {
   font-size: var(--font-size-b3);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-b3);
@@ -2362,7 +2358,7 @@ hr {
   .testimonials-quote-wrapper {
     gap: 2rem;
   }
-  .testimonials-quote-wrapper .testimonials-quote {
+  .testimonials-slide-content p:first-child {
     font-size: 2rem;
   }
 }

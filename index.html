@@ -404,7 +404,10 @@
                             <div class="col-12 cocurricular-nav">
                                 <div class="cocurricular-nav-buttons d-flex align-items-center" data-gsap-children='{
                                     "button":{"type":"fade-up", "start":"top 110%", "stagger":"0.2"}
-                                }'>
+                                    
+                                }' data-gsap-children-mobile='{
+                           "button":{ "start":"top 90%"}
+                            }'>
                                     <button class="btn-rounded-large-outline">Sports</button>
                                     <button class="btn-rounded-large-outline active">Performing
                                         Arts</button>
@@ -499,9 +502,11 @@
                             <div class="col-12 col-xl-4 col-md-5 testimonials-image-col">
                                 <div class="testimonials-image-wrapper" id="testimonialsImageWrapper">
                                     <!-- Testimonial Images -->
-                                    <div class="testimonials-image" data-index="0">
-                                        <img data-gsap="image-fade-in" src="assets/images/testimonial-1.jpg"
-                                            alt="Liam Dossi" class="testimonials-img">
+                                    <div class="testimonials-image" data-index="0"
+                                        data-gsap-children='{"img":{"type":"image-fade-in", "start":"top 60%"}}'
+                                        data-gsap-children-mobile='{"img":{"start":"top 80%"}}'>
+                                        <img src="assets/images/testimonial-1.jpg" alt="Liam Dossi"
+                                            class="testimonials-img">
                                     </div>
                                     <div class="testimonials-image" data-index="1">
                                         <img src="assets/images/about-image.jpg" alt="Michael Chen"
@@ -516,44 +521,46 @@
                             <div class="col-12 col-xl-5 col-md-6 offset-xl-2 offset-md-1 testimonials-text-col">
                                 <div class="testimonials-quote-wrapper" id="testimonialsContentWrapper">
                                     <!-- Testimonial Content -->
-                                    <div data-gsap="fade-up" data-gsap-stagger="0.5" data-gsap-start="top 60%"
-                                        class="testimonials-slide-content active" data-index="0">
-                                        <p class="testimonials-quote">"St Patrick's has given me
+                                    <div class="testimonials-slide-content active" data-index="0"
+                                        data-gsap-children='{"p":{"type":"fade-up", "start":"top 60%", "stagger":"0.2"}}'
+                                        data-gsap-children-mobile='{"p":{"start":"top 80%"}}'>
+                                        <p>"St Patrick's has given me
                                             confidence I never knew
                                             I had.
                                             My teachers push me, my mates back me and every day I feel like I am
                                             becoming a
                                             better version of myself."</p>
-                                        <p class="testimonials-attribution">Liam Dossi, Year 10 Student</p>
+                                        <p>Liam Dossi, Year 10 Student</p>
                                     </div>
                                     <div class="testimonials-slide-content" data-index="1">
-                                        <p class="testimonials-quote">"The support I've received at SPC has shaped me in
+                                        <p>"The support I've received at SPC has shaped me in
                                             ways I
                                             didn't expect. The teachers here don't just teach — they genuinely care
                                             about who
                                             you become."</p>
-                                        <p class="testimonials-attribution">Michael Chen, Year 11 Student</p>
+                                        <p>Michael Chen, Year 11 Student</p>
                                     </div>
                                     <div class="testimonials-slide-content" data-index="2">
-                                        <p class="testimonials-quote">"Watching our son thrive at St Patrick's has been
+                                        <p>"Watching our son thrive at St Patrick's has been
                                             remarkable. The school strikes the perfect balance between academic
                                             excellence and
                                             character development."</p>
-                                        <p class="testimonials-attribution">Catherine Walsh, Parent</p>
+                                        <p>Catherine Walsh, Parent</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row  align-items-center testimonials-bottom-row">
+                        <div class="row  align-items-center testimonials-bottom-row"
+                            data-gsap-children='{"button":{"type":"zoom-in", "start":"top 100%", "stagger" :"0.2"}}'
+                            data-gsap-children-mobile='{"button":{"start":"top 80%"}}'>
                             <div class="col-6 col-lg-6 testimonials-button-col">
-                                <button data-gsap="zoom-in" data-gsap-start="top 100%"
-                                    class="btn-rounded-large-outline testimonials-button">Read
+                                <button class="btn-rounded-large-outline testimonials-button">Read
                                     more Community
                                     Stories</button>
                             </div>
                             <div class="col-6 col-lg-6 testimonials-arrows-col">
-                                <div data-gsap="fade-in" data-gsap-start="top 100%"
-                                    class="testimonials-arrows d-flex align-items-center">
+
+                                <div class="testimonials-arrows d-flex align-items-center">
                                     <button class="testimonials-arrow-btn" id="testimonialPrev"
                                         aria-label="Previous testimonial">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
