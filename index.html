@@ -348,17 +348,16 @@
                         }'>
                             <div class="col-12 col-md-6 academics-card">
                                 <div class="academics-card-image">
-                                    <img src="assets/images/Entry Point Card-1.jpg"
-                                        alt="Middle School" class="w-100 h-100" loading="eager" decoding="async">
+                                    <img src="assets/images/Entry Point Card-1.jpg" alt="Middle School"
+                                        class="w-100 h-100" loading="eager" decoding="async">
                                 </div>
                                 <h4>Middle
                                     School (Years 5 to 8)</h4>
                             </div>
                             <div class="col-12 col-md-6 academics-card">
                                 <div class="academics-card-image">
-                                    <img data-gsap-delay="0.2"
-                                        src="assets/images/Entry Point Card.jpg" alt="Senior School" class="w-100 h-100"
-                                        loading="eager" decoding="async">
+                                    <img data-gsap-delay="0.2" src="assets/images/Entry Point Card.jpg"
+                                        alt="Senior School" class="w-100 h-100" loading="eager" decoding="async">
                                 </div>
                                 <h4>Senior
                                     School (Years 9 to 12)</h4>
@@ -383,23 +382,29 @@
                 <div class="row ">
                     <div class="col-12 cocurricular-content">
                         <div class="row ">
-                            <div data-gsap="fade-up" class="col-12 col-lg-6 cocurricular-left">
+                            <div class="col-12 col-lg-6 cocurricular-left" data-gsap-children='{
+                                "small":{"type":"fade-up"},
+                                "h2":{"type":"fade-up"},
+                                "p":{"type":"fade-up"},
+                                "button":{"type":"zoom-in", "delay":"0.1"}
+                            }'>
                                 <small>CO-CURRICULAR</small>
-                                <h2 data-gsap="fade-up">Music, drama and creative
+                                <h2>Music, drama and creative
                                     expression across the College
                                 </h2>
-                                <p data-gsap="fade-up">Students take part in ensembles, bands,
+                                <p>Students take part in ensembles, bands,
                                     drama groups and
                                     productions that develop skill, discipline and joy in performance.</p>
-                                <button data-gsap="zoom-in" data-gsap-delay="0.1" class="btn-rounded-large-outline">See
+                                <button class="btn-rounded-large-outline">See
                                     performing arts
                                     opportunities</button>
                             </div>
                         </div>
                         <div class="row ">
                             <div class="col-12 cocurricular-nav">
-                                <div data-gsap="fade-up" data-gsap-start="top 110%" data-gsap-stagger="0.2"
-                                    class="cocurricular-nav-buttons d-flex align-items-center">
+                                <div class="cocurricular-nav-buttons d-flex align-items-center" data-gsap-children='{
+                                    "button":{"type":"fade-up", "start":"top 110%", "stagger":"0.4"}
+                                }'>
                                     <button class="btn-rounded-large-outline">Sports</button>
                                     <button class="btn-rounded-large-outline active">Performing
                                         Arts</button>

@@ -27,64 +27,7 @@ class GSAPAnimations {
   // -----------------------------------------------------------------------
 
   setupAnimations() {
-    this.setupAnimationsFor(document);
     this.setupSectionAnimations(document);
-  }
-
-  setupAnimationsFor(root) {
-    const isMobile = window.innerWidth <= 991;
-    root.querySelectorAll('[data-gsap],[data-gsap-mobile]').forEach(el => {
-      if (el.hasAttribute('data-gsap-initialized')) return;
-      const mobileType = el.getAttribute('data-gsap-mobile');
-      const desktopType = el.getAttribute('data-gsap');
-      const type = (isMobile && mobileType) ? mobileType : desktopType;
-      if (!type) return;
-      el.setAttribute('data-gsap-initialized', 'true');
-      const cfg  = this.readConfig(el);
-
-      try {
-        switch (type) {
-          case 'fade-up':         this.fadeUp(el, cfg);        break;
-          case 'fade-in':         this.fadeIn(el, cfg);        break;
-          case 'slide-left':      this.slideLeft(el, cfg);     break;
-          case 'slide-right':     this.slideRight(el, cfg);      break;
-          case 'zoom-in':         this.zoomIn(el, cfg);        break;
-          case 'lines':           this.linesAnimation(el, cfg);  break;
-          case 'lines-scrub':     this.linesScrub(el, cfg);     break;
-          case 'masked-title':    this.maskedTitle(el, cfg);    break;
-          case 'writing-text':    this.writingText(el, cfg);   break;
-          case 'btn-clip-reveal': this.btnClipReveal(el, cfg); break;
-          case 'image-clip-top':    this.imageClipTop(el, cfg);    break;
-          case 'image-clip-bottom': this.imageClipBottom(el, cfg); break;
-          case 'image-clip-left':   this.imageClipLeft(el, cfg);   break;
-          case 'image-clip-right':  this.imageClipRight(el, cfg);  break;
-          case 'image-fade-in':     this.imageFadeIn(el, cfg);    break;
-          case 'parallax-bg':     this.parallaxBg(el, cfg);    break;
-          default: console.warn(`Unknown data-gsap: "${type}"`);
-        }
-      } catch (err) {
-        console.error(`[GSAPAnimations] "${type}"`, err);
-      }
-    });
-  }
-
-  readConfig(el) {
-    const isMobile = window.innerWidth <= 991;
-    const s = (isMobile && el.getAttribute('data-gsap-stagger-mobile')) || el.getAttribute('data-gsap-stagger');
-    const durationAttr = (isMobile && el.getAttribute('data-gsap-duration-mobile')) || el.getAttribute('data-gsap-duration');
-    const delayAttr = (isMobile && el.getAttribute('data-gsap-delay-mobile')) || el.getAttribute('data-gsap-delay');
-    const easeAttr = (isMobile && el.getAttribute('data-gsap-ease-mobile')) || el.getAttribute('data-gsap-ease');
-    const startAttr = (isMobile && el.getAttribute('data-gsap-start-mobile')) || el.getAttribute('data-gsap-start');
-    const duration = parseFloat(durationAttr);
-    const delay = parseFloat(delayAttr);
-    const stagger = s ? parseFloat(s) : null;
-    return {
-      delay:    Number.isFinite(delay) ? delay : 0,
-      duration: Number.isFinite(duration) ? duration : this.defaults.duration,
-      stagger,
-      start:    startAttr || this.defaults.start,
-      ease:     easeAttr || null
-    };
   }
 
   // -----------------------------------------------------------------------
@@ -226,7 +169,7 @@ class GSAPAnimations {
         if (!elements.length) return;
 
         // Parse animation config (can be string or object)
-        let animation, delay, duration, start, ease;
+        let animation, delay, duration, start, ease, stagger;
         if (typeof animConfig === 'string') {
           animation = animConfig;
           delay = baseDelay + (index * 0.1);
@@ -236,32 +179,27 @@ class GSAPAnimations {
           duration = animConfig.duration;
           start = animConfig.start;
           ease = animConfig.ease;
+          stagger = animConfig.stagger;
         }
 
-        // Apply animation to each element
-        elements.forEach(el => {
-          const cfg = {
-            delay: delay,
-            duration: duration || this.defaults.duration,
-            start: start || triggerStart,
-            ease: ease || null,
-            stagger: null
-          };
+        // Apply animation to elements
+        const cfg = {
+          delay: delay,
+          duration: duration || this.defaults.duration,
+          start: start || triggerStart,
+          ease: ease || null,
+          stagger: stagger || null
+        };
 
-          try {
-            switch (animation) {
-              case 'fade-up':         this.fadeUp(el, cfg);        break;
-              case 'fade-in':         this.fadeIn(el, cfg);        break;
-              case 'slide-left':      this.slideLeft(el, cfg);     break;
-              case 'slide-right':     this.slideRight(el, cfg);    break;
-              case 'zoom-in':         this.zoomIn(el, cfg);        break;
-              case 'image-fade-in':   this.imageFadeIn(el, cfg);   break;
-              default: console.warn(`Unknown animation: "${animation}"`);
-            }
-          } catch (err) {
-            console.error(`[GSAPAnimations] Error applying "${animation}":`, err);
-          }
-        });
+        // If stagger is enabled with multiple elements, animate them together
+        // Otherwise animate each element individually
+        if (stagger && elements.length > 1) {
+          this.animateMultiple(elements, animation, cfg);
+        } else {
+          elements.forEach(el => {
+            this.animateSingle(el, animation, cfg);
+          });
+        }
       });
     });
   }
@@ -273,6 +211,117 @@ class GSAPAnimations {
   // One-shot ScrollTrigger: plays once when element hits start position
   triggerCfg(el, cfg) {
     return { trigger: el, start: cfg.start, toggleActions: 'play none none none' };
+  }
+
+  // Animate a single element using the appropriate animation method
+  animateSingle(el, animation, cfg) {
+    try {
+      switch (animation) {
+        case 'fade-up':         this.fadeUp(el, cfg);        break;
+        case 'fade-in':         this.fadeIn(el, cfg);        break;
+        case 'slide-left':      this.slideLeft(el, cfg);     break;
+        case 'slide-right':     this.slideRight(el, cfg);    break;
+        case 'zoom-in':         this.zoomIn(el, cfg);        break;
+        case 'lines':           this.linesAnimation(el, cfg);  break;
+        case 'lines-scrub':     this.linesScrub(el, cfg);     break;
+        case 'masked-title':    this.maskedTitle(el, cfg);    break;
+        case 'writing-text':    this.writingText(el, cfg);   break;
+        case 'btn-clip-reveal': this.btnClipReveal(el, cfg); break;
+        case 'image-clip-top':    this.imageClipTop(el, cfg);    break;
+        case 'image-clip-bottom': this.imageClipBottom(el, cfg); break;
+        case 'image-clip-left':   this.imageClipLeft(el, cfg);   break;
+        case 'image-clip-right':  this.imageClipRight(el, cfg);  break;
+        case 'image-fade-in':     this.imageFadeIn(el, cfg);    break;
+        case 'parallax-bg':     this.parallaxBg(el, cfg);    break;
+        default: console.warn(`Unknown animation: "${animation}"`);
+      }
+    } catch (err) {
+      console.error(`[GSAPAnimations] Error applying "${animation}":`, err);
+    }
+  }
+
+  // Animate multiple elements together with stagger
+  animateMultiple(elements, animation, cfg) {
+    const firstEl = elements[0];
+    try {
+      switch (animation) {
+        case 'fade-up':
+          const yDist = window.innerWidth <= 991 ? 30 : 50;
+          gsap.set(elements, { y: yDist, autoAlpha: 0, force3D: true });
+          gsap.to(elements, {
+            y: 0, autoAlpha: 1, force3D: true,
+            duration: cfg.duration,
+            ease: cfg.ease || this.defaults.ease.fade,
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
+        case 'fade-in':
+          gsap.set(elements, { autoAlpha: 0 });
+          gsap.to(elements, {
+            autoAlpha: 1,
+            duration: cfg.duration,
+            ease: cfg.ease || this.defaults.ease.fade,
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
+        case 'slide-left':
+          const distL = window.innerWidth <= 991 ? 80 : 300;
+          gsap.set(elements, { x: -distL, autoAlpha: 0, force3D: true });
+          gsap.to(elements, {
+            x: 0, autoAlpha: 1, force3D: true,
+            duration: cfg.duration,
+            ease: cfg.ease || this.defaults.ease.slide,
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
+        case 'slide-right':
+          const distR = window.innerWidth <= 991 ? 80 : 300;
+          gsap.set(elements, { x: distR, autoAlpha: 0, force3D: true });
+          gsap.to(elements, {
+            x: 0, autoAlpha: 1, force3D: true,
+            duration: cfg.duration,
+            ease: cfg.ease || this.defaults.ease.slide,
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
+        case 'zoom-in':
+          gsap.set(elements, { scale: 0.9, autoAlpha: 0, force3D: true });
+          gsap.to(elements, {
+            scale: 1, autoAlpha: 1, force3D: true,
+            duration: 0.6,
+            ease: cfg.ease || this.defaults.ease.zoom,
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
+        case 'image-fade-in':
+          const scaleFrom = 1.3;
+          gsap.set(elements, { scale: scaleFrom, autoAlpha: 0, transformOrigin: '50% 50%', force3D: true });
+          gsap.to(elements, {
+            scale: 1, autoAlpha: 1, force3D: true,
+            duration: 1,
+            ease: cfg.ease || 'power2.out',
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
+        default:
+          // For animations without multi-element support, fall back to individual
+          elements.forEach(el => this.animateSingle(el, animation, cfg));
+      }
+    } catch (err) {
+      console.error(`[GSAPAnimations] Error applying "${animation}" with stagger:`, err);
+    }
   }
 
   // Direct children that don't have their own data-gsap (avoids double-animating)
