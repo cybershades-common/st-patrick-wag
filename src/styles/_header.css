@@ -543,6 +543,10 @@
 @media (max-width: 991px) {
   .header-logo {
     width: auto;
+    gap: 0 0.25rem;
+  }
+  .header-nav {
+    gap: 0 1rem;
   }
   .header-row .right-block .dropdown-wrapper.hide-header-items.dropdown {
     display: none !important;
