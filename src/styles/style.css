@@ -1170,7 +1170,7 @@ hr {
   opacity: 0;
 }
 .hero-text button {
-  clip-path: inset(0 100% 0 0);
+ /* clip-path: inset(0 100% 0 0);*/
 }
 .sticky-wrapper {
   position: relative;
