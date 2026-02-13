@@ -544,6 +544,9 @@
   .header-logo {
     width: auto;
   }
+  .header-row .right-block .dropdown-wrapper.hide-header-items.dropdown {
+    display: none !important;
+  }
   .header .header-row .right-block {
     max-width: 57.875%;
   }
