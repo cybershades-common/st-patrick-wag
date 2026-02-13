@@ -35,12 +35,12 @@
     bottom: -100%;
   }
 }
-@media (min-width: 1800px) {
+@media (min-width: 1900px) {
   html {
     font-size: 21px;
   }
 }
-@media (min-width: 2400px) {
+@media (min-width: 2500px) {
   html {
     font-size: 28px;
   }

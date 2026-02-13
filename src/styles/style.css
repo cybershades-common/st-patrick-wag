@@ -2380,6 +2380,21 @@ hr {
     margin-bottom: 1.5rem;
   }
 }
+@media only screen and (min-device-width: 390px) and (max-device-width: 992px) and (orientation: landscape) {
+  html body .testimonials-button-col,
+  html body .testimonials-arrows-col {
+    width: 50%;
+  }
+  html body .testimonials-arrows {
+    justify-content: flex-end;
+  }
+  html body .testimonials-text-col {
+    height: 100%;
+  }
+  html body .testimonials-image-wrapper {
+    aspect-ratio: 446/545;
+  }
+}
 .latest-news-section {
   background-color: var(--basic-white);
   padding-top: var(--spacing-small-2);
@@ -3358,12 +3373,12 @@ hr {
     bottom: -100%;
   }
 }
-@media (min-width: 1800px) {
+@media (min-width: 1900px) {
   html {
     font-size: 21px;
   }
 }
-@media (min-width: 2400px) {
+@media (min-width: 2500px) {
   html {
     font-size: 28px;
   }
