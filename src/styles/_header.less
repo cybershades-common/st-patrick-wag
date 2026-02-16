@@ -192,21 +192,37 @@
   right: 0;
   z-index: 998;
   background-color: var(--basic-white);
-  padding-top: 7.5rem;
+  --menu-scroll-offset: 7.5rem;
+  padding-top: 0;
   padding-bottom: var(--spacing-base);
   max-height: 90vh;
-  overflow-y: auto;
-  scrollbar-width: none;
-  /* Firefox */
-  -ms-overflow-style: none;
-  /* IE/Edge */
+  overflow: hidden;
   box-shadow: none;
   opacity: 0;
   visibility: hidden;
+}
+
+.mega-menu .container-fluid {
+  margin-top: var(--menu-scroll-offset);
+  height: calc(90vh - var(--menu-scroll-offset));
+  max-height: calc(90vh - var(--menu-scroll-offset));
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-gold-1) transparent;
 
   &::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari, Edge */
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primary-gold-1);
+    border-radius: 999px;
+    border: 0.125rem solid transparent;
+    background-clip: content-box;
   }
 }
 
@@ -566,7 +582,7 @@
   }
 
   .mega-menu {
-    padding-top: 6.25rem;
+    --menu-scroll-offset: 6.25rem;
   }
 
   .mega-menu-inner {
