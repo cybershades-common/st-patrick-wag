@@ -637,6 +637,69 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Hero animations - smooth entrance animation
     function initHeroAnimations() {
+        const heroContent = document.querySelector('.hero-content');
+        const heroTextContainer = document.querySelector('.hero-text');
+
+        // Skip hardcoded animations if hero uses data-gsap-children (variant-based animations)
+        if (heroContent?.hasAttribute('data-gsap-children') ||
+            heroTextContainer?.hasAttribute('data-gsap-children')) {
+            console.log('Hero using data-gsap-children animations');
+
+            // Still animate hero media and gradient if needed
+            const heroMedia = document.querySelector('.hero-media-wrapper');
+            const heroGradient = document.querySelector('.hero-gradient');
+            const isMobile = window.innerWidth <= 991;
+
+            if (heroMedia) {
+                const hidden = 'inset(0 100% 0 0)';
+                const shown = 'inset(0 0% 0 0)';
+
+                gsap.set(heroMedia, {
+                    clipPath: hidden,
+                    webkitClipPath: hidden,
+                    opacity: 1,
+                    visibility: 'visible',
+                    willChange: 'clip-path',
+                    force3D: true
+                });
+
+                gsap.to(heroMedia, {
+                    clipPath: shown,
+                    webkitClipPath: shown,
+                    duration: 1.2,
+                    ease: 'power2.inOut',
+                    delay: 0.5,
+                    force3D: true,
+                    autoRound: false,
+                    onComplete: () => {
+                        gsap.set(heroMedia, { clearProps: 'will-change' });
+                    }
+                });
+            }
+
+            // Animate gradient with rise effect
+            if (heroGradient && !isMobile) {
+                gsap.set(heroGradient, {
+                    autoAlpha: 0,
+                    y: 200,
+                    scale: 0.7,
+                    force3D: true
+                });
+
+                gsap.to(heroGradient, {
+                    autoAlpha: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 1.2,
+                    ease: 'power2.out',
+                    delay: 0.7,
+                    force3D: true
+                });
+            }
+
+            return;
+        }
+
         const heroTitle = document.querySelector('.hero-title');
         const heroTitleSpans = document.querySelectorAll('.hero-title span');
         const heroText = document.querySelector('.hero-text p');

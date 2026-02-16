@@ -198,14 +198,20 @@
                 <div class="container-fluid position-relative">
                     <div class="row ">
                         <div class="col-xl-7 col-lg-8 col-md-8">
-                            <div class="col-lg-auto hero-content">
+                            <div class="col-lg-auto hero-content" data-gsap-children='{
+                                "span":{"type":"masked-word", "start":"top 90%", "stagger":"0.4", "delay":"0.3", "ease":"back.out(1.7)"}
+                            }' data-gsap-immediate="true">
                                 <div class="hero-gradient position-absolute"></div>
-                                <h1 class="hero-title"><span>Let your </span><span>light shine.</span></h1>
+                                <h1 class="hero-title"><span>Let </span><span>your </span><span>light
+                                    </span><span>shine.</span></h1>
                             </div>
                         </div>
                         <div class="col-xl-3 offset-xl-1 col-lg-4 col-md-8">
-                            <div
-                                class="col-lg-auto hero-text d-flex flex-column justify-content-between align-items-start">
+                            <div class="col-lg-auto hero-text d-flex flex-column justify-content-between align-items-start"
+                                data-gsap-children='{
+                                "p":{"type":"slide-right", "start":"top 90%", "delay":"2.1"},
+                                "button":{"type":"btn-clip-reveal", "start":"top 90%", "delay":"2.3"}
+                            }' data-gsap-immediate="true">
                                 <p class="mb-0">An independent Catholic day school for boys from Years 5 to 12 in the
                                     Edmund
                                     Rice tradition educating spirited men of faith and purpose.</p>
