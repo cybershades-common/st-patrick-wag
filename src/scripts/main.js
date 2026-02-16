@@ -586,14 +586,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Desktop menu hover: update submenu + image
     menuMainItems.forEach((item) => {
-        item.addEventListener('mouseenter', function () {
-            if (isMobile()) return;
-            const nextKey = item.dataset.menu;
-            if (!nextKey) return;
-            setActiveMenuItem(item);
-            updateMenuForKey(nextKey, false);
-        });
-
         item.addEventListener('click', function (e) {
             if (isMobile()) return;
             const nextKey = item.dataset.menu;
