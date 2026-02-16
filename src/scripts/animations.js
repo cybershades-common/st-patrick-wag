@@ -315,6 +315,62 @@ class GSAPAnimations {
             scrollTrigger: this.triggerCfg(firstEl, cfg)
           });
           break;
+        case 'image-clip-top':
+          const hiddenTop = 'inset(0 0 100% 0)';
+          const shownTop = 'inset(0 0 0% 0)';
+          gsap.set(elements, { clipPath: hiddenTop, webkitClipPath: hiddenTop, willChange: 'clip-path', force3D: true });
+          gsap.to(elements, {
+            clipPath: shownTop, webkitClipPath: shownTop,
+            duration: cfg.duration || 0.6,
+            ease: cfg.ease || 'power2.inOut',
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            force3D: true,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
+        case 'image-clip-bottom':
+          const hiddenBottom = 'inset(100% 0 0 0)';
+          const shownBottom = 'inset(0% 0 0 0)';
+          gsap.set(elements, { clipPath: hiddenBottom, webkitClipPath: hiddenBottom, willChange: 'clip-path', force3D: true });
+          gsap.to(elements, {
+            clipPath: shownBottom, webkitClipPath: shownBottom,
+            duration: cfg.duration || 0.6,
+            ease: cfg.ease || 'power2.inOut',
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            force3D: true,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
+        case 'image-clip-left':
+          const hiddenLeft = 'inset(0 100% 0 0)';
+          const shownLeft = 'inset(0 0% 0 0)';
+          gsap.set(elements, { clipPath: hiddenLeft, webkitClipPath: hiddenLeft, willChange: 'clip-path', force3D: true });
+          gsap.to(elements, {
+            clipPath: shownLeft, webkitClipPath: shownLeft,
+            duration: cfg.duration || 0.6,
+            ease: cfg.ease || 'power2.inOut',
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            force3D: true,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
+        case 'image-clip-right':
+          const hiddenRight = 'inset(0 0 0 100%)';
+          const shownRight = 'inset(0 0 0 0%)';
+          gsap.set(elements, { clipPath: hiddenRight, webkitClipPath: hiddenRight, willChange: 'clip-path', force3D: true });
+          gsap.to(elements, {
+            clipPath: shownRight, webkitClipPath: shownRight,
+            duration: cfg.duration || 0.6,
+            ease: cfg.ease || 'power2.inOut',
+            delay: cfg.delay,
+            stagger: cfg.stagger,
+            force3D: true,
+            scrollTrigger: this.triggerCfg(firstEl, cfg)
+          });
+          break;
         default:
           // For animations without multi-element support, fall back to individual
           elements.forEach(el => this.animateSingle(el, animation, cfg));

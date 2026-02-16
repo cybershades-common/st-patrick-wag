@@ -107,13 +107,20 @@
             <div class="container-fluid d-flex flex-column h-100">
                 <div class="mega-menu-inner row g-4 flex-grow-1">
                     <div class="col-lg-4 col-md-5 menu-main-items d-flex flex-column">
-                        <a href="#" class="menu-main-item" data-menu="home" data-image="assets/images/hero-image.jpg">Home</a>
-                        <a href="#" class="menu-main-item active" data-menu="about" data-image="assets/icons/menu-image.jpg">About</a>
-                        <a href="#" class="menu-main-item" data-menu="identity" data-image="assets/images/about-image.jpg">Identity</a>
-                        <a href="#" class="menu-main-item" data-menu="learning" data-image="assets/images/news-1.jpg">Learning</a>
-                        <a href="#" class="menu-main-item" data-menu="cocurricular" data-image="assets/images/cocurricular-bg.jpg">Co-Curricular</a>
-                        <a href="#" class="menu-main-item" data-menu="community" data-image="assets/images/parents-community-bg.jpg">Community</a>
-                        <a href="#" class="menu-main-item" data-menu="enrolment" data-image="assets/images/strategic-bg-1.jpg">Enrolment</a>
+                        <a href="#" class="menu-main-item" data-menu="home"
+                            data-image="assets/images/hero-image.jpg">Home</a>
+                        <a href="#" class="menu-main-item active" data-menu="about"
+                            data-image="assets/icons/menu-image.jpg">About</a>
+                        <a href="#" class="menu-main-item" data-menu="identity"
+                            data-image="assets/images/about-image.jpg">Identity</a>
+                        <a href="#" class="menu-main-item" data-menu="learning"
+                            data-image="assets/images/news-1.jpg">Learning</a>
+                        <a href="#" class="menu-main-item" data-menu="cocurricular"
+                            data-image="assets/images/cocurricular-bg.jpg">Co-Curricular</a>
+                        <a href="#" class="menu-main-item" data-menu="community"
+                            data-image="assets/images/parents-community-bg.jpg">Community</a>
+                        <a href="#" class="menu-main-item" data-menu="enrolment"
+                            data-image="assets/images/strategic-bg-1.jpg">Enrolment</a>
                     </div>
                     <div class="col-lg-4 col-md-4 menu-sub-items d-flex flex-column" id="menuSubItems">
                         <div class="menu-sub-items-group is-active" data-menu="about">
@@ -250,7 +257,7 @@
                             <div class="row about-content-wrap" data-gsap-children='{
                                     "p":{"type":"fade-up", "start":"top 90%"},
                                     "button":{"type":"zoom-in","ease":"power2.out"},
-                                    "img":{"type":"image-fade-in", "start":"top 50%"}
+                                    "img":{"type":"image-clip-top", "start":"top 50%"}
                                 }' data-gsap-children-mobile='{
                                     "button":{"ease":"none"},
                                     "img":{"start":"top 70%"}
@@ -348,7 +355,7 @@
                     <div class="col-12 academics-top" data-gsap-children='{
                         "h2":{"type":"fade-up"},
                         "p":{"type":"fade-up"},
-                        "button":{"type":"zoom-in", "stagger":"0.5"}
+                        "button":{"type":"zoom-in", "stagger":"0.7"}
                     }'>
                         <div class="row  align-items-start">
                             <div class="col-12 col-xl-4 col-lg-5 col-md-5 academics-heading-col">
@@ -377,10 +384,10 @@
                     </div>
                     <div class="col-12 academics-cards">
                         <div class="row " data-gsap-children='{
-                            "img":{"type":"image-fade-in", "start":"top 60%"},
+                            "img":{"type":"image-clip-top", "start":"top 60%", "stagger":"0.4"},
                             "h4":{"type":"fade-up", "start":"top 90%"}
                         }' data-gsap-children-mobile='{
-                            "img":{"start":"top 80%"},
+                            "img":{"type":"image-clip-top", "start":"top 70%", "stagger":0},
                             "h4":{"start":"top 95%"}
                         }'>
                             <div class="col-12 col-md-6 academics-card">
@@ -423,7 +430,7 @@
                                 "small":{"type":"fade-up"},
                                 "h2":{"type":"fade-up"},
                                 "p":{"type":"fade-up"},
-                                "button":{"type":"zoom-in", "delay":"0.1"}
+                                "button":{"type":"zoom-in", "delay":"0.6"}
                             }'>
                                 <small>CO-CURRICULAR</small>
                                 <h2>Music, drama and creative
@@ -440,7 +447,7 @@
                         <div class="row ">
                             <div class="col-12 cocurricular-nav">
                                 <div class="cocurricular-nav-buttons d-flex align-items-center" data-gsap-children='{
-                                    "button":{"type":"fade-up", "start":"top 110%", "stagger":"0.2"}
+                                    "button":{"type":"fade-up", "start":"top 110%", "stagger":"0.2", "ease":"back.out(1.7)"}
                                     
                                 }' data-gsap-children-mobile='{
                            "button":{ "start":"top 90%"}
@@ -527,6 +534,31 @@
             </div>
         </section>
 
+
+
+        <!-- Parents and Friends Community Section -->
+        <section class="parents-community-section position-relative section">
+            <div class="parents-community-background position-absolute w-100 h-100">
+                <img src="assets/images/parents-community-bg.jpg" alt="Parents Community Background 1"
+                    class="parents-community-bg-img" loading="lazy" onerror="this.style.display='none'">
+
+                <div class="parents-community-overlay position-absolute w-100 h-100"></div>
+            </div>
+            <div class="container-fluid position-relative">
+                <div class="row ">
+                    <div class="col-lg-6 parents-community-content"
+                        data-gsap-children='{"h2":{"type":"fade-up"}, "p":{"type":"fade-up"}, "button":{"type":"zoom-in"}}'>
+                        <h2>Parents and Friends Community</h2>
+                        <p>Faith is at the heart of our life. Grounded in Gospel
+                            spirituality, we foster meaningful relationships and service. Through retreats, prayer, and
+                            community projects, our young men learn compassion, justice, and solidarity in action.</p>
+                        <button class="btn-rounded-large-outline">Explore
+                            Community</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Testimonials Section -->
 
         <section class="testimonials-section section">
@@ -540,7 +572,7 @@
                                 <div class="testimonials-image-wrapper" id="testimonialsImageWrapper">
                                     <!-- Testimonial Images -->
                                     <div class="testimonials-image" data-index="0"
-                                        data-gsap-children='{"img":{"type":"image-fade-in", "start":"top 60%"}}'
+                                        data-gsap-children='{"img":{"type":"image-clip-top", "start":"top 60%"}}'
                                         data-gsap-children-mobile='{"img":{"start":"top 80%"}}'>
                                         <img src="assets/images/testimonial-1.jpg" alt="Liam Dossi"
                                             class="testimonials-img">
@@ -559,7 +591,7 @@
                                 <div class="testimonials-quote-wrapper" id="testimonialsContentWrapper">
                                     <!-- Testimonial Content -->
                                     <div class="testimonials-slide-content active" data-index="0"
-                                        data-gsap-children='{"p":{"type":"fade-up", "start":"top 60%", "stagger":"0.2"}}'
+                                        data-gsap-children='{"p":{"type":"fade-up", "start":"top 60%", "stagger":"0.4"}}'
                                         data-gsap-children-mobile='{"p":{"start":"top 80%"}}'>
                                         <p>"St Patrick's has given me
                                             confidence I never knew
@@ -588,7 +620,7 @@
                             </div>
                         </div>
                         <div class="row  align-items-center testimonials-bottom-row"
-                            data-gsap-children='{"button":{"type":"zoom-in", "start":"top 100%", "stagger" :"0.2"}}'
+                            data-gsap-children='{"button":{"type":"zoom-in", "start":"top 100%", "stagger" :"0.4"}}'
                             data-gsap-children-mobile='{"button":{"start":"top 80%"}}'>
                             <div class="col-6 col-lg-6 testimonials-button-col">
                                 <button class="btn-rounded-large-outline testimonials-button">Read
@@ -621,29 +653,6 @@
                 </div>
             </div>
 
-        </section>
-
-        <!-- Parents and Friends Community Section -->
-        <section class="parents-community-section position-relative section">
-            <div class="parents-community-background position-absolute w-100 h-100">
-                <img src="assets/images/parents-community-bg.jpg" alt="Parents Community Background 1"
-                    class="parents-community-bg-img" loading="lazy" onerror="this.style.display='none'">
-
-                <div class="parents-community-overlay position-absolute w-100 h-100"></div>
-            </div>
-            <div class="container-fluid position-relative">
-                <div class="row ">
-                    <div class="col-lg-6 parents-community-content"
-                        data-gsap-children='{"h2":{"type":"fade-up"}, "p":{"type":"fade-up"}, "button":{"type":"zoom-in"}}'>
-                        <h2>Parents and Friends Community</h2>
-                        <p>Faith is at the heart of our life. Grounded in Gospel
-                            spirituality, we foster meaningful relationships and service. Through retreats, prayer, and
-                            community projects, our young men learn compassion, justice, and solidarity in action.</p>
-                        <button class="btn-rounded-large-outline">Explore
-                            Community</button>
-                    </div>
-                </div>
-            </div>
         </section>
 
 
@@ -718,7 +727,7 @@
                             <div class="latest-news-track" id="latestNewsTrack">
                                 <div class="latest-news-slide active">
                                     <div class="latest-news-card"
-                                        data-gsap-children='{"img":{"type":"image-fade-in", "start":"top 60%"}, "div":{"type":"fade-up", "start":"top 150%"}}'
+                                        data-gsap-children='{"img":{"type":"image-clip-top", "start":"top 60%"}, "div":{"type":"fade-up", "start":"top 150%"}}'
                                         data-gsap-children-mobile='{"img":{"start":"top 80%"}}'>
                                         <a href="#">
                                             <img loading="lazy" src="assets/images/news-1.jpg" alt="Black Tie Liturgy"
@@ -732,7 +741,7 @@
                                 </div>
                                 <div class="latest-news-slide">
                                     <div class="latest-news-card"
-                                        data-gsap-children='{"img":{"type":"image-fade-in", "start":"top 60%"}, "div":{"type":"fade-up", "start":"top 80%"}}'
+                                        data-gsap-children='{"img":{"type":"image-clip-top", "start":"top 60%"}, "div":{"type":"fade-up", "start":"top 80%"}}'
                                         data-gsap-children-mobile='{"img":{"start":"top 80%"}}' data-gsap-delay="0.2">
                                         <a href="#">
                                             <img loading="lazy" src="assets/images/news-2.jpg"
@@ -746,7 +755,7 @@
                                 </div>
                                 <div class="latest-news-slide">
                                     <div class="latest-news-card"
-                                        data-gsap-children='{"img":{"type":"image-fade-in", "start":"top 60%"}, "div":{"type":"fade-up", "start":"top 80%"}}'
+                                        data-gsap-children='{"img":{"type":"image-clip-top", "start":"top 60%"}, "div":{"type":"fade-up", "start":"top 80%"}}'
                                         data-gsap-children-mobile='{"img":{"start":"top 80%"}}' data-gsap-delay="0.4">
                                         <a href="#">
                                             <img loading="lazy" src="assets/images/news-3.jpg"
@@ -760,7 +769,7 @@
                                 </div>
                                 <div class="latest-news-slide">
                                     <div class="latest-news-card"
-                                        data-gsap-children='{"img":{"type":"image-fade-in", "start":"top 60%"}, "div":{"type":"fade-up", "start":"top 80%"}}'
+                                        data-gsap-children='{"img":{"type":"image-clip-top", "start":"top 60%"}, "div":{"type":"fade-up", "start":"top 80%"}}'
                                         data-gsap-children-mobile='{"img":{"start":"top 80%"}}' data-gsap-delay="0.6">
                                         <a href="#">
                                             <img loading="lazy" src="assets/images/news-1.jpg" alt="News Article"
