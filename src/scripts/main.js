@@ -668,8 +668,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Skip hardcoded animations if hero uses data-gsap-children (variant-based animations)
         if (heroContent?.hasAttribute('data-gsap-children') ||
             heroTextContainer?.hasAttribute('data-gsap-children')) {
-            console.log('Hero using data-gsap-children animations');
-
             // Still animate hero media and gradient if needed
             const heroMedia = document.querySelector('.hero-media-wrapper');
             const heroGradient = document.querySelector('.hero-gradient');
@@ -732,7 +730,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const heroGradient = document.querySelector('.hero-gradient');
 
         if (!heroTitle || !heroText) {
-            console.warn('Hero elements not found');
             return;
         }
 
@@ -997,7 +994,6 @@ document.addEventListener('DOMContentLoaded', function () {
         );
 
         if (headerItems.length === 0) {
-            console.warn('No header items found');
             return;
         }
 
@@ -1010,7 +1006,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         if (visibleItems.length === 0) {
-            console.warn('No visible header items found');
             return;
         }
 
@@ -1647,7 +1642,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const nextBtn = document.getElementById('testimonialNext');
 
         if (!imageWrapper || !contentWrapper || !prevBtn || !nextBtn) {
-            console.warn('Testimonials slider elements not found');
             return;
         }
 
@@ -1655,7 +1649,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const contentSlides = contentWrapper.querySelectorAll('.testimonials-slide-content');
 
         if (!imageSlides.length || !contentSlides.length) {
-            console.warn('No testimonial slides found in HTML');
             return;
         }
 
@@ -2014,7 +2007,6 @@ document.addEventListener('DOMContentLoaded', function () {
             mouseY = e.clientY;
             if (!hasMouseMoved) {
                 hasMouseMoved = true;
-                console.log('Gradient will now follow cursor (right & up only)');
             }
         });
 
@@ -2073,7 +2065,6 @@ document.addEventListener('DOMContentLoaded', function () {
             requestAnimationFrame(animate);
         }
 
-        console.log('Hero gradient cursor effect initialized - restricted to title area');
         animate();
     }
 
@@ -2084,7 +2075,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Cursor-following effect for FOOTER gradient - entire footer area
     function initFooterGradientCursorEffect() {
         if (window.innerWidth <= 991) {
-            console.log('Footer gradient: Skipped (mobile)');
             return;
         }
 
@@ -2092,11 +2082,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const footerSection = document.querySelector('footer.footer');
 
         if (!footerGradient || !footerSection) {
-            console.warn('Footer gradient elements not found');
             return;
         }
-
-        console.log('Footer gradient element found:', footerGradient);
 
         const CONFIG = {
             maxLeft: 500, // Increased for more left movement
@@ -2119,7 +2106,6 @@ document.addEventListener('DOMContentLoaded', function () {
             mouseY = e.clientY;
             if (!hasMouseMoved) {
                 hasMouseMoved = true;
-                console.log('Footer gradient: Mouse movement detected');
             }
         });
 
@@ -2166,18 +2152,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 targetX = Math.max(-CONFIG.maxLeft, Math.min(CONFIG.maxRight, deltaX * scale));
                 targetY = Math.max(0, Math.min(CONFIG.maxUp, moveUp * scale));
 
-                if (frameCount % 60 === 0) {
-                    const computedTransform = window.getComputedStyle(footerGradient).transform;
-                    console.log('Footer gradient:', {
-                        isInFooter,
-                        targetX: targetX.toFixed(2),
-                        targetY: targetY.toFixed(2),
-                        currentX: currentX.toFixed(2),
-                        currentY: currentY.toFixed(2),
-                        transform: computedTransform
-                    });
-                }
-
                 if (frameCount % 30 === 0) {
                     footerGradient.style.opacity = isInFooter ? '1' : '0.8';
                 }
@@ -2193,7 +2167,6 @@ document.addEventListener('DOMContentLoaded', function () {
             requestAnimationFrame(animate);
         }
 
-        console.log('Footer gradient cursor effect initialized - entire footer area');
         animate();
     }
 
@@ -2204,7 +2177,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Cursor-following effect for TESTIMONIALS gradient - left and up movement
     function initTestimonialsGradientCursorEffect() {
         if (window.innerWidth <= 991) {
-            console.log('Testimonials gradient: Skipped (mobile)');
             return;
         }
 
@@ -2213,7 +2185,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const testimonialsContent = document.querySelector('.testimonials-quote-wrapper');
 
         if (!testimonialsGradient || !testimonialsSection || !testimonialsContent) {
-            console.warn('Testimonials gradient elements not found');
             return;
         }
 
@@ -2237,7 +2208,6 @@ document.addEventListener('DOMContentLoaded', function () {
             mouseY = e.clientY;
             if (!hasMouseMoved) {
                 hasMouseMoved = true;
-                console.log('Testimonials gradient will now follow cursor (left & up only)');
             }
         });
 
@@ -2290,7 +2260,6 @@ document.addEventListener('DOMContentLoaded', function () {
             requestAnimationFrame(animate);
         }
 
-        console.log('Testimonials gradient cursor effect initialized - restricted to content area');
         animate();
     }
 

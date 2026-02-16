@@ -117,7 +117,6 @@ class GSAPAnimations {
           mobileConfig = JSON.parse(mobileConfigAttr);
         }
       } catch (err) {
-        console.error('[GSAPAnimations] Invalid JSON in data-gsap-children:', err);
         return;
       }
 
@@ -165,19 +164,13 @@ class GSAPAnimations {
 
       // Check if this section should animate immediately (no ScrollTrigger)
       const immediate = section.hasAttribute('data-gsap-immediate');
-      if (immediate) {
-        console.log('[GSAPAnimations] Section marked as immediate, animations will play on page load:', section);
-      }
 
       // Process each selector in the config
       Object.entries(config).forEach(([selector, animConfig], index) => {
         const elements = section.querySelectorAll(selector);
         if (!elements.length) {
-          console.warn(`[GSAPAnimations] No elements found for selector "${selector}"`, section);
           return;
         }
-
-        console.log(`[GSAPAnimations] Found ${elements.length} elements for "${selector}":`, animConfig);
 
         // Parse animation config (can be string or object)
         let animation, delay, duration, start, ease, stagger;
@@ -202,8 +195,6 @@ class GSAPAnimations {
           stagger: stagger || null,
           immediate: immediate // Pass immediate flag to animation functions
         };
-
-        console.log(`[GSAPAnimations] Animating ${selector} with ${animation}, delay: ${cfg.delay}, stagger: ${cfg.stagger}, immediate: ${immediate}`);
 
         // If stagger is enabled with multiple elements, animate them together
         // Otherwise animate each element individually
@@ -239,7 +230,6 @@ class GSAPAnimations {
                         el?.classList?.contains('hero-text');
 
     if (hasHeroClass) {
-      console.log('[GSAPAnimations] Hero element detected:', el);
       return true;
     }
 
@@ -248,7 +238,6 @@ class GSAPAnimations {
     const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
 
     if (inViewport && rect.top < window.innerHeight * 0.5) {
-      console.log('[GSAPAnimations] Element in viewport on load, skipping ScrollTrigger:', el);
       return true;
     }
 
@@ -276,10 +265,9 @@ class GSAPAnimations {
         case 'image-clip-right':  this.imageClipRight(el, cfg);  break;
         case 'image-fade-in':     this.imageFadeIn(el, cfg);    break;
         case 'parallax-bg':     this.parallaxBg(el, cfg);    break;
-        default: console.warn(`Unknown animation: "${animation}"`);
       }
     } catch (err) {
-      console.error(`[GSAPAnimations] Error applying "${animation}":`, err);
+      // Animation error
     }
   }
 
@@ -401,7 +389,6 @@ class GSAPAnimations {
             maskedAnimConfig.scrollTrigger = this.triggerCfg(firstEl, cfg);
           }
 
-          console.log('[GSAPAnimations] Masked word animating', inners.length, 'inners with config:', maskedAnimConfig, 'skipScrollTrigger:', skipScrollTriggerMasked);
           gsap.to(inners, maskedAnimConfig);
           break;
         case 'image-fade-in':
@@ -477,7 +464,7 @@ class GSAPAnimations {
           elements.forEach(el => this.animateSingle(el, animation, cfg));
       }
     } catch (err) {
-      console.error(`[GSAPAnimations] Error applying "${animation}" with stagger:`, err);
+      // Animation error with stagger
     }
   }
 
@@ -648,7 +635,6 @@ class GSAPAnimations {
       animConfig.scrollTrigger = this.triggerCfg(el, cfg);
     }
 
-    console.log('[GSAPAnimations] SlideRight animating with config:', animConfig, 'skipScrollTrigger:', skipScrollTrigger, 'element:', el);
     gsap.to(target, animConfig);
   }
 
@@ -678,17 +664,13 @@ class GSAPAnimations {
 
   // Reveals text one rendered line at a time
   linesAnimation(el, cfg) {
-    console.log('[Lines Animation] Element:', el, 'Config:', cfg);
     const lines = this.splitLines(el);
-    console.log('[Lines Animation] Split into', lines.length, 'lines:', lines);
 
     if (!lines.length) {
-      console.warn('[Lines Animation] No lines found, animation skipped');
       return;
     }
 
     const skipScrollTrigger = cfg.immediate || this.isHeroElement(el);
-    console.log('[Lines Animation] skipScrollTrigger:', skipScrollTrigger, 'immediate:', cfg.immediate);
 
     // Make parent element visible (in case CSS hides it)
     gsap.set(el, { autoAlpha: 1, transition: 'none' });
@@ -716,7 +698,6 @@ class GSAPAnimations {
       animConfig.scrollTrigger = this.triggerCfg(el, cfg);
     }
 
-    console.log('[Lines Animation] Animating with config:', animConfig);
     gsap.to(lines, animConfig);
   }
 
@@ -946,7 +927,6 @@ class GSAPAnimations {
       tlConfig.scrollTrigger = { trigger: btn, start: cfg.start, toggleActions: 'play none none none' };
     }
 
-    console.log('[GSAPAnimations] BtnClipReveal creating timeline with config:', tlConfig, 'skipScrollTrigger:', skipScrollTrigger, 'button:', btn);
     const tl = gsap.timeline(tlConfig);
 
     // 1. Button shape fills
