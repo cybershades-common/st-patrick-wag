@@ -1,66 +1,189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Marquee</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reusable Buttons (No White Line)</title>
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ================
+     1) Global defaults
+     ================= */
+    @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
+
+    :root {
+      --btn-accent: #f93195;
+      --btn-text: var(--btn-accent);
+      --btn-text-hover: #ffffff;
+      --btn-border: var(--btn-accent);
+
+      --btn-radius: 14px;
+      --btn-h: 52px;
+      --btn-w: 220px;
+
+      --btn-pad-x: 18px;
+      --btn-font: 600 14px/1 "Open Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      --btn-letter: .2px;
+
+      --btn-dur: .35s;
+      --btn-ease: cubic-bezier(1, 0, 0, 1);
     }
 
     body {
-      display: flex;
-      align-items: center;
+      margin: 0;
       min-height: 100vh;
-      background: #ffffff;
-      overflow: hidden;
-      font-family: sans-serif;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      font-family: "Open Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial;
     }
 
-    .marquee {
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .marquee-track {
+    .demo {
       display: flex;
-      width: max-content;
-      animation: scroll 12s linear infinite;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      padding: 24px;
     }
 
-    .marquee-half {
-      white-space: nowrap;
-      font-size: 2.5rem;
-      color: #1a56db;
+    /* ===================
+     2) Base component
+     =================== */
+    .btn {
+      /* per-component overrides (set these inline or via extra classes) */
+      --_accent: var(--btn-accent);
+      --_text: var(--btn-text);
+      --_text-hover: var(--btn-text-hover);
+      --_border: var(--btn-border);
+      --_radius: var(--btn-radius);
+      --_h: var(--btn-h);
+      --_w: var(--btn-w);
+
+      appearance: none;
+      border: none;
+      /* IMPORTANT: remove real border */
+      border-radius: var(--_radius);
+      height: var(--_h);
+      width: var(--_w);
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+
+      padding: 0 var(--btn-pad-x);
+      font: var(--btn-font);
+      letter-spacing: var(--btn-letter);
+
+      color: var(--_text);
+      background: transparent;
+      text-decoration: none;
+      cursor: pointer;
+
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      /* IMPORTANT: clip background to radius */
+
+      transition: color var(--btn-dur) var(--btn-ease),
+        transform var(--btn-dur) var(--btn-ease);
     }
 
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
+    /* border as overlay (prevents white line/gaps) */
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--_border);
+      border-radius: var(--_radius);
+      pointer-events: none;
+      z-index: 2;
+      /* border sits on top */
+    }
 
-      100% {
-        transform: translateX(-50%);
-      }
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--_accent) 35%, transparent);
+      outline-offset: 3px;
+    }
+
+    /* ==================================
+     3) Variant A — Left-to-right fill
+     ================================== */
+    .btn--fill-lr::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--_accent);
+      z-index: 0;
+      /* behind text and border */
+      width: 0%;
+      left: 0;
+      top: 0;
+      transition: width var(--btn-dur) var(--btn-ease);
+    }
+
+    .btn--fill-lr:hover {
+      color: var(--_text-hover);
+    }
+
+    .btn--fill-lr:hover::after {
+      width: 100%;
+    }
+
+    /* =========================================
+     4) Variant B — "Image fill" background slide
+     ========================================= */
+    .btn--fill-bg {
+      background-repeat: repeat-x;
+      background-position: 0 -120%;
+      background-size: 130% 130%;
+      /* IMPORTANT: oversize to cover edges */
+      background-clip: padding-box;
+      /* IMPORTANT: reduce edge bleed */
+      transition: background-position .8s ease,
+        color var(--btn-dur) var(--btn-ease);
+    }
+
+    .btn--fill-bg:hover {
+      color: var(--_text-hover);
+      background-position: 120% 45%;
+    }
+
+    /* skins via data attribute */
+    .btn--fill-bg[data-bg="liquid"] {
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjMwMXB4IiBoZWlnaHQ9IjEzN3B4IiB2aWV3Qm94PSIwIDAgMzAxIDEzNyIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgIDxnIHN0cm9rZT0ibm9uZSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8cGF0aCBkPSJNMC41MDE5NTMxMjUsOC45NjI4OTA2MiBMMC41MDE5NTMxMjUsMTM2LjI5ODAyMSBMMzAwLjM2MTY2LDEzNi4yOTgwMjEgTDMwMC4zNjE2Niw3LjIxMjQ2MjY3IEMzMDAuMzYxNjYsNy4yMTI0NjI2NyAyOTAuNDUxMTcyLDEyLjA2ODM1OTQgMjc4LjE4NTU0NywxMi4wNjgzNTk0IEMyNjUuOTE5OTIyLDEyLjA2ODM1OTQgMjQ3LjAzMzIwMywwLjEwNzQyMTg3NSAxOTkuODEyNSwwLjEwNzQyMTg3NSBDMTUyLjU5MTc5NywwLjEwNzQyMTg3NSAxMjcuNjcxODc1LDkuNTA1ODU5MzcgMTAxLjQzMTY0MSw5LjUwNTg1OTM3IEM3NS4xOTE0MDYyLDkuNTA1ODU5MzcgNTUuMTYwMTU2MiwwLjk1NTA3ODEyNSA0MS42MzA4NTk0LDAuOTU1MDc4MTI1IEMyOC4xMDE1NjI1LDAuOTU1MDc4MTI1IDAuNTAxOTUzMTI1LDguOTYyODkwNjIgMC41MDE5NTMxMjUsOC45NjI4OTA2MiBaIiBmaWxsPSIjRkMyOTk1Ij48L3BhdGg+CiAgICA8L2c+Cjwvc3ZnPg==');
+    }
+
+    .btn--fill-bg[data-bg="angle"] {
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjMwMHB4IiBoZWlnaHQ9IjEzMHB4IiB2aWV3Qm94PSIwIDAgMzAwIDEzMCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgIDxnIHN0cm9rZT0ibm9uZSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8cG9seWdvbiBmaWxsPSIjRkMyOTk1IiBwb2ludHM9IjAgMzIuODU1NDY4NyAwIDEyOS4xOTA1OTkgMjk5Ljg1OTcwNyAxMjkuMTkwNTk5IDI5OS44NTk3MDcgMC4xMDUwNDA3OTEiPjwvcG9seWdvbj4KICAgIDwvZz4KPC9zdmc+');
     }
   </style>
 </head>
 
 <body>
+  <div class="demo">
+    <a class="btn btn--fill-lr" href="#">Load Left to Right</a>
 
-  <div class="marquee">
-    <div class="marquee-track">
-      <span class="marquee-half">Let your light shine.&nbsp; Let your light shine.&nbsp; Let your light shine.&nbsp; Let
-        your light shine.&nbsp; </span>
-      <span class="marquee-half">Let your light shine.&nbsp; Let your light shine.&nbsp; Let your light shine.&nbsp; Let
-        your light shine.&nbsp; </span>
-    </div>
+    <a class="btn btn--fill-bg" data-bg="liquid" href="#"
+      style="--_accent:#f93195; --_border:#f93195; --_w:210px; --_radius:12px;">
+      Load Liquid
+    </a>
+
+    <a class="btn btn--fill-bg" data-bg="angle" href="#"
+      style="--_accent:#7c3aed; --_border:#7c3aed; --_w:200px; --_h:50px; --_radius:999px;">
+      Load Angled
+    </a>
+
+    <button class="btn btn--fill-lr"
+      style="--_accent:#102e50; --_border:#102e50; --_text:#102e50; --_w:260px; --_h:56px; --_radius:18px;">
+      Navy Fill Button
+    </button>
   </div>
-
 </body>
 
 </html>

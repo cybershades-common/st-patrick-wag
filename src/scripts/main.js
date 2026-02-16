@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuMainItems = document.querySelectorAll('.menu-main-item');
     const menuSubItems = document.querySelectorAll('.menu-sub-item');
     const footerArrowUp = document.getElementById('footerArrowUp');
+    const menuSubItemsContainer = document.querySelector('.menu-sub-items');
+    const menuImageWrapper = document.querySelector('.menu-image-wrapper');
 
     const btnEnquire = document.querySelector('.btn-enquire');
     const dropdownWrappers = document.querySelectorAll('.dropdown-wrapper');
@@ -22,6 +24,269 @@ document.addEventListener('DOMContentLoaded', function () {
         typeof window.CSS.supports === 'function' &&
         window.CSS.supports('scrollbar-gutter: stable');
     const usePaddingCompensation = !supportsStableScrollbarGutter;
+
+    const menuConfig = {
+        home: {
+            image: 'assets/images/hero-image.jpg',
+            subItems: []
+        },
+        about: {
+            image: 'assets/icons/menu-image.jpg',
+            subItems: [
+                "Principal's Welcome",
+                "Captain's Welcome",
+                "History",
+                "Building Our Future",
+                "Mission and Strategic Plan",
+                "Annual Reports",
+                "Ideal Graduate",
+                "Leadership Team",
+                "Governance",
+                "Policies and Forms"
+            ]
+        },
+        identity: {
+            image: 'assets/images/about-image.jpg',
+            subItems: [
+                'Mission and Values',
+                'Catholic Tradition',
+                'Edmund Rice Heritage',
+                'Student Wellbeing',
+                'Diversity and Inclusion'
+            ]
+        },
+        learning: {
+            image: 'assets/images/news-1.jpg',
+            subItems: [
+                'Curriculum Overview',
+                'Learning Support',
+                'Technology in Learning',
+                'Assessment and Reporting',
+                'Library and Resources'
+            ]
+        },
+        cocurricular: {
+            image: 'assets/images/cocurricular-bg.jpg',
+            subItems: []
+        },
+        community: {
+            image: 'assets/images/parents-community-bg.jpg',
+            subItems: []
+        },
+        enrolment: {
+            image: 'assets/images/strategic-bg-1.jpg',
+            subItems: []
+        }
+    };
+
+    const menuOrder = Array.from(menuMainItems).map(item => item.dataset.menu || '');
+    let currentMenuKey = null;
+    let isMenuImageAnimating = false;
+
+    function getMenuDirection(nextKey) {
+        const currentIndex = menuOrder.indexOf(currentMenuKey);
+        const nextIndex = menuOrder.indexOf(nextKey);
+        if (currentIndex === -1 || nextIndex === -1) return 1;
+        return nextIndex > currentIndex ? 1 : -1;
+    }
+
+    function ensureMenuImageSlide() {
+        if (!menuImageWrapper) return null;
+
+        let activeSlide = menuImageWrapper.querySelector('.menu-image-slide.is-active');
+        if (activeSlide) return activeSlide;
+
+        let img = menuImageWrapper.querySelector('img.menu-image:not(.menu-image-placeholder)');
+        let placeholder = menuImageWrapper.querySelector('.menu-image-placeholder');
+        if (!img) {
+            img = document.createElement('img');
+            img.className = 'menu-image w-100';
+            img.alt = 'Menu image';
+        }
+
+        if (!placeholder) {
+            placeholder = img.cloneNode(true);
+            placeholder.classList.add('menu-image-placeholder');
+            menuImageWrapper.insertBefore(placeholder, menuImageWrapper.firstChild);
+        }
+
+        const slide = document.createElement('div');
+        slide.className = 'menu-image-slide is-active';
+        slide.appendChild(img);
+        menuImageWrapper.appendChild(slide);
+
+        gsap.set(slide, { clipPath: 'inset(0% 0% 0% 0%)', zIndex: 1 });
+        gsap.set(img, { scale: 1, x: 0, opacity: 1 });
+
+        return slide;
+    }
+
+    function setMenuImage(src, instant, directionOverride) {
+        if (!menuImageWrapper || !src) return;
+        const activeSlide = ensureMenuImageSlide();
+        if (!activeSlide) return;
+
+        const activeImg = activeSlide.querySelector('img.menu-image');
+        const placeholder = menuImageWrapper.querySelector('.menu-image-placeholder');
+        if (activeImg && activeImg.getAttribute('src') === src) return;
+
+        if (instant) {
+            if (activeImg) {
+                activeImg.setAttribute('src', src);
+            }
+            return;
+        }
+
+        if (isMenuImageAnimating) {
+            const slides = menuImageWrapper.querySelectorAll('.menu-image-slide');
+            gsap.killTweensOf(slides);
+            gsap.killTweensOf(menuImageWrapper.querySelectorAll('.menu-image'));
+            // Keep the active slide in place to avoid blank gaps
+            slides.forEach((slide) => {
+                if (!slide.classList.contains('is-active')) slide.remove();
+            });
+        }
+        isMenuImageAnimating = true;
+
+        const direction = directionOverride || getMenuDirection(currentMenuKey || 'about');
+        const clipFrom = direction === 1 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)';
+        const oldClipTo = direction === 1 ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)';
+        const parallaxFrom = direction === 1 ? -100 : 100;
+        const oldParallaxTo = direction === 1 ? 100 : -100;
+
+        const newSlide = document.createElement('div');
+        newSlide.className = 'menu-image-slide';
+        const newImg = document.createElement('img');
+        newImg.className = 'menu-image w-100';
+        newImg.src = src;
+        newImg.alt = activeImg ? activeImg.alt : 'Menu image';
+        newSlide.appendChild(newImg);
+        menuImageWrapper.appendChild(newSlide);
+
+        // Ensure current image is fully visible before new slide moves in
+        gsap.set(activeSlide, { clipPath: 'inset(0% 0% 0% 0%)', zIndex: 1 });
+        gsap.set(activeImg, { opacity: 1 });
+
+        gsap.set(newSlide, { clipPath: clipFrom, zIndex: 2 });
+        gsap.set(newImg, { scale: 1.3, x: parallaxFrom, opacity: 1 });
+
+        gsap.to(activeImg, {
+            x: oldParallaxTo,
+            scale: 1.1,
+            duration: 1.2,
+            ease: 'power3.inOut'
+        });
+        gsap.to(activeSlide, {
+            clipPath: oldClipTo,
+            duration: 1.2,
+            ease: 'power3.inOut',
+            delay: 0.05
+        });
+
+        gsap.to(newSlide, {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 1.2,
+            ease: 'power3.inOut'
+        });
+        gsap.to(newImg, {
+            scale: 1,
+            x: 0,
+            duration: 1.4,
+            ease: 'power3.out',
+            onComplete: () => {
+                activeSlide.remove();
+                newSlide.classList.add('is-active');
+                isMenuImageAnimating = false;
+            }
+        });
+    }
+
+    function renderSubMenu(items) {
+        if (!menuSubItemsContainer) return;
+
+        const backBtn = menuSubItemsContainer.querySelector('.menu-sub-back');
+        menuSubItemsContainer.innerHTML = '';
+        if (backBtn) {
+            menuSubItemsContainer.appendChild(backBtn);
+        }
+
+        items.forEach((label, index) => {
+            const link = document.createElement('a');
+            link.href = '#';
+            link.className = 'menu-sub-item' + (index === 0 ? ' active' : '');
+            link.textContent = label;
+            menuSubItemsContainer.appendChild(link);
+        });
+    }
+
+    function animateSubMenuChange(items, direction) {
+        if (!menuSubItemsContainer) return;
+
+        const currentItems = Array.from(menuSubItemsContainer.querySelectorAll('.menu-sub-item'));
+        const exitX = direction === 1 ? -20 : 20;
+        const enterX = direction === 1 ? 20 : -20;
+
+        if (!currentItems.length) {
+            renderSubMenu(items);
+            const newItems = Array.from(menuSubItemsContainer.querySelectorAll('.menu-sub-item'));
+            gsap.set(newItems, { opacity: 0, x: enterX, force3D: true });
+            gsap.to(newItems, {
+                opacity: 1,
+                x: 0,
+                duration: 0.35,
+                ease: 'power2.out',
+                stagger: 0.05,
+                force3D: true
+            });
+            return;
+        }
+
+        gsap.killTweensOf(currentItems);
+        gsap.timeline({
+            onComplete: () => {
+                renderSubMenu(items);
+                const newItems = Array.from(menuSubItemsContainer.querySelectorAll('.menu-sub-item'));
+                gsap.set(newItems, { opacity: 0, x: enterX, force3D: true });
+                gsap.to(newItems, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.35,
+                    ease: 'power2.out',
+                    stagger: 0.05,
+                    force3D: true
+                });
+            }
+        }).to(currentItems, {
+            opacity: 0,
+            x: exitX,
+            duration: 0.25,
+            ease: 'power2.in',
+            stagger: -0.04,
+            force3D: true
+        });
+    }
+
+    function updateMenuForKey(nextKey, instant) {
+        if (!nextKey || !menuConfig[nextKey]) return;
+        if (nextKey === currentMenuKey && !instant) return;
+
+        const direction = currentMenuKey ? getMenuDirection(nextKey) : 1;
+        currentMenuKey = nextKey;
+
+        const config = menuConfig[nextKey];
+        if (instant) {
+            renderSubMenu(config.subItems);
+            setMenuImage(config.image, true, direction);
+            return;
+        }
+
+        animateSubMenuChange(config.subItems, direction);
+        setMenuImage(config.image, false, direction);
+    }
+
+    const initialActiveItem = document.querySelector('.menu-main-item.active');
+    const initialKey = initialActiveItem ? initialActiveItem.dataset.menu : 'about';
+    updateMenuForKey(initialKey, true);
 
     function openMenu() {
         isMenuOpen = true;
@@ -51,6 +316,10 @@ document.addEventListener('DOMContentLoaded', function () {
         menuText.textContent = 'CLOSE';
         document.body.style.overflow = 'hidden';
 
+        const activeItem = document.querySelector('.menu-main-item.active');
+        const activeKey = activeItem ? activeItem.dataset.menu : 'about';
+        updateMenuForKey(activeKey, true);
+
         if (!isMobile()) {
             btnEnquire.style.display = 'inline-flex';
             dropdownWrappers.forEach(wrapper => {
@@ -68,11 +337,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const menuMainItems = document.querySelectorAll('.menu-main-item');
         const menuSubItems = document.querySelectorAll('.menu-sub-item');
-        const menuImage = document.querySelector('.menu-image');
+        const menuImageSlide = menuImageWrapper ? menuImageWrapper.querySelector('.menu-image-slide.is-active') : null;
+        const menuImage = menuImageSlide ? menuImageSlide.querySelector('.menu-image') : document.querySelector('.menu-image');
         const menuFooter = document.querySelector('.mega-menu-footer');
 
         // Clear any existing properties
-        gsap.set([menuMainItems, menuSubItems, menuImage], { clearProps: 'all' });
+        gsap.set([menuMainItems, menuSubItems, menuImageSlide, menuImage], { clearProps: 'all' });
 
         const isMobileView = isMobile();
 
@@ -110,11 +380,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 { opacity: 1, x: 0, duration: 0.4, stagger: 0.04, ease: 'power1.out', force3D: true },
                 0.95
             )
-            // Menu image - fade in with zoom out (after sub menu)
+            // Menu image - same transition as testimonials (clip + parallax)
+            .fromTo(menuImageSlide,
+                { clipPath: 'inset(0% 100% 0% 0%)' },
+                { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power3.inOut' },
+                1.1
+            )
             .fromTo(menuImage,
-                { opacity: 0, scale: 1.15, force3D: true },
-                { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out', force3D: true },
-                1.45
+                { opacity: 1, scale: 1.3, x: -100, force3D: true },
+                { opacity: 1, scale: 1, x: 0, duration: 1.4, ease: 'power3.out', force3D: true },
+                1.1
             )
             // Menu footer (earlier on mobile since image is hidden)
             .fromTo(menuFooter,
@@ -134,7 +409,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Reset menu items AFTER fade to avoid flicker
         const menuMainItems = document.querySelectorAll('.menu-main-item');
         const menuSubItems = document.querySelectorAll('.menu-sub-item');
-        const menuImage = document.querySelector('.menu-image');
+        const menuImageSlide = menuImageWrapper ? menuImageWrapper.querySelector('.menu-image-slide.is-active') : null;
+        const menuImage = menuImageSlide ? menuImageSlide.querySelector('.menu-image') : document.querySelector('.menu-image');
         const menuFooter = document.querySelector('.mega-menu-footer');
         const headerMenuItems = document.querySelectorAll(
             '.header-nav .btn-book-tour, .header-nav .btn-enquire, .header-nav .dropdown-wrapper.hide-header-items'
@@ -144,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
         );
         const bookTourBtn = document.querySelector('.header-nav .btn-book-tour');
         const rightBlock = header ? header.querySelector('.right-block') : null;
-        gsap.killTweensOf([menuMainItems, menuSubItems, menuImage, menuFooter, megaMenu, menuOverlay]);
+        gsap.killTweensOf([menuMainItems, menuSubItems, menuImageSlide, menuImage, menuFooter, megaMenu, menuOverlay]);
 
         function getRightBlockMaxWidth() {
             const width = window.innerWidth;
@@ -155,7 +431,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const closeTimeline = gsap.timeline({
             onComplete: () => {
-                gsap.set(menuImage, { opacity: 0, scale: 1.15 });
+                if (menuImageSlide) {
+                    gsap.set(menuImageSlide, { clipPath: 'inset(0% 100% 0% 0%)' });
+                }
+                if (menuImage) {
+                    gsap.set(menuImage, { opacity: 0, scale: 1.15, x: 0 });
+                }
                 gsap.set(menuMainItems, { opacity: 0, x: -60 });
                 gsap.set(menuSubItems, { opacity: 0, x: -20 });
                 gsap.set(menuFooter, { opacity: 0, y: 20 });
@@ -255,13 +536,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function initMobileMenu() {
         if (!isMobile()) return;
 
-        const menuSubItemsContainer = document.querySelector('.menu-sub-items');
-
         // Add click handlers to main menu items
         menuMainItems.forEach((item) => {
             item.addEventListener('click', function (e) {
                 if (!isMobile()) return;
                 e.preventDefault();
+
+                const nextKey = item.dataset.menu;
+                updateMenuForKey(nextKey, false);
 
                 // Add back button if it doesn't exist
                 let backBtn = menuSubItemsContainer.querySelector('.menu-sub-back');
@@ -298,6 +580,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize mobile menu
     initMobileMenu();
+
+    function setActiveMenuItem(activeItem) {
+        menuMainItems.forEach(item => item.classList.remove('active'));
+        if (activeItem) {
+            activeItem.classList.add('active');
+        }
+    }
+
+    // Desktop menu hover: update submenu + image
+    menuMainItems.forEach((item) => {
+        item.addEventListener('mouseenter', function () {
+            if (isMobile()) return;
+            const nextKey = item.dataset.menu;
+            if (!menuConfig[nextKey]) return;
+            setActiveMenuItem(item);
+            updateMenuForKey(nextKey, false);
+        });
+
+        item.addEventListener('click', function (e) {
+            if (isMobile()) return;
+            const nextKey = item.dataset.menu;
+            if (!menuConfig[nextKey]) return;
+            e.preventDefault();
+            setActiveMenuItem(item);
+            updateMenuForKey(nextKey, false);
+        });
+    });
 
     function updateHeaderOnScroll() {
         const currentScrollY = window.scrollY;
