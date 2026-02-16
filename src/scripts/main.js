@@ -998,17 +998,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initGradientCircleFades();
 
-    // Footer gradient - fade in when footer enters
+    // Footer gradient - rise up from below when footer enters
     function initFooterGradientFade() {
         const footerGradient = document.querySelector('.footer-gradient');
         const footer = document.querySelector('footer.footer');
         if (!footerGradient || !footer) return;
 
-        gsap.set(footerGradient, { autoAlpha: 0 });
+        gsap.set(footerGradient, {
+            autoAlpha: 0,
+            y: 300, // Start below, out of view
+            scale: 0.7 // Start smaller
+        });
         gsap.to(footerGradient, {
             autoAlpha: 1,
-            duration: 4.5,
-            ease: 'power1.out',
+            y: 0, // Rise to final position
+            scale: 1, // Grow to full size
+            duration: 3,
+            ease: 'power2.out',
             scrollTrigger: {
                 trigger: footer,
                 start: 'top 65%',
@@ -1900,7 +1906,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const CONFIG = {
             maxRight: 550, // Increased from 300 for more right-side movement
             maxUp: 300,
-            activeRadius: 400,
+            activeRadius: 500, // Increased from 400 for better diagonal coverage
             followEase: 0.08,
             returnEase: 0.03,
         };
@@ -1953,11 +1959,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 const moveRight = Math.max(0, deltaX);
                 const moveUp = Math.max(0, deltaY);
 
-                const rightPercent = Math.min(1, moveRight / CONFIG.activeRadius);
-                const upPercent = Math.min(1, moveUp / CONFIG.activeRadius);
+                // Use actual distance for better diagonal scaling
+                const moveDistance = Math.sqrt(moveRight * moveRight + moveUp * moveUp);
+                const normalizedDistance = Math.min(1, moveDistance / CONFIG.activeRadius);
 
-                const offsetX = rightPercent * CONFIG.maxRight;
-                const offsetY = upPercent * CONFIG.maxUp;
+                // Calculate direction ratios
+                const rightRatio = moveDistance > 0 ? moveRight / moveDistance : 0;
+                const upRatio = moveDistance > 0 ? moveUp / moveDistance : 0;
+
+                // Apply movement with normalized distance
+                const offsetX = rightRatio * normalizedDistance * CONFIG.maxRight;
+                const offsetY = upRatio * normalizedDistance * CONFIG.maxUp;
 
                 targetLeft = originalLeft + offsetX;
                 targetBottom = originalBottom + offsetY;
@@ -1999,9 +2011,9 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Footer gradient element found:', footerGradient);
 
         const CONFIG = {
-            maxLeft: 300,
-            maxRight: 300,
-            maxUp: 300,
+            maxLeft: 500, // Increased for more left movement
+            maxRight: 500, // Increased for more right movement
+            maxUp: 500, // Increased for more upward movement
             followEase: 0.08,
             returnEase: 0.03,
         };
@@ -2041,7 +2053,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            const activeHeightStart = footerRect.top + (footerRect.height * 0.4);
+            const activeHeightStart = footerRect.top + (footerRect.height * 0.1); // Increased active area (was 0.4)
             isInFooter = (
                 mouseX >= footerRect.left &&
                 mouseX <= footerRect.right &&
@@ -2118,9 +2130,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const CONFIG = {
-            maxLeft: 400,
-            maxUp: 400,
-            activeRadius: 400,
+            maxLeft: 700, // Increased for more left-side movement
+            maxUp: 500, // Increased to match diagonal movement better
+            activeRadius: 600, // Larger active area
             followEase: 0.08,
             returnEase: 0.03,
         };
@@ -2170,6 +2182,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const moveLeft = Math.max(0, -deltaX);
                 const moveUp = Math.max(0, deltaY);
 
+                // Calculate percentages independently for stronger diagonal movement
                 const leftPercent = Math.min(1, moveLeft / CONFIG.activeRadius);
                 const upPercent = Math.min(1, moveUp / CONFIG.activeRadius);
 
