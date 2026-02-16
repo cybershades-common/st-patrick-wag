@@ -807,13 +807,15 @@ class GSAPAnimations {
     if (!el) return;
 
     const kids    = this.animChildren(el);
-    const target  = kids && cfg.stagger ? kids : el;
-    const stagger = kids && cfg.stagger ? cfg.stagger : 0;
-
     const isMobile = window.innerWidth <= 991;
     const start = cfg.start || 'top 50%';
-
     const scaleFrom = isMobile ? 1.3 : 1.3;
+
+    // On mobile with stagger:0, treat each element separately
+    // On desktop or when stagger is set, use group animation
+    const useIndividualTriggers = isMobile && kids && kids.length > 1 && cfg.stagger === 0;
+    const target = useIndividualTriggers ? kids : (kids && cfg.stagger ? kids : el);
+    const stagger = (!useIndividualTriggers && kids && cfg.stagger) ? cfg.stagger : 0;
 
     const targets = Array.isArray(target) ? target : [target];
     targets.forEach(node => {
@@ -824,7 +826,7 @@ class GSAPAnimations {
       }
     });
 
-    gsap.set(target, {
+    gsap.set(targets, {
       scale: scaleFrom,
       autoAlpha: 0,
       transformOrigin: '50% 50%',
@@ -833,26 +835,49 @@ class GSAPAnimations {
       willChange: 'transform, opacity',
       transition: 'none'
     });
-    gsap.to(target, {
-      scale: 1,
-      autoAlpha: 1,
-      duration:  1,
-      ease:     cfg.ease || 'power2.out',
-      delay:    cfg.delay,
-      stagger,
-      force3D:  true,
-      scrollTrigger: {
-        trigger: el,
-        start,
-        toggleActions: 'play none none none'
-      },
-      onComplete: () => {
-        // Clean up willChange after animation completes
-        (Array.isArray(target) ? target : [target]).forEach(e =>
-          gsap.set(e, { clearProps: 'will-change,transition' })
-        );
-      }
-    });
+
+    // On mobile with stagger:0: animate each element individually when it enters viewport
+    if (useIndividualTriggers) {
+      targets.forEach(element => {
+        gsap.to(element, {
+          scale: 1,
+          autoAlpha: 1,
+          duration:  1,
+          ease:     cfg.ease || 'power2.out',
+          delay:    cfg.delay || 0,
+          force3D:  true,
+          scrollTrigger: {
+            trigger: element,
+            start,
+            toggleActions: 'play none none none'
+          },
+          onComplete: () => {
+            gsap.set(element, { clearProps: 'will-change,transition' });
+          }
+        });
+      });
+    } else {
+      // Desktop or single element: use group animation with optional stagger
+      gsap.to(target, {
+        scale: 1,
+        autoAlpha: 1,
+        duration:  1,
+        ease:     cfg.ease || 'power2.out',
+        delay:    cfg.delay,
+        stagger,
+        force3D:  true,
+        scrollTrigger: {
+          trigger: el,
+          start,
+          toggleActions: 'play none none none'
+        },
+        onComplete: () => {
+          (Array.isArray(target) ? target : [target]).forEach(e =>
+            gsap.set(e, { clearProps: 'will-change,transition' })
+          );
+        }
+      });
+    }
   }
 
   // -----------------------------------------------------------------------
