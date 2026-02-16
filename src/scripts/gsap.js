@@ -1121,8 +1121,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             // Only update DOM if value actually changed (reduces updates from 60fps to ~10-15fps)
                             if (currentValue !== lastDisplayedValue) {
                                 lastDisplayedValue = currentValue;
-                                const formattedValue = currentValue.toLocaleString();
-                                number.textContent = prefix + formattedValue + suffix;
+                                number.textContent = prefix + currentValue + suffix;
                             }
                         }
                     }, cardStart + TIMING.counterDelay);

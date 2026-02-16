@@ -678,9 +678,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         ease: TIMING.counterEase,
                         onUpdate: function() {
                             const currentValue = Math.round(counter.value);
-                            // Format number with commas if needed
-                            const formattedValue = currentValue.toLocaleString();
-                            number.textContent = prefix + formattedValue + suffix;
+                            number.textContent = prefix + currentValue + suffix;
                         }
                     }, cardStart + TIMING.counterDelay);
                 } else {
