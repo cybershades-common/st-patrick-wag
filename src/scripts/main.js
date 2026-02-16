@@ -1398,7 +1398,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Animation timing configuration
         const TIMING = {
             lineDuration: 2.5,        // Line growth duration
-            lineEase: 'power2.out',
+            lineEase: 'none',
             lineStagger: 0.2,          // Delay between each card
             labelDuration: 1.2,        // Label fade-up duration
             labelEase: 'back.out(1.1)',
