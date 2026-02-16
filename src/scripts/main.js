@@ -681,6 +681,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (heroGradient && !isMobile) {
             gsap.set(heroGradient, {
                 autoAlpha: 0,
+                y: 200, // Start below, like sunrise
+                scale: 0.7, // Start smaller
                 force3D: true
             });
         }
@@ -740,7 +742,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (heroGradient && !isMobile) {
             heroTimeline.to(heroGradient, {
                 autoAlpha: 1,
-                duration: 3,
+                y: 0, // Rise up like sunrise
+                scale: 1, // Grow to full size
+                duration: 2.5,
                 ease: 'power2.out',
                 force3D: true
             }, 0.4);
@@ -1894,7 +1898,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!heroGradient || !heroSection || !heroTitle) return;
 
         const CONFIG = {
-            maxRight: 300,
+            maxRight: 550, // Increased from 300 for more right-side movement
             maxUp: 300,
             activeRadius: 400,
             followEase: 0.08,
