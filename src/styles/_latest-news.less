@@ -71,6 +71,20 @@
   margin: 0;
   border-color: var(--basic-black);
   color: var(--basic-black);
+  transition: color 0.4s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--basic-black);
+    transition: width 0.24s ease;
+    z-index: -1;
+    border-radius: var(--radius-huge);
+  }
 
   &.latest-news-filter-btn-active {
     background-color: var(--basic-white);
@@ -79,17 +93,25 @@
   &.latest-news-filter-btn-gold {
     border-color: var(--primary-gold);
     color: var(--primary-gold);
+
+    &::before {
+      background-color: var(--primary-gold);
+    }
   }
 }
 
 .latest-news-filter-btn:hover {
+  color: var(--basic-white);
+
+  &::before {
+    width: 100%;
+  }
+
   &.latest-news-filter-btn-active {
-    background-color: var(--basic-black);
     color: var(--basic-white);
   }
 
   &.latest-news-filter-btn-gold {
-    background-color: var(--primary-gold);
     color: var(--basic-white);
   }
 }
