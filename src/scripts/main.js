@@ -2363,6 +2363,46 @@ document.addEventListener('DOMContentLoaded', function () {
                 else if (dx > 0 && currentIndex > 0) goToSlide(currentIndex - 1);
             }
         }, { passive: true });
+
+        // ========== MOUSE PARALLAX ==========
+        const PARALLAX_INTENSITY = 15; // px
+        let mouseX = 0;
+        let mouseY = 0;
+        let currentX = 0;
+        let currentY = 0;
+
+        // Scale each bg image slightly so parallax movement never reveals edges
+        bgSlides.forEach(bg => {
+            const img = bg.querySelector('img');
+            if (img) gsap.set(img, { scale: 1.06 });
+        });
+
+        section.addEventListener('mousemove', (e) => {
+            const rect = section.getBoundingClientRect();
+            mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+            mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        });
+
+        section.addEventListener('mouseleave', () => {
+            mouseX = 0;
+            mouseY = 0;
+        });
+
+        function updateParallax() {
+            currentX += (mouseX - currentX) * 0.06;
+            currentY += (mouseY - currentY) * 0.06;
+
+            const activeImg = bgSlides[currentIndex].querySelector('img');
+            if (activeImg) {
+                const moveX = currentX * PARALLAX_INTENSITY;
+                const moveY = currentY * PARALLAX_INTENSITY;
+                gsap.set(activeImg, { x: moveX, y: moveY });
+            }
+
+            requestAnimationFrame(updateParallax);
+        }
+
+        requestAnimationFrame(updateParallax);
     }
 
     initCocurricularSlider();
