@@ -117,3 +117,183 @@
     }
   }
 }
+
+// ==========================================================================
+// SOCIAL MEDIA SECTION
+// ==========================================================================
+
+.contact-social-section {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.contact-social-background {
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  .contact-social-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.contact-social-overlay {
+  background-color: rgba(0, 0, 0, 0.2);
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.contact-social-section .container-fluid {
+  position: relative;
+  z-index: 3;
+  padding-top: 2.0625rem;
+  padding-bottom: 2.0625rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact-social-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100vh - 4.125rem);
+  padding-top: 1.875rem;
+  padding-bottom: 1.875rem;
+}
+
+.contact-social-header {
+  h2 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    letter-spacing: var(--letter-spacing-h2);
+    color: var(--basic-white);
+    margin: 0;
+    margin-bottom: var(--spacing-super-small);
+  }
+}
+
+.contact-social-buttons {
+  display: flex;
+  gap: var(--spacing-super-small);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-super-small);
+}
+
+.contact-social-button-facebook {
+  background-color: var(--basic-white);
+  color: var(--basic-black);
+  border-color: var(--basic-white);
+  margin: 0;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--basic-black);
+  }
+}
+
+.contact-social-button-instagram,
+.contact-social-button-linkedin {
+  border-color: var(--basic-white);
+  color: var(--basic-white);
+  background-color: transparent;
+  margin: 0;
+
+  &:hover {
+    background-color: var(--basic-white);
+    color: var(--basic-black);
+  }
+}
+
+.contact-social-text {
+  margin-top: auto;
+  padding-top: 2.0625rem;
+
+  .row {
+    --bs-gutter-x: 1.0625rem;
+  }
+
+  p {
+    font-size: var(--font-size-b2);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-b2);
+    color: var(--basic-white);
+    margin: 0;
+  }
+}
+
+// ==========================================================================
+// SOCIAL MEDIA SECTION - RESPONSIVE
+// ==========================================================================
+
+@media (max-width: 991px) {
+  .contact-social-section {
+    min-height: auto;
+  }
+
+  .contact-social-section .container-fluid {
+    min-height: auto;
+    padding-top: var(--spacing-small);
+    padding-bottom: var(--spacing-small);
+    padding-left: var(--spacing-xs);
+    padding-right: var(--spacing-xs);
+  }
+
+  .contact-social-content {
+    padding-top: var(--spacing-small);
+    padding-bottom: var(--spacing-small);
+  }
+
+  .contact-social-header {
+    h2 {
+      font-size: 2.5rem;
+      line-height: 1.05;
+      margin-bottom: var(--spacing-xs);
+    }
+  }
+
+  .contact-social-buttons {
+    margin-top: var(--spacing-xs);
+  }
+
+  .contact-social-text {
+    padding-top: var(--spacing-base);
+    margin-top: var(--spacing-base);
+
+    .row {
+      gap: var(--spacing-base);
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-social-header {
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  .contact-social-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .contact-social-text {
+    .row {
+      gap: var(--spacing-small);
+    }
+  }
+}
