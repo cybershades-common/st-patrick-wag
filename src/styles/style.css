@@ -428,6 +428,7 @@ hr {
 .btn-rounded-large-outline.btn-header {
   border-color: var(--basic-black);
   color: var(--basic-black);
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
 }
 .btn-rounded-large-outline.btn-header:hover {
   background-color: var(--basic-black);
@@ -899,7 +900,7 @@ hr {
 .header .hide-header-items {
   display: none;
   opacity: 0;
-  transition: opacity ease 0.25s;
+  transition: opacity ease 0.25s, background-color 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
 }
 .header.menu-open .header-row .right-block {
   max-width: 65.875%;

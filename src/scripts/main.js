@@ -1051,7 +1051,13 @@ document.addEventListener('DOMContentLoaded', function () {
             ease: 'power3.out',
             force3D: true,
             immediateRender: false,
-            overwrite: 'auto' // Auto-overwrite any existing animations
+            overwrite: 'auto', // Auto-overwrite any existing animations
+            onComplete: () => {
+                visibleItems.forEach(item => {
+                    item.style.transition = '';
+                    item.style.animation = '';
+                });
+            }
         }, 0); // All at position 0 = same time
     }
 
