@@ -2026,28 +2026,35 @@ document.addEventListener('DOMContentLoaded', function () {
         if (window.innerWidth <= 991) return;
 
         const heroGradient = document.querySelector('.hero-gradient');
-        const heroSection = document.querySelector('.hero');
-        const heroTitle = document.querySelector('.hero-title');
+        const heroContentWrap = document.querySelector('.hero-content-wrap');
+        const heroContent = document.querySelector('.hero-content');
 
-        if (!heroGradient || !heroSection || !heroTitle) return;
+        if (!heroGradient || !heroContentWrap || !heroContent) return;
 
         const CONFIG = {
-            maxRight: 550, // Increased from 300 for more right-side movement
-            maxUp: 300,
-            activeRadius: 500, // Increased from 400 for better diagonal coverage
-            followEase: 0.08,
-            returnEase: 0.03,
+            followEase: 0.03,
+            returnEase: 0.01,
         };
 
         const originalLeft = -212;
         const originalBottom = -536;
 
+        let halfW = heroGradient.offsetWidth / 2;
+        let halfH = heroGradient.offsetHeight / 2;
+
         let mouseX = null;
         let mouseY = null;
-        let currentX = originalLeft;
-        let currentY = originalBottom;
+        let currentLeft = originalLeft;
+        let currentBottom = originalBottom;
         let hasMouseMoved = false;
         let isInActiveArea = false;
+
+        function updateGradientSize() {
+            halfW = heroGradient.offsetWidth / 2;
+            halfH = heroGradient.offsetHeight / 2;
+        }
+
+        window.addEventListener('resize', updateGradientSize);
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
@@ -2063,51 +2070,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            const heroRect = heroSection.getBoundingClientRect();
-            const titleRect = heroTitle.getBoundingClientRect();
+            const contentRect = heroContentWrap.getBoundingClientRect();
+            const heroContentRect = heroContent.getBoundingClientRect();
 
-            const titleCenterX = titleRect.left + (titleRect.width / 2);
-            const titleCenterY = titleRect.top + (titleRect.height / 2);
-
-            const distanceFromTitle = Math.sqrt(
-                Math.pow(mouseX - titleCenterX, 2) +
-                Math.pow(mouseY - titleCenterY, 2)
+            const activeStartY = contentRect.top + (contentRect.height * 0.2); // bottom 80%
+            const isInContentBounds = (
+                mouseX >= contentRect.left &&
+                mouseX <= contentRect.right &&
+                mouseY >= activeStartY &&
+                mouseY <= contentRect.bottom
             );
 
-            isInActiveArea = distanceFromTitle <= CONFIG.activeRadius;
+            isInActiveArea = isInContentBounds;
 
             let targetLeft = originalLeft;
             let targetBottom = originalBottom;
 
             if (isInActiveArea) {
-                const deltaX = mouseX - titleCenterX;
-                const deltaY = titleCenterY - mouseY;
+                const localX = mouseX - heroContentRect.left;
+                const localBottom = heroContentRect.bottom - mouseY;
 
-                const moveRight = Math.max(0, deltaX);
-                const moveUp = Math.max(0, deltaY);
-
-                // Use actual distance for better diagonal scaling
-                const moveDistance = Math.sqrt(moveRight * moveRight + moveUp * moveUp);
-                const normalizedDistance = Math.min(1, moveDistance / CONFIG.activeRadius);
-
-                // Calculate direction ratios
-                const rightRatio = moveDistance > 0 ? moveRight / moveDistance : 0;
-                const upRatio = moveDistance > 0 ? moveUp / moveDistance : 0;
-
-                // Apply movement with normalized distance
-                const offsetX = rightRatio * normalizedDistance * CONFIG.maxRight;
-                const offsetY = upRatio * normalizedDistance * CONFIG.maxUp;
-
-                targetLeft = originalLeft + offsetX;
-                targetBottom = originalBottom + offsetY;
+                targetLeft = localX - halfW;
+                targetBottom = localBottom - (halfH * 2);
             }
 
             const currentEase = isInActiveArea ? CONFIG.followEase : CONFIG.returnEase;
-            currentX += (targetLeft - currentX) * currentEase;
-            currentY += (targetBottom - currentY) * currentEase;
+            currentLeft += (targetLeft - currentLeft) * currentEase;
+            currentBottom += (targetBottom - currentBottom) * currentEase;
 
-            heroGradient.style.left = `${currentX}px`;
-            heroGradient.style.bottom = `${currentY}px`;
+            heroGradient.style.left = `${currentLeft}px`;
+            heroGradient.style.bottom = `${currentBottom}px`;
 
             requestAnimationFrame(animate);
         }
@@ -2449,3 +2441,11 @@ document.addEventListener('DOMContentLoaded', function () {
     initCocurricularSlider();
 
 });
+        function updateGradientSize() {
+            halfW = heroGradient.offsetWidth / 2;
+            halfH = heroGradient.offsetHeight / 2;
+            originalCenterX = originalLeft + halfW;
+            originalCenterY = originalBottom + halfH;
+        }
+
+        window.addEventListener('resize', updateGradientSize);
