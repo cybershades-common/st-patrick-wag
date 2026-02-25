@@ -395,7 +395,7 @@ hr {
   letter-spacing: 0;
   text-align: center;
   white-space: nowrap;
-  transition: all 0.3s ease;
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
   cursor: pointer;
   border: 1px solid transparent;
   background: transparent;
@@ -414,7 +414,7 @@ hr {
   letter-spacing: 0;
   text-align: center;
   white-space: nowrap;
-  transition: all 0.3s ease;
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
   cursor: pointer;
   border: 1px solid transparent;
   background: transparent;
@@ -447,7 +447,7 @@ hr {
   letter-spacing: 0;
   text-align: center;
   white-space: nowrap;
-  transition: all 0.3s ease;
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
   cursor: pointer;
   border: 1px solid transparent;
   background: transparent;
@@ -471,7 +471,7 @@ hr {
   letter-spacing: 0;
   text-align: center;
   white-space: nowrap;
-  transition: all 0.3s ease;
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
   cursor: pointer;
   border: 1px solid transparent;
   background: transparent;
@@ -490,7 +490,7 @@ hr {
   z-index: 1000;
   padding: 1.25rem 0;
   background-color: transparent;
-  transition: all 0.35s ease;
+  transition: background-color 0.4s ease-in-out, border-color 0.4s ease-in-out, transform 0.35s ease;
   will-change: transform;
   border-bottom: 0.0625rem solid transparent;
 }
@@ -2569,7 +2569,7 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
   text-decoration: none;
   padding: var(--spacing-2xs) var(--spacing-half-base);
   border-radius: var(--radius-huge);
-  transition: all 0.3s ease;
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 .contact-visit-buttons a svg {
   width: 0.75rem;
@@ -3471,7 +3471,7 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
   padding: 0;
   cursor: pointer;
   color: var(--basic-black);
-  transition: all 0.3s ease;
+  transition: color 0.4s ease-in-out, transform 0.4s ease-in-out;
 }
 .testimonials-arrow-btn:hover {
   color: var(--primary-blue);
@@ -3671,7 +3671,7 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
   padding: 0;
   cursor: pointer;
   color: var(--basic-black);
-  transition: all 0.3s ease;
+  transition: color 0.4s ease-in-out, transform 0.4s ease-in-out;
 }
 .latest-news-arrow-btn:hover {
   color: var(--primary-blue);
@@ -4018,7 +4018,7 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
   border-radius: 0.25rem;
   color: var(--basic-white);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.4s ease-in-out;
   padding: 0.5rem;
   flex-shrink: 0;
 }
