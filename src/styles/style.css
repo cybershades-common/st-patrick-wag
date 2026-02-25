@@ -2946,14 +2946,15 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
   justify-content: space-between;
   min-height: 100%;
 }
-.cocurricular-left {
-  padding-top: 1.25rem;
-}
-.cocurricular-left small {
+.cocurricular-label {
   color: var(--basic-white);
   text-transform: uppercase;
   margin-bottom: 1.875rem;
   display: block;
+  padding-left: 0.45rem;
+}
+.cocurricular-left {
+  padding-top: 1.25rem;
 }
 .cocurricular-left h2 {
   color: var(--basic-white);
