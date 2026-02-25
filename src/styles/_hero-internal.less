@@ -76,6 +76,55 @@
 }
 
 // ==========================================================================
+// HEADER WHITE STYLES WHEN HERO-INTERNAL IS PRESENT
+// ==========================================================================
+
+// When hero-internal is present, make header items white
+// Using :has() selector for modern browsers
+body:has(.hero-internal) .header,
+.wrapper:has(.hero-internal) .header {
+  .logo-text {
+    color: var(--basic-white);
+  }
+
+  .btn-rounded-large-outline.btn-header {
+    border-color: var(--basic-white);
+    color: var(--basic-white);
+
+    &:hover {
+      background-color: var(--basic-white);
+      color: var(--basic-black);
+    }
+  }
+
+  .menu-dropdown-btn {
+    color: var(--basic-white);
+
+    svg {
+      stroke: var(--basic-white);
+    }
+
+    &:hover {
+      color: var(--basic-white);
+    }
+  }
+
+  .menu-text {
+    color: var(--basic-white);
+  }
+
+  .hamburger-line {
+    background-color: var(--basic-white);
+  }
+
+  .header-icon-btn {
+    img {
+      filter: brightness(0) invert(1); // Make icons white
+    }
+  }
+}
+
+// ==========================================================================
 // RESPONSIVE
 // ==========================================================================
 
