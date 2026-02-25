@@ -72,8 +72,14 @@
   border-color: transparent;
   color: var(--primary-blue);
 }
+.btn-rounded-large-no-border svg {
+  transition: transform 0.4s ease-in-out;
+}
 .btn-rounded-large-no-border:hover {
   color: var(--primary-blue-tint);
+}
+.btn-rounded-large-no-border:hover svg {
+  transform: translateX(4px);
 }
 .btn-rounded-large-solid {
   display: inline-flex;

@@ -47,10 +47,19 @@
   .btn-rounded-large();
   border-color: transparent;
   color: var(--primary-blue);
+
+  svg {
+    transition: transform 0.4s ease-in-out;
+  }
 }
 
 .btn-rounded-large-no-border:hover {
-  color: var(--primary-blue-tint);
+  background-color: var(--primary-blue);
+  color: var(--basic-white);
+
+  svg {
+    transform: translateX(4px);
+  }
 }
 
 .btn-rounded-large-solid {
