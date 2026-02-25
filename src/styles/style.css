@@ -1606,7 +1606,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
   align-items: flex-start;
   min-height: 8.8125rem;
 }
-.internal-intro-text-heading {
+.internal-intro-text-content h3 {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-quote-large);
   font-weight: var(--font-weight-light);
@@ -1626,13 +1626,13 @@ body:has(.hero-internal) .header .header-icon-btn img,
   .internal-intro-text-content {
     min-height: auto;
   }
-  .internal-intro-text-heading {
+  .internal-intro-text-content h3 {
     font-size: 2.5rem;
     letter-spacing: -0.025rem;
   }
 }
 @media (max-width: 767px) {
-  .internal-intro-text-heading {
+  .internal-intro-text-content h3 {
     font-size: 2rem;
     letter-spacing: -0.02rem;
   }
@@ -1688,17 +1688,17 @@ body:has(.hero-internal) .header .header-icon-btn img,
   gap: var(--spacing-xs);
   align-items: flex-start;
 }
-.internal-content-button-primary {
+.internal-content-buttons button {
   border-color: var(--primary-blue);
   color: var(--primary-blue);
   background-color: transparent;
   margin: 0;
 }
-.internal-content-button-primary:hover {
+.internal-content-buttons button:hover {
   background-color: var(--primary-blue);
   color: var(--basic-white);
 }
-.internal-content-button-secondary {
+.internal-content-buttons a {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-super-small);
@@ -1708,12 +1708,12 @@ body:has(.hero-internal) .header .header-icon-btn img,
   text-decoration: none;
   margin: 0;
 }
-.internal-content-button-secondary svg {
+.internal-content-buttons a svg {
   width: 0.75rem;
   height: 0.75rem;
   flex-shrink: 0;
 }
-.internal-content-button-secondary:hover {
+.internal-content-buttons a:hover {
   color: var(--primary-blue-tint);
   text-decoration: none;
 }
@@ -1788,7 +1788,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
   height: 100%;
   display: block;
 }
-.internal-quote-text {
+.internal-quote-content p {
   font-family: var(--font-family-helvetica-neue);
   font-size: var(--font-size-h4);
   font-weight: var(--font-weight-light);
@@ -1826,7 +1826,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
     width: 2.5rem;
     height: 1.875rem;
   }
-  .internal-quote-text {
+  .internal-quote-content p {
     font-size: 1.875rem;
     line-height: 1.35;
   }
@@ -1847,7 +1847,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
     width: 2rem;
     height: 1.5rem;
   }
-  .internal-quote-text {
+  .internal-quote-content p {
     font-size: 1.5rem;
     line-height: 1.4;
   }
@@ -1985,17 +1985,29 @@ body:has(.hero-internal) .header .header-icon-btn img,
   border-left: 0.0625rem solid rgba(0, 0, 0, 0.1);
   padding-left: var(--spacing-xs);
 }
-.contact-intro-card .contact-intro-card-body {
+.contact-intro-card .contact-intro-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
   flex: 1;
+  gap: var(--spacing-xs);
   padding-top: var(--spacing-xs);
   padding-bottom: var(--spacing-xs);
 }
-.contact-intro-card .contact-intro-card-body p {
+.contact-intro-card h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  color: var(--primary-blue);
+  margin: 0;
+}
+.contact-intro-card p {
   font-size: var(--font-size-b2);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-b2);
+  margin: 0;
 }
-.contact-intro-card .contact-intro-card-footer {
+.contact-intro-card button {
   margin-top: auto;
 }
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -2030,7 +2042,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
     margin-bottom: var(--spacing-base);
     padding-bottom: var(--spacing-base);
   }
-  .contact-intro-card .contact-intro-card-footer {
+  .contact-intro-card button {
     margin-top: var(--spacing-base);
   }
   .contact-intro-cards > [class*="col-"]:last-child .contact-intro-card {
@@ -2093,7 +2105,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
   padding-top: 1.875rem;
   padding-bottom: 1.875rem;
 }
-.contact-social-header h2 {
+.contact-social-content > div:first-child h2 {
   font-size: var(--font-size-h2);
   line-height: var(--line-height-h2);
   letter-spacing: var(--letter-spacing-h2);
@@ -2107,25 +2119,23 @@ body:has(.hero-internal) .header .header-icon-btn img,
   flex-wrap: wrap;
   margin-top: var(--spacing-super-small);
 }
-.contact-social-button-facebook {
+.contact-social-buttons button:first-child {
   background-color: var(--basic-white);
   color: var(--basic-black);
   border-color: var(--basic-white);
   margin: 0;
 }
-.contact-social-button-facebook:hover {
+.contact-social-buttons button:first-child:hover {
   background-color: rgba(255, 255, 255, 0.9);
   color: var(--basic-black);
 }
-.contact-social-button-instagram,
-.contact-social-button-linkedin {
+.contact-social-buttons button:not(:first-child) {
   border-color: var(--basic-white);
   color: var(--basic-white);
   background-color: transparent;
   margin: 0;
 }
-.contact-social-button-instagram:hover,
-.contact-social-button-linkedin:hover {
+.contact-social-buttons button:not(:first-child):hover {
   background-color: var(--basic-white);
   color: var(--basic-black);
 }
@@ -2158,7 +2168,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
     padding-top: var(--spacing-small);
     padding-bottom: var(--spacing-small);
   }
-  .contact-social-header h2 {
+  .contact-social-content > div:first-child h2 {
     font-size: 2.5rem;
     line-height: 1.05;
     margin-bottom: var(--spacing-xs);
@@ -2175,7 +2185,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
   }
 }
 @media (max-width: 767px) {
-  .contact-social-header h2 {
+  .contact-social-content > div:first-child h2 {
     font-size: 2rem;
   }
   .contact-social-buttons {
@@ -2237,7 +2247,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
   flex-direction: column;
   gap: var(--spacing-base);
 }
-.contact-form-intro {
+.contact-form-content > p:first-child {
   font-size: var(--font-size-b1);
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-b1);
@@ -2252,12 +2262,12 @@ body:has(.hero-internal) .header .header-icon-btn img,
 .contact-form-fields .row {
   gap: var(--spacing-xs);
 }
-.contact-form-field {
+.contact-form-fields > div {
   display: flex;
   flex-direction: column;
   gap: 0.3125rem;
 }
-.contact-form-field label {
+.contact-form-fields > div label {
   font-size: var(--font-size-b2);
   font-weight: var(--font-weight-regular);
   line-height: 1;
@@ -2322,14 +2332,14 @@ body:has(.hero-internal) .header .header-icon-btn img,
   background-color: #002e5d;
   pointer-events: none;
 }
-.contact-form-submit {
+.contact-form-content button[type="submit"] {
   background-color: var(--primary-blue);
   color: var(--basic-white);
   border-color: var(--primary-blue);
   margin: 0;
   margin-top: var(--spacing-base);
 }
-.contact-form-submit:hover {
+.contact-form-content button[type="submit"]:hover {
   background-color: var(--primary-blue-tint);
   border-color: var(--primary-blue-tint);
   color: var(--basic-white);
@@ -2355,7 +2365,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
   .contact-form-content {
     gap: var(--spacing-small);
   }
-  .contact-form-intro {
+  .contact-form-content > p:first-child {
     font-size: var(--font-size-b2);
   }
   .contact-form-fields {
@@ -2406,7 +2416,7 @@ body:has(.hero-internal) .header .header-icon-btn img,
   flex: 1;
   max-width: 35.3125rem;
 }
-.contact-visit-address p {
+.contact-visit-info p {
   font-size: var(--font-size-b1);
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-b1);
@@ -2419,17 +2429,17 @@ body:has(.hero-internal) .header .header-icon-btn img,
   align-items: center;
   flex-wrap: wrap;
 }
-.contact-visit-button-directions {
+.contact-visit-buttons button {
   border-color: var(--primary-blue);
   color: var(--primary-blue);
   background-color: transparent;
   margin: 0;
 }
-.contact-visit-button-directions:hover {
+.contact-visit-buttons button:hover {
   background-color: var(--primary-blue);
   color: var(--basic-white);
 }
-.contact-visit-link-map {
+.contact-visit-buttons a {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-super-small);
@@ -2441,12 +2451,12 @@ body:has(.hero-internal) .header .header-icon-btn img,
   border-radius: var(--radius-huge);
   transition: all 0.3s ease;
 }
-.contact-visit-link-map svg {
+.contact-visit-buttons a svg {
   width: 0.75rem;
   height: 0.75rem;
   flex-shrink: 0;
 }
-.contact-visit-link-map:hover {
+.contact-visit-buttons a:hover {
   color: var(--primary-blue-tint);
   text-decoration: none;
 }
