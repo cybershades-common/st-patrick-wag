@@ -1425,11 +1425,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 gsap.to(oldTrack, {
                     opacity: 0,
-                    duration: 0.22,
-                    ease: 'power2.in',
+                    y: -10,
+                    duration: 0.38,
+                    ease: 'power2.inOut',
                     onComplete: () => {
                         // Reset and hide old track
-                        gsap.set(oldTrack, { display: 'none', opacity: 1 });
+                        gsap.set(oldTrack, { display: 'none', opacity: 1, y: 0 });
                         oldTrack.style.transform = 'translateX(0)';
 
                         // Swap active track and reinit slider
@@ -1444,8 +1445,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // Fade in new track
                         gsap.fromTo(newTrack,
-                            { display: 'flex', opacity: 0 },
-                            { opacity: 1, duration: 0.35, ease: 'power2.out' }
+                            { display: 'flex', opacity: 0, y: 14 },
+                            { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' }
                         );
                     }
                 });
