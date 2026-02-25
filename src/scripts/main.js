@@ -1274,22 +1274,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentTranslate = offset;
 
                 if (!animate) {
+                    gsap.killTweensOf(slides);
+                    gsap.set(slides, { scale: 1 });
                     localTrack.style.transition = 'none';
                     localTrack.style.transform = `translateX(${offset}px)`;
                     return;
                 }
 
+                gsap.killTweensOf(slides);
+
                 if (isChanging) {
-                    gsap.killTweensOf(slides);
+                    // Pan and zoom happen simultaneously — no snap
+                    localTrack.style.transition = 'transform 0.46s cubic-bezier(0.4, 0, 0.2, 1)';
+                    localTrack.style.transform = `translateX(${offset}px)`;
                     gsap.timeline()
-                        .to(slides, { scale: 0.88, duration: 0.18, ease: 'power2.in' })
-                        .call(() => {
-                            localTrack.style.transition = 'none';
-                            localTrack.style.transform = `translateX(${offset}px)`;
-                        })
+                        .to(slides, { scale: 0.9, duration: 0.2, ease: 'power2.in' })
                         .to(slides, { scale: 1, duration: 0.38, ease: 'power3.out' });
                 } else {
-                    localTrack.style.transition = '';
+                    // Snap back to same slide
+                    localTrack.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                     localTrack.style.transform = `translateX(${offset}px)`;
                 }
             };
@@ -1299,6 +1302,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const handleDragStart = (e) => {
                 isDragging = true;
                 dragDirection = null;
+                // Kill any running slide animation so drag starts from current position
+                gsap.killTweensOf(slides);
+                gsap.set(slides, { scale: 1 });
                 startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
                 startY = e.type.includes('mouse') ? e.pageY : e.touches[0].clientY;
                 localTrack.classList.add('dragging');
