@@ -1545,6 +1545,98 @@ body:has(.hero-internal) .header .header-icon-btn img,
     letter-spacing: -0.125rem;
   }
 }
+.internal-local-nav {
+  padding-top: var(--spacing-small);
+  padding-bottom: var(--spacing-small);
+  background-color: var(--primary-gold-4);
+  position: relative;
+}
+.internal-local-nav .container-fluid {
+  position: relative;
+}
+.internal-local-nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-super-small);
+  align-items: flex-start;
+}
+.internal-local-nav-tab {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+  background-color: transparent;
+  text-decoration: none;
+  margin: 0;
+}
+.internal-local-nav-tab:hover {
+  background-color: var(--primary-blue);
+  color: var(--basic-white);
+  text-decoration: none;
+}
+@media (max-width: 991px) {
+  .internal-local-nav {
+    padding-top: var(--spacing-small);
+    padding-bottom: var(--spacing-small);
+    padding-left: var(--spacing-xs);
+    padding-right: var(--spacing-xs);
+  }
+  .internal-local-nav-tabs {
+    gap: var(--spacing-super-small);
+  }
+}
+@media (max-width: 767px) {
+  .internal-local-nav-tabs {
+    gap: var(--spacing-super-small);
+  }
+  .internal-local-nav-tab {
+    width: 100%;
+    justify-content: center;
+  }
+}
+.internal-intro-text {
+  padding-top: var(--spacing-small-2);
+  padding-bottom: var(--spacing-small-2);
+  background-color: var(--primary-gold-4);
+  position: relative;
+}
+.internal-intro-text .container-fluid {
+  position: relative;
+}
+.internal-intro-text-content {
+  display: flex;
+  align-items: flex-start;
+  min-height: 8.8125rem;
+}
+.internal-intro-text-heading {
+  font-family: var(--font-family-helvetica-neue);
+  font-size: var(--font-size-quote-large);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-quote-large);
+  letter-spacing: -0.028125rem;
+  color: var(--primary-blue);
+  margin: 0;
+  padding: 0;
+}
+@media (max-width: 991px) {
+  .internal-intro-text {
+    padding-top: var(--spacing-small);
+    padding-bottom: var(--spacing-small);
+    padding-left: var(--spacing-xs);
+    padding-right: var(--spacing-xs);
+  }
+  .internal-intro-text-content {
+    min-height: auto;
+  }
+  .internal-intro-text-heading {
+    font-size: 2.5rem;
+    letter-spacing: -0.025rem;
+  }
+}
+@media (max-width: 767px) {
+  .internal-intro-text-heading {
+    font-size: 2rem;
+    letter-spacing: -0.02rem;
+  }
+}
 .about-section {
   padding-top: 2.1875rem;
   padding-bottom: 2rem;
