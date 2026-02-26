@@ -2362,6 +2362,7 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
 .contact-form-image-wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100%;
 }
 .contact-form-image {
