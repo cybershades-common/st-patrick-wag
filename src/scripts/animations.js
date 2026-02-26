@@ -1209,8 +1209,11 @@ class GSAPAnimations {
     // If called on a card, find the container (row)
     // If called on container, use it directly
     const isCard = el.classList.contains('internal-explore-card') || el.classList.contains('latest-news-list-card');
-    const container = isCard 
-      ? el.closest('.row') 
+    const container = isCard
+      ? (el.closest('.news-detail-keep-reading-cards')
+        || el.closest('.latest-news-list-grid')
+        || el.closest('.row')
+        || el.parentElement)
       : el;
     
     if (!container) return;
