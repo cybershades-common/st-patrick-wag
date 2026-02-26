@@ -393,7 +393,6 @@
   flex-direction: column;
   gap: var(--spacing-base);
 
-
   > div:not(.row) {
     display: flex;
     flex-direction: column;
@@ -459,7 +458,7 @@
 .contact-form-input-border {
   height: 0.0625rem;
   align-self: stretch;
-  background: var(--primary-gold-3, #EEEAE0);
+  background: var(--primary-gold-3, #eeeae0);
   pointer-events: none;
 }
 
@@ -518,7 +517,7 @@
     left: 0;
     width: 100%;
     background: var(--basic-white);
-    border: 0.0625rem solid var(--primary-gold-3, #EEEAE0);
+    border: 0.0625rem solid var(--primary-gold-3, #eeeae0);
     border-radius: 0.5rem;
     box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
     z-index: 200;
@@ -545,7 +544,9 @@
     font-weight: var(--font-weight-regular);
     color: #041c2c;
     cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
 
     &.is-placeholder {
       color: rgba(4, 28, 44, 0.4);
