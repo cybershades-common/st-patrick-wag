@@ -4202,6 +4202,10 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   display: flex;
   align-items: flex-end;
 }
+.hero-media-slider .swiper-slide.hero-media-slide {
+  display: flex;
+  align-items: flex-end;
+}
 .hero-media-slide-bg {
   position: absolute;
   top: 0;
@@ -4260,11 +4264,11 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   font-size: var(--font-size-h2);
   font-weight: var(--font-weight-light);
   line-height: 1.05;
-  letter-spacing: -0.0375rem;
+  letter-spacing: -0.0625rem;
   color: var(--basic-white);
   margin: 0;
-  width: 100%;
-  max-width: 66.25rem;
+  width: 66.25rem;
+  max-width: none;
 }
 .hero-media-slide-caption p {
   font-family: var(--font-family-helvetica-neue);
@@ -4282,7 +4286,7 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   font-size: var(--font-size-b1);
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-b1);
-  color: var(--basic-black);
+  color: var(--basic-white);
   text-decoration: none;
   width: 8.4375rem;
 }
@@ -4302,9 +4306,10 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
 }
 .hero-media-slide-pagination {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 7.6875rem;
   padding: 0 var(--spacing-small);
   height: 3.75rem;
   font-family: var(--font-family-helvetica-neue);
@@ -4312,6 +4317,7 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-b1);
   color: var(--basic-white);
+  white-space: nowrap;
 }
 .hero-media-slide-pagination-current,
 .hero-media-slide-pagination-separator,
@@ -4494,6 +4500,8 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   }
   .hero-media-slide-caption h2 {
     font-size: 2.5rem;
+    width: 100%;
+    max-width: 100%;
   }
   .hero-media-slide-navigation {
     align-self: flex-end;
@@ -4538,6 +4546,8 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   }
   .hero-media-slide-caption h2 {
     font-size: 2rem;
+    width: 100%;
+    max-width: 100%;
   }
   .hero-media-slide-caption p {
     font-size: 0.9375rem;

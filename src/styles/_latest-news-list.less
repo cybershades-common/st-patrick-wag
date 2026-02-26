@@ -90,6 +90,13 @@
   align-items: flex-end;
 }
 
+// Swiper stylesheet loads after project CSS on this page.
+// Use higher specificity so slide content stays pinned to bottom.
+.hero-media-slider .swiper-slide.hero-media-slide {
+  display: flex;
+  align-items: flex-end;
+}
+
 .hero-media-slide-bg {
   position: absolute;
   top: 0;
@@ -161,11 +168,11 @@
   font-size: var(--font-size-h2);
   font-weight: var(--font-weight-light);
   line-height: 1.05;
-  letter-spacing: -0.0375rem; // -0.6px
+  letter-spacing: -0.0625rem; // -1px
   color: var(--basic-white);
   margin: 0;
-  width: 100%;
-  max-width: 66.25rem; // 1060px
+  width: 66.25rem; // 1060px
+  max-width: none;
 }
 
 .hero-media-slide-caption p {
@@ -185,7 +192,7 @@
   font-size: var(--font-size-b1);
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-b1);
-  color: var(--basic-black);
+  color: var(--basic-white);
   text-decoration: none;
   width: 8.4375rem; // 135px
 
@@ -209,9 +216,10 @@
 
 .hero-media-slide-pagination {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 7.6875rem; // 123px
   padding: 0 var(--spacing-small); // 0 30px
   height: 3.75rem; // 60px
   font-family: var(--font-family-helvetica-neue);
@@ -219,6 +227,7 @@
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-b1);
   color: var(--basic-white);
+  white-space: nowrap;
 }
 
 .hero-media-slide-pagination-current,
@@ -450,6 +459,8 @@
 
   .hero-media-slide-caption h2 {
     font-size: 2.5rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   .hero-media-slide-navigation {
@@ -508,6 +519,8 @@
 
   .hero-media-slide-caption h2 {
     font-size: 2rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   .hero-media-slide-caption p {
