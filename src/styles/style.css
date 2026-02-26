@@ -2115,12 +2115,18 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
 .contact-intro-cards-row {
   margin-top: 12.0625rem;
 }
+.contact-intro-card-divider {
+  width: 0.0625rem;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
 .contact-intro-card {
   height: 17.625rem;
   display: flex;
-  flex-direction: column;
-  border-left: 0.0625rem solid rgba(0, 0, 0, 0.1);
-  padding-left: var(--spacing-xs);
+  flex-direction: row;
+  gap: var(--spacing-xs);
+  padding-left: 0;
 }
 .contact-intro-card .contact-intro-card-content {
   display: flex;
@@ -2249,6 +2255,7 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
   color: var(--basic-white);
   margin: 0;
   margin-bottom: var(--spacing-super-small);
+  padding-bottom: 0.625rem;
 }
 .contact-social-buttons {
   display: flex;
@@ -2338,18 +2345,11 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
 }
 .contact-form-section {
   padding-top: var(--spacing-small-2);
-  padding-bottom: 6.25rem;
+  padding-bottom: var(--spacing-small-2);
   background-color: var(--basic-white);
-  position: relative;
-}
-.contact-form-section .container-fluid {
-  position: relative;
 }
 .contact-form-image-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-right: 8.5625rem;
+  padding-right: var(--spacing-xl);
 }
 .contact-form-image-col h2 {
   font-size: var(--font-size-h2);
@@ -2362,22 +2362,18 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
 .contact-form-image-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
 }
 .contact-form-image {
   width: 100%;
+  max-width: 27.875rem;
   height: 34.4375rem;
-  position: relative;
   overflow: hidden;
 }
 .contact-form-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.contact-form-col {
-  flex: 1;
 }
 .contact-form-content {
   display: flex;
@@ -2390,6 +2386,9 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
   line-height: var(--line-height-b1);
   color: var(--basic-black);
   margin: 0;
+}
+.contact-form-content button[type="submit"] {
+  align-self: flex-start;
 }
 .contact-form-fields {
   display: flex;
@@ -2449,7 +2448,8 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
 .contact-form-input-wrapper select {
   padding-right: 1.25rem;
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%2304162c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  /* arrow colour deep navy per Figma design */
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23183153' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right center;
   background-size: 1.25rem;
@@ -2482,42 +2482,18 @@ body:has(.hero-internal) .header:not(.menu-open) .header-icon-btn img,
   color: var(--basic-white);
 }
 @media (max-width: 991px) {
-  .contact-form-section {
-    padding-top: var(--spacing-small);
-    padding-bottom: var(--spacing-base);
-    padding-left: var(--spacing-xs);
-    padding-right: var(--spacing-xs);
-  }
   .contact-form-image-col {
     padding-right: 0;
     margin-bottom: var(--spacing-base);
   }
-  .contact-form-image-col h2 {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-small);
-  }
   .contact-form-image {
+    max-width: 100%;
     height: 20rem;
-  }
-  .contact-form-content {
-    gap: var(--spacing-small);
-  }
-  .contact-form-content > p:first-child {
-    font-size: var(--font-size-b2);
-  }
-  .contact-form-fields {
-    gap: var(--spacing-small);
   }
 }
 @media (max-width: 767px) {
-  .contact-form-image-col h2 {
-    font-size: 2rem;
-  }
   .contact-form-image {
     height: 15rem;
-  }
-  .contact-form-fields .row {
-    gap: var(--spacing-small);
   }
 }
 .contact-visit-section {

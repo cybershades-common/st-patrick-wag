@@ -173,7 +173,7 @@ class GSAPAnimations {
         }
 
         // Parse animation config (can be string or object)
-        let animation, delay, duration, start, ease, stagger;
+        let animation, delay, duration, start, end, ease, stagger;
         if (typeof animConfig === 'string') {
           animation = animConfig;
           delay = baseDelay + (index * 0.1);
@@ -182,6 +182,7 @@ class GSAPAnimations {
           delay = animConfig.delay !== undefined ? parseFloat(animConfig.delay) : (baseDelay + (index * 0.1));
           duration = animConfig.duration ? parseFloat(animConfig.duration) : undefined;
           start = animConfig.start;
+          end = animConfig.end;
           ease = animConfig.ease;
           stagger = animConfig.stagger ? parseFloat(animConfig.stagger) : null;
         }
@@ -191,6 +192,7 @@ class GSAPAnimations {
           delay: delay,
           duration: duration || this.defaults.duration,
           start: start || triggerStart,
+          end: end || null,
           ease: ease || null,
           stagger: stagger || null,
           immediate: immediate // Pass immediate flag to animation functions
@@ -253,6 +255,7 @@ class GSAPAnimations {
         case 'slide-left':      this.slideLeft(el, cfg);     break;
         case 'slide-right':     this.slideRight(el, cfg);    break;
         case 'zoom-in':         this.zoomIn(el, cfg);        break;
+        case 'word-reveal':     this.wordReveal(el, cfg);     break;
         case 'lines':           this.linesAnimation(el, cfg);  break;
         case 'lines-scrub':     this.linesScrub(el, cfg);     break;
         case 'masked-title':    this.maskedTitle(el, cfg);    break;
@@ -661,6 +664,69 @@ class GSAPAnimations {
   // -----------------------------------------------------------------------
   // Text
   // -----------------------------------------------------------------------
+
+  // Word-by-word opacity reveal, scrub-driven (same style as about section).
+  // Works on plain text and preserves child elements (e.g. .underline spans).
+  // Usage: data-gsap-children='{"h2":{"type":"word-reveal"}}'
+  wordReveal(el, cfg) {
+    if (!el) return;
+
+    const isMobile = window.innerWidth <= 991;
+
+    // Wrap each direct text-node word in <span class="gsap-word">
+    // Child elements (like .underline spans) are left intact
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    const textNodes = [];
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.nodeValue && node.nodeValue.trim()) textNodes.push(node);
+    }
+
+    textNodes.forEach(textNode => {
+      if (textNode.parentNode === el) {
+        // Direct child text — wrap each word
+        const parts = textNode.nodeValue.split(/(\s+)/);
+        const frag  = document.createDocumentFragment();
+        parts.forEach(part => {
+          if (part.trim() === '') {
+            frag.appendChild(document.createTextNode(part));
+          } else {
+            const span = document.createElement('span');
+            span.className   = 'gsap-word';
+            span.textContent = part;
+            frag.appendChild(span);
+          }
+        });
+        textNode.parentNode.replaceChild(frag, textNode);
+      }
+      // Text inside child elements (e.g. .underline) stays untouched
+    });
+
+    // Animate .gsap-word spans plus any preserved child element spans
+    const pieces = gsap.utils.toArray(el.querySelectorAll('.gsap-word, .underline'));
+    if (!pieces.length) return;
+
+    gsap.set(el, { autoAlpha: 1 });
+    gsap.set(pieces, { opacity: 0 });
+
+    const startPos = cfg.start  || (isMobile ? 'top 90%' : 'top 85%');
+    const endPos   = cfg.end    || el.getAttribute('data-gsap-end') || (isMobile ? 'top 60%' : 'top 20%');
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: el,
+        start:   startPos,
+        end:     endPos,
+        scrub:   1,
+        once:    true
+      }
+    }).to(pieces, {
+      opacity:  1,
+      duration: cfg.duration || 0.9,
+      ease:     cfg.ease     || 'power3.out',
+      stagger:  cfg.stagger  || 0.12
+    });
+  }
 
   // Reveals text one rendered line at a time
   linesAnimation(el, cfg) {

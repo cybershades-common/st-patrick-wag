@@ -1675,6 +1675,94 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // ==========================================================================
+    // CONTACT INTRO CARDS ANIMATION
+    // Same visual rhythm as statistics cards:
+    //   1. Divider line grows top → bottom
+    //   2. All content children stagger fade-up
+    // ==========================================================================
+
+    function initContactCardsAnimation() {
+        const container = document.querySelector('.contact-intro-cards');
+        if (!container) return;
+
+        const cards = container.querySelectorAll('.contact-intro-card');
+        if (!cards.length) return;
+
+        const TIMING = {
+            lineDuration: 2.5,
+            lineEase:     'none',
+            lineStagger:  0.2,
+            contentDuration: 1.2,
+            contentEase:     'back.out(1.1)',
+            contentDelay:    0.5,
+            contentStagger:  0.15
+        };
+
+        // Set initial states
+        cards.forEach(card => {
+            const divider  = card.querySelector('.contact-intro-card-divider');
+            const children = card.querySelectorAll('.contact-intro-card-content > *');
+
+            if (divider) {
+                gsap.set(divider, {
+                    clipPath:       'inset(0 0 100% 0)',
+                    webkitClipPath: 'inset(0 0 100% 0)',
+                    willChange:     'clip-path'
+                });
+            }
+
+            if (children.length) {
+                gsap.set(children, { y: 30, autoAlpha: 0 });
+            }
+        });
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger:       container,
+                start:         'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        cards.forEach((card, index) => {
+            const divider  = card.querySelector('.contact-intro-card-divider');
+            const children = card.querySelectorAll('.contact-intro-card-content > *');
+            const cardStart = index * TIMING.lineStagger;
+
+            // 1. Divider line reveals top → bottom
+            if (divider) {
+                tl.to(divider, {
+                    clipPath:       'inset(0 0 0% 0)',
+                    webkitClipPath: 'inset(0 0 0% 0)',
+                    duration: TIMING.lineDuration,
+                    ease:     TIMING.lineEase
+                }, cardStart);
+            }
+
+            // 2. Content children stagger fade-up
+            if (children.length) {
+                tl.to(children, {
+                    y:        0,
+                    autoAlpha: 1,
+                    duration: TIMING.contentDuration,
+                    ease:     TIMING.contentEase,
+                    stagger:  TIMING.contentStagger
+                }, cardStart + TIMING.contentDelay);
+            }
+        });
+
+        tl.eventCallback('onComplete', () => {
+            cards.forEach(card => {
+                const divider = card.querySelector('.contact-intro-card-divider');
+                if (divider) gsap.set(divider, { clearProps: 'will-change' });
+            });
+        });
+    }
+
+    initContactCardsAnimation();
+
+
+    // ==========================================================================
     // TESTIMONIALS SLIDER
     // ==========================================================================
 
