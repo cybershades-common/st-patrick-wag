@@ -490,6 +490,16 @@ hr {
 .btn-rounded-large-solid:hover {
   background-color: var(--primary-blue-tint);
 }
+@media (max-width: 767px) {
+  .btn-rounded-large,
+  .btn-rounded-large-outline,
+  .btn-rounded-large-no-border,
+  .btn-rounded-large-solid {
+    line-height: 1;
+    padding-top: calc(var(--spacing-2xs) + 0.125rem);
+    padding-bottom: calc(var(--spacing-2xs) - 0.125rem);
+  }
+}
 .header {
   position: fixed;
   top: 0;
