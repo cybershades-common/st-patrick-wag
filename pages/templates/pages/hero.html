@@ -1,0 +1,127 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if page.get_hero %}
+{% if type == 'home' %}
+<style>
+    .dynamic-word{position: absolute !important;top:0;right: 0;padding-right: 1rem;}
+    .dynamic-words{white-space:nowrap; }
+    .dynamic-words .words-wrap{
+        height: 6rem;
+        overflow: hidden;
+        display: block;
+        font-family: var(--TRJN-DaVinci-Medium-It);
+        line-height: 105%;
+        font-weight: 500;
+    }
+    .left-block h1 div, .right-block h1 div,
+    .right-block .span{overflow: hidden;}
+</style>
+<section class="hero-section">
+    {% for item in page.get_hero %}
+    {% image item.image original as img %}
+    <div class="hero-image">
+        {% if item.background_video_url %}
+            <video class="hero-video video-js full" muted loop playsinline data-setup="{}" preload="none" poster="{{img.url}}">
+            <source src="{{item.background_video_url}}" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+        {% else %}
+            <img src="{{img.url}}" alt="" class="full">
+        {% endif %}
+        <div class="overlay">
+
+            <div class="container-fluid">
+                <div class="logo">
+                    <a href="/home-v2">
+                    <object data="/static/images/stedwards-logo-crest.svg" type="image/xml+svg">
+                        <img src="/static/images/stedwards-logo-crest.png" alt="">
+                    </object>
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="left-block">
+                            <h1>{{page.left_static_text|safe}}</h1>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="right-block">
+                            <h1 >{{page.right_static_text|safe}} </h1>
+                            <h1 class="dynamic-words" style="position: relative;" ><span class="words-wrap" style="position: relative;" >{{page.right_dynamic_text|safe}}</span></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% elif type == 'landing' %}
+<section class="hero-section">
+    {% for item in page.get_hero %}
+    {% image item.image original as img %}
+    <div class="hero-image">
+        <img src="{{img.url}}" alt="" class="full">
+        <div class="overlay">
+            <div class="overlay-top">
+                <div class="crest-wrap">
+                    <a href="/home-v2">
+                        <object data="/static/images/stedwards-logo-crest.svg" type="image/xml+svg">
+                            <img src="/static/images/stedwards-logo-crest.png" alt="">
+                        </object>
+                    </a>
+                </div>
+            </div>
+            <div class="overlay-bottom">
+                <div class="hero-content text-center ">
+                    {% if item.title %}
+                    <h1 class="anim-title-js">
+                        {{item.title|safe}}
+                    </h1>
+                    <div class="divider"></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% else %}
+<section class="hero-section">
+    {% for item in page.get_hero %}
+    {% image item.image original as img %}
+    <div class="hero-image">
+        <img src="{{img.url}}" alt="" class="full">
+        <div class="overlay">
+            <div class="overlay-top">
+                <div class="crest-wrap">
+                    <a href="/home-v2">
+                        <object data="/static/images/stedwards-logo-crest.svg" type="image/xml+svg">
+                            <img src="/static/images/stedwards-logo-crest.png" alt="">
+                        </object>
+                    </a>
+                </div>
+            </div>
+            <div class="overlay-bottom">
+                <!-- Center Title -->
+                <div class="hero-content text-center ">
+                    {% if item.pre_title %}
+                    <h5 class="anim-title-js">{{item.pre_title|safe}}</h5>
+                    {% endif %}
+                    {% if item.title %}
+                    <h1 class="anim-title-js">
+                        {{item.title|safe}}
+                    </h1>
+                    {% endif %}
+                    {% if item.text %}
+                    <p class="anim-title-js">{{item.text|safe}}</p>
+                    {% endif %}
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+{% endif %}

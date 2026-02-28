@@ -1,0 +1,32 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="section two-column-section content-with-image-alignment {{value.background|safe}}  {{value.css_class}} {{value.top_padding}} {{value.bottom_padding}}">
+    <div class="container-fluid">
+        <div class="row">
+            {% if value.alignment == 'left' %}
+            <div class="col-lg-6 pxlm-5">
+                <div class="image-wrap">
+                    {% image value.image original as img %}
+                    <img src="{{img.url}}" class="full">
+                </div>
+            </div>
+            {% endif %}
+            <div class="col-lg-6">
+                <div class="block-content about-content-block">
+                    {% for block in value.content %}
+                    {% include_block block %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% if value.alignment == 'right' %}
+            <div class="col-lg-6 pxlm-5">
+                <div class="image-wrap">
+                    {% image value.image original as img %}
+                    <img src="{{img.url}}" class="full">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

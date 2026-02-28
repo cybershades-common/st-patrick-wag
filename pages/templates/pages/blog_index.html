@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% load static wagtailcore_tags wagtailimages_tags extra_tags %}
+{% block body_class %}general-page innerpage blog-listing-page{% endblock %}
+
+{% block content %}
+  {% get_blog_category as categories %}
+  {% get_blog_items as blog_listing %}
+
+  <div class="banner">
+    <div class="container-fluid">
+      {% for item in page.get_hero %}
+        <div class="row">
+          <div class="col-xl-6">
+            <h1>{{ item.title|safe }}</h1>
+          </div>
+          <div class="col-xl-4 offset-xl-2">
+            <p>{{ item.text|safe }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="divider-wrap">
+    <div class="container-fluid">
+      <div class="divider"></div>
+    </div>
+  </div>
+
+  <section class="section latest-news-section">
+    <div class="container-fluid">
+      <div class="section-header">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="filters">
+              <ul class="nav blog-category-filter">
+                <li>
+                  <a href="*" class="filter-btn active filter-button">All</a>
+                </li>
+                {% for category in categories.items %}
+                  <li>
+                    <a href="#" class="filter-btn filter-button" data-filter=".{{ category.slug|safe }}">{{ category.title|safe }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-blocks-wrap">
+        <div class="row blog-card-grid">
+          {% for item in blog_listing.items %}
+            <div class="col-lg-3 grid-item {% for cat in item.blog_category.all %}
+                {{ cat.category.slug|safe }}
+              {% endfor %}">
+              <div class="block">
+                {% image item.image fill-990x627 format-webp as img %}
+                <div class="image-wrap">
+                  <a href="{% url 'blog_detail_page' item.slug %}"><img class="full" src="{{ img.url }}" alt="" /></a>
+                </div>
+                <div class="block-content">
+                  <h4><a href="{% url 'blog_detail_page' item.slug %}">{{ item.title }}</a></h4>
+                  <div class="bottom-content">
+                    <div class="row align-items-center">
+                      <div class="col-lg-6">
+                        <div class="category">
+                          {% for cat in item.blog_category.all %}
+                            <span>{{ cat.category.title }}</span>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="text-end">{{ item.release_date|date:'F j, Y' }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="row">
+          <a href="javascript:void(0);" class="btn btn-dark-outline load-more-blog">Read More Articles</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-wrap mt-5 mb-3">
+    <div class="container-fluid">
+      <div class="divider"></div>
+    </div>
+  </div>
+
+  {% with blocks=page.body %}
+    {% for block in blocks %}
+      {% include_block block %}
+    {% endfor %}
+  {% endwith %}
+{% endblock %}
+
+{% block extra_js %}
+  <script src="/static/js/isotope.pkgd.min.js"></script>
+  <script src="/static/js/blog-filter.js"></script>
+{% endblock %}

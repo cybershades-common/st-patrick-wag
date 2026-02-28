@@ -1,0 +1,26 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<section class="section testimonial-section wireframes-image-bg {{value.css_class}} {{value.top_padding}} {{value.bottom_padding}}">
+    <div class="container-fluid">
+        <div class="testimonials-block">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4> {{value.title|safe}}</h4>
+                </div>
+                <div class="col-lg-6">
+                    <div class="quote">
+                        {{value.quote|safe}}
+                    </div>
+
+                    <div class="author">
+                        <div class="avtar">
+                            {% image value.avtar_image original as img %}
+                            <img src="{{ img.url }}" alt="">
+                        </div>
+                        <p>{{value.author|safe}} <br>{{value.position|safe}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

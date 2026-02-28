@@ -1,0 +1,5 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="full-image-section">
+    {% image value.image original as img %}
+    <img src="{{img.url}}" class="full">
+</section>

@@ -1,0 +1,13 @@
+{% load menu_tags %}
+
+<ul class="main-menu-items" >
+{% for item in menu_items %}
+    <li class="ancestor">
+        {% if item.sub_menu %}
+        <a class="main-menu" data-link="submenu-{{item.text|slugify}}" href="{{item.href}}">{{ item.text|safe }}</a>
+        {% else %}
+        <a class="main-menu" href="{{ item.href }}">{{ item.text|safe }}</a>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>

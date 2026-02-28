@@ -1,0 +1,205 @@
+@font-face {
+  font-family: 'Helvetica Now Var';
+  src: url('../fonts/HelveticaNowVarItalic.woff2') format('woff2'), url('../fonts/HelveticaNowVarItalic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Helvetica Now Var';
+  src: url('../fonts/HelveticaNowVar.woff2') format('woff2'), url('../fonts/HelveticaNowVar.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Medium-It-Trial';
+  src: url('../fonts/TRJNDaVinci-Medium-Italic-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Medium-Italic-Trial.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Light-Trial';
+  src: url('../fonts/TRJNDaVinci-Light-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Light-Trial.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Bold';
+  src: url('../fonts/TRJNDaVinci-Bold-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Bold-Trial.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Italic-Trial';
+  src: url('../fonts/TRJNDaVinci-Italic-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Italic-Trial.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Heavy-Trial';
+  src: url('../fonts/TRJNDaVinci-Heavy-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Heavy-Trial.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Light-Italic-Trial';
+  src: url('../fonts/TRJNDaVinci-Light-Italic-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Light-Italic-Trial.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Heavy-Italic-Trial';
+  src: url('../fonts/TRJNDaVinci-Heavy-Italic-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Heavy-Italic-Trial.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci';
+  src: url('../fonts/TRJNDaVinci-Bold-Italic-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Bold-Italic-Trial.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Smbold-It-Trial';
+  src: url('../fonts/TRJNDaVinci-Semibold-Italic-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Semibold-Italic-Trial.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Thin-Trial';
+  src: url('../fonts/TRJNDaVinci-Thin-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Thin-Trial.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci -Trial';
+  src: url('../fonts/TRJNDaVinci-Regular-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Regular-Trial.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Thin-Italic-Trial';
+  src: url('../fonts/TRJNDaVinci-Thin-Italic-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Thin-Italic-Trial.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Medium-Trial';
+  src: url('../fonts/TRJNDaVinci-Medium-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Medium-Trial.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TRJN DaVinci Semibold-Trial';
+  src: url('../fonts/TRJNDaVinci-Semibold-Trial.woff2') format('woff2'), url('../fonts/TRJNDaVinci-Semibold-Trial.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  color: var(--primary-dark-grey, #101820);
+  font-family: var(--font-family-helvetica-now);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  /* 1.75rem */
+  letter-spacing: -0.0375rem;
+}
+h1 {
+  color: var(--primary-dark-grey, #101820);
+  font-family: var(--font-family-helvetica-now);
+  font-size: var(--font-size-h1, 5.625rem);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  /* 5.625rem */
+  letter-spacing: -0.16875rem;
+}
+h1 i {
+  font-family: var(--TRJN-DaVinci-Medium);
+  font-weight: 500;
+  line-height: 100%;
+}
+h2 {
+  color: var(--primary-dark-grey, #101820);
+  font-family: var(--TRJN-DaVinci-Reg);
+  font-size: 3.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  /* 3.75rem */
+  letter-spacing: -0.1125rem;
+}
+h2 i {
+  font-family: var(--TRJN-DaVinci-Medium);
+  font-weight: 500;
+  line-height: 100%;
+}
+h3 {
+  color: var(--primary-dark-grey, #101820);
+  font-family: var(--font-family-helvetica-now);
+  font-size: 2.8125rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 100%;
+  /* 2.8125rem */
+  letter-spacing: -0.14063rem;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+h3 i {
+  font-family: var(--TRJN-DaVinci-Medium);
+  font-weight: 500;
+  line-height: 110%;
+}
+h4 {
+  color: var(--primary-dark-grey, #101820);
+  /* h4 sans bold */
+  font-family: var(--font-family-helvetica-now);
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  /* 33px */
+  letter-spacing: -0.3px;
+}
+h6 {
+  font-family: var(--font-family-helvetica-now);
+  font-size: 0.9375rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  /* 1.03125rem */
+  text-transform: uppercase;
+}
+a {
+  color: var(--primary-dark-grey);
+}
+a:hover {
+  color: var(--primary-red-blazer);
+}
+.block-content p + h4,
+.block-content h3 + h4 {
+  margin: 3rem 0 1rem;
+}
+.block-content ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1.5rem 0 2rem;
+}

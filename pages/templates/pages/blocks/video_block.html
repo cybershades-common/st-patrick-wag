@@ -1,0 +1,26 @@
+{% load wagtailimages_tags %}
+
+{% if value.video_type == 'youtube' %}
+  <div class="ratio ratio-16x9 mb-3">
+    <iframe src="{{ value.video_url }}" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+  </div>
+{% elif value.video_type == 'vimeo' %}
+  <div class="ratio ratio-16x9 mb-3">
+    <iframe src="{{ value.video_url }}" title="Vimeo video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+  </div>
+{% elif value.video_type == 'html5' %}
+  <div class="video-with-play-btn">
+    {% image value.poster_image original as img %}
+    <video class="w-100" {% if value.is_autoplay %}autoplay muted loop playsinline{% else %} controls{% endif %} preload="metadata" poster="{{ img.url }}">
+      <source src="{{ value.video_url }}" type="video/mp4" />Your browser does not support the video tag.
+    </video>
+    {% if not value.is_autoplay %}
+    <div class="overlay">
+      <a href="#" class="play-btn"><i class="fa-sharp fa-solid fa-play"></i></a>
+    </div>
+    {% endif %}
+  </div>
+{% else %}
+  {# --- Unknown / Invalid Video Type --- #}
+  <div class="alert alert-warning" role="alert">Unsupported video type or invalid URL.</div>
+{% endif %}

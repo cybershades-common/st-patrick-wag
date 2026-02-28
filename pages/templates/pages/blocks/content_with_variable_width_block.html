@@ -1,0 +1,12 @@
+{% load wagtailcore_tags %}
+<div class="section {{value.background|safe}} {{value.css_class|safe}} {{value.top_padding}} {{value.bottom_padding}}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="{{value.column_width}} {{value.column_offset}}">
+                {% for block in value.content_blocks %}
+                {% include_block block %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

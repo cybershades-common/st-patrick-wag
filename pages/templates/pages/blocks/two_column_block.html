@@ -1,0 +1,15 @@
+{% load wagtailcore_tags %}
+<section class="two-column-section {{value.background|safe}} {{value.css_class|safe}} {{value.top_padding}} {{value.bottom_padding}}">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="{{value.left_column_width}} {{value.left_column_offset}} left-block">
+        {{ self.left_column }}
+      </div>
+      <div class="{{value.right_column_width}} {{value.right_column_offset}} right-block">
+        <div class="block-content">
+          {{ self.right_column }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

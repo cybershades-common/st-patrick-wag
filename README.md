@@ -1,106 +1,220 @@
-# St Patrick's College Website
+# St Patrick's College - Wagtail CMS Website
 
-A modern, responsive website for St Patrick's College built with Bootstrap 5, LESS, and vanilla JavaScript.
+A comprehensive Wagtail CMS implementation of the St Patrick's College website, converted from a static HTML frontend to a fully content-managed system.
 
-## 🚀 Features
+## Features
 
-- Fully responsive design (mobile-first approach)
-- Bootstrap 5 grid system
-- LESS preprocessor for styling
-- GSAP animations
-- Modern, accessible UI/UX
-- Optimized for performance
+- **Wagtail CMS 6.0+** - Latest version of Wagtail
+- **PostgreSQL Database** - Production-ready database
+- **Content Holder System** - Manageable header and footer content
+- **StreamField Blocks** - Flexible page content building
+- **Responsive Design** - Mobile-first approach
+- **Modern UI/UX** - Bootstrap 5 + Custom CSS
+- **Animation Support** - GSAP ScrollTrigger animations
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-st-patrick/
-├── assets/
-│   ├── fonts/          # Helvetica Neue LT Pro font files
-│   ├── icons/          # SVG icons and logos
-│   └── images/         # Image assets
-├── src/
-│   ├── scripts/        # JavaScript files
-│   └── styles/         # LESS source files
-├── index.html          # Main HTML file
-└── package.json        # Dependencies and scripts
+st-patricks-wag/
+├── assets/                 # Static assets (icons, images, videos, fonts)
+├── src/                    # Source files (CSS, JS)
+├── static/                 # Collected static files (Django)
+├── media/                  # User uploaded files (Wagtail)
+├── templates/             # Django/Wagtail templates
+│   ├── base.html          # Base template
+│   ├── includes/          # Header, footer, menu includes
+│   ├── blocks/            # StreamField block templates
+│   └── home/              # Page templates
+├── stpatricks/            # Main Django project
+│   ├── settings/         # Django settings (base, dev, production)
+│   ├── urls.py           # URL configuration
+│   └── wsgi.py           # WSGI application
+├── home/                  # Home app
+│   ├── models.py         # Page models
+│   ├── blocks.py         # StreamField blocks
+│   └── migrations/       # Database migrations
+├── content_holders/       # Header/Footer content
+│   ├── models.py         # Content holder models
+│   └── migrations/       # Database migrations
+├── menus/                 # Menu system
+│   ├── models.py         # Menu models
+│   └── migrations/       # Database migrations
+├── manage.py             # Django management script
+├── requirements.txt      # Python dependencies
+└── setup_instructions.md # Detailed setup guide
 ```
 
-## 🛠️ Setup & Development
+## Quick Start
 
-### Prerequisites
+### 1. Prerequisites
 
-- Node.js (v14 or higher)
-- npm
+- Python 3.10+
+- PostgreSQL 12+
+- pip and virtualenv
 
-### Installation
+### 2. Setup Virtual Environment
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/st-patrick.git
-cd st-patrick
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+# macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-2. Install dependencies:
+### 3. Install Dependencies
+
 ```bash
-npm install
+pip install -r requirements.txt
 ```
 
-3. Compile LESS to CSS:
+### 4. Configure Database
+
+Create a PostgreSQL database:
+
+```sql
+CREATE DATABASE stpatricks_db;
+CREATE USER postgres WITH PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE stpatricks_db TO postgres;
+```
+
+### 5. Environment Variables
+
+Create a `.env` file:
+
+```env
+SECRET_KEY=your-secret-key-here
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+DB_NAME=stpatricks_db
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=5432
+
+WAGTAILADMIN_BASE_URL=http://localhost:8000
+BASE_URL=http://localhost:8000
+```
+
+### 6. Run Migrations
+
 ```bash
-npm run less:compile
+python manage.py migrate
 ```
 
-4. For development with auto-compilation:
+### 7. Create Superuser
+
 ```bash
-npm run less:watch
+python manage.py createsuperuser
 ```
 
-## 📝 Available Scripts
+### 8. Collect Static Files
 
-- `npm run less:compile` - Compile LESS to CSS
-- `npm run less:watch` - Watch and auto-compile LESS files
-- `npm run less:minify` - Compile and minify CSS
+```bash
+python manage.py collectstatic --noinput
+```
 
-## 🌐 GitHub Pages Deployment
+### 9. Run Development Server
 
-### Option 1: Automatic Deployment (Recommended)
+```bash
+python manage.py runserver
+```
 
-1. Push your code to GitHub
-2. Go to repository Settings → Pages
-3. Select source branch (usually `main` or `master`)
-4. Select `/ (root)` as the folder
-5. Click Save
+Visit `http://localhost:8000` for the site and `http://localhost:8000/admin` for the admin.
 
-Your site will be available at: `https://yourusername.github.io/st-patrick/`
+## Content Management
 
-### Option 2: Using GitHub Actions
+### Header Content
 
-The repository includes a GitHub Actions workflow that automatically deploys to GitHub Pages when you push to the main branch.
+Manage header settings via **Settings > Header Content**:
+- Logo and logo text
+- Book Tour and Enquire buttons
+- Work with Us dropdown items
+- Quick Links dropdown items
 
-## 📦 Build Notes
+### Footer Content
 
-- Base font size: 16px (1rem = 16px)
-- All measurements use rem, vh, or vw units
-- Bootstrap 5 classes used extensively
-- No inline styles or scripts
-- Background images added through HTML only
-- Mobile-first responsive design
+Manage footer settings via **Settings > Footer Content**:
+- College information
+- Address and contact details
+- Footer logos (Centenary, Old Boys, EREA)
+- Explore links
+- Quick links
+- Social media links
+- Footer bottom links
+- Copyright and ABN
 
-## 🎨 Design System
+### Main Menu
 
-- **Primary Colors**: Blue (#10069f), Yellow (#ffdd00), Gold variations
-- **Typography**: Helvetica Neue LT Pro
-- **Breakpoints**: 
-  - Mobile: < 576px
-  - Tablet: 768px
-  - Desktop: 992px
-  - Large: 1200px
+Configure navigation via **Settings > Main Menu**:
+- Create main menu items
+- Add sub-menu items
+- Link to pages or external URLs
+- Add menu images
 
-## 📄 License
+### Page Content
 
-ISC
+Pages use StreamField blocks for flexible content:
+- **Hero Block** - Hero section with video/image
+- **About Block** - About section with content and image
+- **Strategic Block** - Strategic section with background image
+- **Academics Block** - Academics section
+- **Co-Curricular Block** - Co-curricular activities slider
+- **Statistics Block** - Statistics cards
+- **Parents Community Block** - Community section
+- **Testimonials Block** - Testimonials slider
+- **Latest News Block** - News items
+- **CTA Block** - Call to action section
 
-## 👥 Contributing
+## Development
 
-This is a private project. For contributions, please contact the repository owner.
+### Running Migrations
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### Creating New Blocks
+
+1. Add block class to `home/blocks.py`
+2. Create template in `templates/blocks/`
+3. Add to StreamField in `home/models.py`
+
+### Static Files
+
+Static files are served from:
+- `static/` - Collected static files
+- `assets/` - Original assets (copied to static during collectstatic)
+- `src/` - Source CSS/JS files
+
+## Production Deployment
+
+1. Set `DEBUG=False` in production settings
+2. Update `SECRET_KEY` with a secure random key
+3. Configure proper database credentials
+4. Set up static file serving (WhiteNoise, S3, or CDN)
+5. Configure media file serving
+6. Set proper `ALLOWED_HOSTS`
+7. Use production WSGI server (Gunicorn)
+8. Set up reverse proxy (Nginx)
+
+## Technologies Used
+
+- **Django 5.0+** - Web framework
+- **Wagtail 6.0+** - CMS
+- **PostgreSQL** - Database
+- **Bootstrap 5** - CSS framework
+- **GSAP** - Animation library
+- **Swiper** - Slider library
+
+## License
+
+Copyright © 2025 St Patrick's College Strathfield
+
+## Support
+
+For setup assistance, refer to `setup_instructions.md` for detailed instructions.

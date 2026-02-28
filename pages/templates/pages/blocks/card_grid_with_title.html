@@ -1,0 +1,45 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="section card-grid-with-title {{ value.css_class }} {{ value.top_padding }} {{ value.bottom_padding }}">
+  <div class="container-fluid">
+    {% if value.title %}
+      <h3>{{ value.title|safe }}</h3>
+    {% endif %}
+    <div class="image-cards">
+      <div class="owl-carousel">
+        {% for item in value.items %}
+          <div class="item">
+            <a href="{{ item.href.url }}">
+              <div class="image-wrap">
+                {% image item.image original as img %}
+                <img src="{{ img.url }}" class="full" alt="" />
+              </div>
+              <div class="card-content">
+                {{ item.title|safe }}
+                <span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </span>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row custom-owl-btns">
+      <div class="col-lg-6">
+        {% if value.button.text %}
+          <div class="btn-wrap">
+            {% include_block value.button %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-lg-6 flex-end">
+        <div class="owl-nav">
+          <button type="button" role="presentation" class="custom-owl-prev"></button>
+          <button type="button" role="presentation" class="custom-owl-next"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

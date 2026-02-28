@@ -1,0 +1,71 @@
+{% load wagtailcore_tags wagtailimages_tags extra_tags %}
+{% get_next_pre_pages page as next_pre %}
+<section class="section our-stories-section">
+    <div class="container-fluid">
+        {% if value.title %}<h3>{{value.title|safe}}</h3>{% endif %}
+        <div class="story-blocks">
+            <div class="row">
+                {% if next_pre.previous_page %}
+                <div class="col-lg-4">
+                    <div class="story-block">
+                        {% image next_pre.previous_page.specific.get_hero_image.image fill-600x600 format-webp as img %}
+                        {% if img.url %}
+                        <img src="{{ img.url }}" class="full" alt="">
+                        {% endif %}
+                        <a class="overlay" href="{% pageurl next_pre.previous_page.specific %}">
+                            <div class="top-content">
+                                <h3>{{ next_pre.previous_page.specific.title|safe }}</h3>
+                            </div>
+                            <div class="bottom-content">
+                                <span class="arrow-btn">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if next_pre.next_page %}
+                <div class="col-lg-4">
+                    <div class="story-block">
+                        {% image next_pre.next_page.specific.get_hero_image.image fill-600x600 format-webp as img %}
+                        {% if img.url %}
+                        <img src="{{ img.url }}" class="full" alt="">
+                        {% endif %}
+                        <a class="overlay" href="{% pageurl next_pre.next_page.specific %}">
+                            <div class="top-content">
+                                <h3>{{ next_pre.next_page.specific.title|safe }}</h3>
+                            </div>
+                            <div class="bottom-content">
+                                <span class="arrow-btn">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if next_pre.second_next_page %}
+                <div class="col-lg-4">
+                    <div class="story-block">
+                         {% image next_pre.second_next_page.specific.get_hero_image.image fill-600x600 format-webp as img %}
+                         {% if img.url %}
+                         <img src="{{ img.url }}" class="full" alt="">
+                         {% endif %}
+                        <a class="overlay" href="{% pageurl next_pre.second_next_page.specific %}" >
+                            <div class="top-content">
+                                <h3>{{ next_pre.second_next_page.specific.title|safe }}</h3>
+                            </div>
+                            <div class="bottom-content">
+                                <span class="arrow-btn">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

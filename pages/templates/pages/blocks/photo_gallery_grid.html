@@ -1,0 +1,21 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="section image-gallery">
+  <div class="container-fluid">
+  <h3 class="anim-text-js">{{value.title|safe}}</h3>
+  <div class="row">
+    {% for item in value.photo_gallery.get_images %}
+      {% image item.image fill-310x310-c100 format-webp as img %}
+      <div class="col-lg-3 col-6">
+        <div class="image-wrap gallery-item">
+          <a href="#" data-href="{{ img.url }}">
+            <img src="{{ img.url }}" alt="{{ item.caption }}" class="full" />
+            <div class="overlay">
+              <i class="fa-sharp fa-solid fa-expand"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+</div>

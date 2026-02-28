@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags extra_tags %}
+{% block body_class %}
+news-listing-page news-detail-page
+{% endblock %}
+{% block inner_content_class %}
+  inner-page-content
+{% endblock %}
+{% block content %}
+  {% get_news_detail news_slug as news_detail %}
+
+  {% with item=news_detail.item %}
+    <section class="hero-section">
+      <div class="hero-image">
+        <div class="overlay">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-8 offset-lg-2">
+                <div class="hero-content">
+                  {% for cat in item.news_category.all %}
+                  <div class="category">{{ cat.category.title }}</div>
+                    {% endfor %}
+                  <h2>{{ item.title|safe }}</h2>
+                  <div class="date">{{ item.release_date|date:'F j, Y' }}</div>
+                </div>
+              </div>
+              <div class="col-lg-10 offset-lg-1">
+                <div class="image-wrap">
+                  {% image item.image original format-webp as img %}
+                  <img src="{{ img.url }}" alt="" class="full" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <div class="detail-page-content">
+              {% with blocks=item.body %}
+                {% for block in blocks %}
+                  {% include_block block %}
+                {% endfor %}
+              {% endwith %}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-10 offset-lg-1">
+            <div class="image-gallery">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="image-wrap">
+                    <a href="#">
+                      <img src="/static/images/img-1.jpg" class="full" alt="" />
+
+                      <div class="overlay">
+                        <i class="fa-sharp fa-solid fa-expand"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endwith %}
+  {% with blocks=self.body %}
+    {% for block in blocks %}
+      <section class="block-{{ block.block_type }}">
+        {% include_block block %}
+      </section>
+    {% endfor %}
+  {% endwith %}
+{% endblock %}

@@ -1,0 +1,6 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<a href="{{value.href.url}}" {{value.href.target}} class="{{value.theme}}">{{value.text|safe}}
+    {% if value.theme == 'btn-read-more' %}
+    <i class="fa-solid  fa-arrow-right"></i>
+    {% endif %}
+</a>

@@ -1,0 +1,118 @@
+{% load wagtailcore_tags wagtailimages_tags extra_tags %}
+{% get_blog_category as categories %}
+{% get_blog_items value.category.slug value.limit as blog_list %}
+
+<section class="section latest-news-section latest-blog-section {{ value.top_padding }} {{ value.bottom_padding }}">
+  <section class="section-scrolling-title">
+    <div class="scrolling-title scrolling-title--ruled" aria-label="Latest News and Blogs marquee">
+      <div class="scrolling-title__track" id="marqueeTrack">
+        <h2 class="scrolling-title__txt">{{ value.title|safe }}</h2>
+        <h2 class="scrolling-title__txt">{{ value.title|safe }}</h2>
+        <h2 class="scrolling-title__txt">{{ value.title|safe }}</h2>
+      </div>
+    </div>
+  </section>
+  <div class="container-fluid">
+    {% if value.is_slider %}
+      <div class="news-blocks-wrap">
+        <div class="owl-carousel">
+          {% if blog_list.items|length %}
+            {% for item in blog_list.items %}
+              <div class="item">
+                <div class="block">
+                  <div class="image-wrap">
+                    {% image item.image original as img %}
+                    <a href="{% url 'blog_detail_page' item.slug %}">
+                      {% if img.url %}
+                        <img src="{{ img.url }}" alt="" class="full" />
+                      {% endif %}
+                    </a>
+                  </div>
+                  <div class="block-content">
+                    <h4><a href="{% url 'blog_detail_page' item.slug %}">{{ item.title|safe }}</a></h4>
+                    <div class="bottom-content">
+                      <div class="row align-items-center">
+                        <div class="col-lg-6">
+                          <div class="category">
+                            {% for cat in item.blog_category.all %}
+                              {% if forloop.first %}{{ cat.category.title }}{% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="text-end">{{ item.release_date|date:'F j, Y' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No records found.</p>
+          {% endif %}
+        </div>
+        <div class="row custom-owl-btns">
+          <div class="col-lg-6">
+            {% if value.button.text %}
+              <div class="">
+                {% include_block value.button %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="col-lg-6 flex-end">
+            <div class="owl-nav">
+              <button type="button" role="presentation" class="custom-owl-prev"></button>
+              <button type="button" role="presentation" class="custom-owl-next"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="news-blocks-wrap">
+        <div class="row">
+          {% if blog_list.items|length %}
+            {% for item in blog_list.items %}
+              <div class="col-lg-3">
+                <div class="block">
+                  <div class="image-wrap">
+                    {% image item.image original as img %}
+                    <a href="{% url 'blog_detail_page' item.slug %}">
+                      {% if img.url %}
+                        <img src="{{ img.url }}" alt="" class="full" />
+                      {% endif %}
+                    </a>
+                  </div>
+                  <div class="block-content">
+                    <h4><a href="{% url 'blog_detail_page' item.slug %}">{{ item.title|safe }}</a></h4>
+                    <div class="bottom-content">
+                      <div class="row align-items-center">
+                        <div class="col-lg-6">
+                          <div class="category">
+                            {% for cat in item.blog_category.all %}
+                              {% if forloop.first %}{{ cat.category.title }}{% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="text-end">{{ item.release_date|date:'F j, Y' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No records found.</p>
+          {% endif %}
+        </div>
+        {% if value.button.text %}
+          <div class="btn-wrap">
+            {% include_block value.button %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>

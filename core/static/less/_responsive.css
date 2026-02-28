@@ -1,0 +1,60 @@
+@media (max-width: 1300px) and (min-width: 992px) {
+  html {
+    font-size: 14px;
+  }
+  .block-content.about-content-block {
+    padding: 0 3rem 0 3.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .about-content-block {
+    padding: 0 4.5rem 0 7.56rem;
+  }
+  .discover-block {
+    padding-top: 12.25rem;
+  }
+  .pt-6 {
+    padding-top: 6rem !important;
+  }
+  .pt-7 {
+    padding-top: 7rem !important;
+  }
+  .pb-6 {
+    padding-bottom: 6rem !important;
+  }
+  .pb-7 {
+    padding-bottom: 7rem !important;
+  }
+}
+@media (min-width: 1400px) {
+  .pxlm-5 {
+    margin: 0 -0.5rem;
+  }
+  .mbxl-4 {
+    padding-bottom: 4rem;
+  }
+  .pxl-85 {
+    padding: 0 8.5rem;
+  }
+}
+@media (min-width: 1800px) {
+  html {
+    font-size: 20px;
+  }
+}
+@media (min-width: 2500px) {
+  html {
+    font-size: 28px;
+  }
+}
+@media (max-width: 767px) {
+  .card-grid-with-title-and-text .custom-owl-btns,
+  .card-grid-with-title .custom-owl-btns {
+    flex-direction: column-reverse;
+  }
+  .card-grid-with-title-and-text .custom-owl-btns .owl-nav,
+  .card-grid-with-title .custom-owl-btns .owl-nav {
+    justify-content: flex-start;
+    padding: 0 0 1rem 0;
+  }
+}

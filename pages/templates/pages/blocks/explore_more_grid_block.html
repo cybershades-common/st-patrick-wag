@@ -1,0 +1,29 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<section class="section our-stories-section {{value.top_padding}} {{value.bottom_padding}} {{value.css_class}}">
+    <div class="container-fluid">
+        <h3>{{value.title|safe}}</h3>
+        <div class="story-blocks">
+            <div class="row">
+                {% for item in value.landing_page.specific.get_child_pages %}
+                <div class="col-lg-4">
+                    <div class="story-block">
+                        {% image item.specific.get_hero_image.image fill-600x600 as img %}
+                        <img src="{{img.url}}" class="full" alt="">
+                        <a href="{{item.url}}" class="overlay">
+                            <div class="top-content">
+                                <h3>{{item.title|safe}}</h3>
+                            </div>
+                            <div class="bottom-content">
+                                <span href="{{item.url}}" class="arrow-btn">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

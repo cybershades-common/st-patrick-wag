@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+<div class="multiple-button-wrap">
+{% for button in value.buttons %}
+{% include_block button.button %}
+{% endfor %}
+</div>

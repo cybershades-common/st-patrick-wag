@@ -1,0 +1,15 @@
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.models import Page
+from .models import NewsIndexPage
+
+NewsIndexPage.content_panels = Page.content_panels + [
+    InlinePanel('newspage_hero', label='Hero Images', panels=[
+        FieldPanel('pre_title'),
+        FieldPanel('title'),
+        FieldPanel('text'),
+    ],max_num=1),
+    FieldPanel('body'),
+]
+NewsIndexPage.promote_panels = Page.promote_panels + [
+    FieldPanel('short_description'),
+]

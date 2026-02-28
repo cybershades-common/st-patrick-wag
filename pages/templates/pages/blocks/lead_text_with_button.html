@@ -1,0 +1,20 @@
+<div class="two-column-section  {{value.css_class}} {{value.top_padding}} {{value.bottom_padding}}">
+    <div class="container-fluid">
+        <div class="top-content">
+            <div class="row align-items-end">
+                <div class="col-lg-7">
+                    <div class="lead-text">
+                        <p> {{value.text|safe}}</p>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="text-end anim-from-right-text-js">
+                        <a href="{{value.button.href.url}}" class="read_more"> {{value.button.text|safe}}
+                            <i class="fa-solid  fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

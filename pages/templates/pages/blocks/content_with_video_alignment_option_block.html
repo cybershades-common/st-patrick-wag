@@ -1,0 +1,42 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="section two-column-section {{value.background|safe}} content-with-video-alignment {{value.css_class}} {{value.top_padding}} {{value.bottom_padding}}">
+    <div class="container-fluid">
+        <div class="row">
+            {% if value.alignment == 'left' %}
+            <div class="col-lg-6 pxlm-5">
+                <div class="video-with-play-btn">
+                    {% image value.poster_image original as img %}
+                    <video class="video-js full ar-683-856" controls preload="auto" data-setup="{}" poster="{{img.url}}">
+                        <source src="{{value.video_url}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="overlay">
+                        <a href="#" class="play-btn"><i class="fa-sharp fa-solid fa-play"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="col-lg-6">
+                <div class="block-content about-content-block">
+                    {% for block in value.content %}
+                    {% include_block block %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% if value.alignment == 'right' %}
+            <div class="col-lg-6 pxlm-5">
+                <div class="video-with-play-btn">
+                    {% image value.poster_image original as img %}
+                    <video class="video-js full ar-683-856" controls preload="auto" data-setup="{}" poster="{{img.url}}">
+                        <source src="{{value.video_url}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="overlay">
+                        <a href="#" class="play-btn"><i class="fa-sharp fa-solid fa-play"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

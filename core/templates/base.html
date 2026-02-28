@@ -1,0 +1,128 @@
+{% load static wagtailcore_tags wagtailuserbar compress extra_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+            {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock %}
+        </title>
+        {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Force all links in the live preview panel to be opened in a new tab #}
+        {% if request.in_preview_panel %}
+        <base target="_blank">
+        {% endif %}
+
+        {# Global stylesheets #}
+        {% load_content_holder "header-script" %}
+        <!-- Custom CSS - Load AFTER Bootstrap to override it -->
+        <link href="{% static 'styles/style.css' %}" rel="stylesheet" type="text/css" id="main-stylesheet">
+        <style>
+        /* Force override Bootstrap body styles - Inline styles have highest priority */
+        html body,
+        body {
+            color: #101820 !important;
+            font-family: 'Helvetica Now Var', sans-serif !important;
+            font-size: 1.25rem !important;
+            background: #ffffff !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        /* Override Bootstrap header utilities */
+        header.header.position-fixed,
+        .header.position-fixed {
+            position: absolute !important;
+        }
+        </style>
+        <script>
+        // Diagnostic: Check if CSS loads and applies
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== CSS Diagnostic ===');
+            
+            // Check if CSS loaded
+            var link = document.querySelector('link[href*="style.css"]');
+            if (link && link.sheet) {
+                console.log('✅ CSS loaded, rules:', link.sheet.cssRules.length);
+                
+                // Check .wrapper styles
+                var wrapper = document.querySelector('.wrapper');
+                if (wrapper) {
+                    var styles = window.getComputedStyle(wrapper);
+                    console.log('.wrapper overflow-x:', styles.overflowX);
+                    console.log('Expected: hidden, Got:', styles.overflowX);
+                }
+                
+                // Check .header styles
+                var header = document.querySelector('.header');
+                if (header) {
+                    var styles = window.getComputedStyle(header);
+                    console.log('.header position:', styles.position);
+                    console.log('.header padding:', styles.padding);
+                } else {
+                    console.log('❌ .header element NOT FOUND');
+                }
+                
+                // Check body styles
+                var body = document.body;
+                var bodyStyles = window.getComputedStyle(body);
+                console.log('Body font-family:', bodyStyles.fontFamily);
+                console.log('Body color:', bodyStyles.color);
+                console.log('Body font-size:', bodyStyles.fontSize);
+                console.log('Body background:', bodyStyles.backgroundColor);
+                
+                // Check if page has content
+                var main = document.querySelector('main');
+                if (main) {
+                    console.log('Main content area found');
+                    console.log('Main innerHTML length:', main.innerHTML.length);
+                    if (main.innerHTML.trim().length < 100) {
+                        console.log('⚠️  WARNING: Main content area is almost empty!');
+                        console.log('⚠️  Add content blocks in Wagtail admin to see styling!');
+                    }
+                }
+            }
+        });
+        </script>
+
+        {% block extra_css %}
+        {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+        <style type="text/css">
+        {{ settings.core.ExtraStyleSettings.extra_css|safe|default:"" }}
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+
+    <body class="{% block body_class %}{% endblock %} {{page.body_css_class|safe}}">
+        {% wagtailuserbar %}
+    <div class="wrapper">
+        {% load_content_holder "header-design" %}
+        <!--- post header -->
+        {% block post_header_design %}{% endblock %}
+        <!--- post header end-->
+        <main class="{% block main_div_class %}{% endblock %}">
+            {% block content %}{% endblock %}
+        </main>
+        {% load_content_holder "footer-design" %}
+
+        {% load_content_holder "footer-script" %}
+
+
+        {% block extra_js %}{{ block.super }}{% endblock %}
+        <script>
+            {{ settings.core.ExtraStyleSettings.extra_js|safe|default:"" }}
+        </script>
+    </div>
+    </body>
+</html>

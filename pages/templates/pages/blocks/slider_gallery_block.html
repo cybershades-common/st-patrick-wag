@@ -1,0 +1,16 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="section center-image-slider {{value.top_padding}} {{value.bottom_padding}}">
+    <div class="">
+        <div class="custom-pagination">
+            <span class="current-slide"></span> / <span class="total-slides"></span>
+        </div>
+        <div class="owl-carousel owl-theme">
+            {% for item in value.items %}
+            <div class="item">
+                {% image item.image original as img %}
+                <img src="{{img.url}}" class="full ar-796x540">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

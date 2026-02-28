@@ -1,0 +1,26 @@
+{% load menu_tags %}
+
+
+{% for item in menu_items %}
+<div class="submenu-{{item.text|slugify}} submenu-items" data-parent-link="submenu-{{item.text|slugify}}" >
+    {% if item.sub_menu %}
+    <ul class="secondary-menu-list">
+        {% for sub_item in item.sub_menu.items %}
+        <li class="{{ sub_item.active_class }} {% if sub_item.sub_menu %}has-child has-tertiary-menu{% endif %} level2">
+            <a class="secondary-menu" href="{{ sub_item.href }}">{{ sub_item.text|safe }} </a>
+            {% if sub_item.sub_menu %}
+            <a href="#">+</a>
+            <ul class="tertiary-menu-list">
+                {% for tertiary_item in sub_item.sub_menu.items %}
+                <li class="{{ tertiary_item.active_class }}">
+                    <a class="tertiary-menu" href="{{ tertiary_item.href }}">{{ tertiary_item.text|safe }} </a>
+                </li>             
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endfor %}

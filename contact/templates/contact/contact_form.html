@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags crispy_forms_tags widget_tweaks %}
+{% block body_class %}internal-page contact-page{% endblock %}
+
+
+{% block content %}
+{% include "pages/hero.html" with type="contact" page=page %}
+{% with blocks=page.body %}
+{% for block in blocks %}
+{% include_block block %}
+{% endfor %}
+{% endwith %}
+
+
+ <section class="form-section bg-white section">
+            <div class="container-fluid">
+
+                <div class="row gx-5">
+                    <!-- Left Column -->
+                    <div class="col-md-6 mb-4 mb-md-0 d-flex flex-column justify-content-between left-content">
+                        <h1>Send us a<br>Message</h1>
+                        {% if page.image %}
+                        {% image page.image fill-310x310 as img %}
+                        <img src="{{ img.url }}" alt="Contact Image" class="img-fluid" width="310" height="310">
+                        {% endif %}
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6 right-content">
+                        {% block thankyou_message %}
+                        {% endblock %}
+                        {% block form %}
+                        <form action="." method="POST" class="contact-form">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <label class="form-label custom-label">{{form.name.label|safe}}</label>
+                                {% render_field form.name class+="form-control custom-input" placeholder="Full name *" autocomplete="Off" %}
+                                {{form.name.errors}}
+
+                            </div>
+                            <div class="form-row">
+                                <label class="form-label custom-label">{{form.email.label|safe}}</label>
+                                {% render_field form.email type="email" class+="form-control custom-input" placeholder="Email" autocomplete="Off" %}
+                                {{form.email.errors}}
+                            </div>
+                            <div class="form-row">
+                                <label class="form-label custom-label">{{form.phone.label|safe}}</label>
+                                {% render_field form.phone type="tel" class+="form-control custom-input" placeholder="Phone Number" autocomplete="Off" %}
+                                {{form.phone.errors}}
+                            </div>
+                            <div class="form-row">
+                                <label class="form-label custom-label">{{form.enquiry.label|safe}}</label>
+                                {% render_field form.enquiry class+="form-control custom-input" placeholder="" autocomplete="Off" %}
+                                {{form.enquiry.errors}}
+                            </div>
+                            <div class="form-row">
+                                <label class="form-label custom-label">{{form.message.label|safe}}</label>
+                                {% render_field form.message class+="form-control custom-input" rows="4" placeholder="Enter your message here." %}
+                            </div>
+                            <div class="form-row">
+                            {% render_field form.captcha %}
+                            {{form.captcha.errors}}
+                            </div>
+
+                            <button type="submit" class="btn btn-dark-green px-4 py-2">Send Message</button>
+                        </form>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+{% with blocks=page.bottom_body %}
+{% for block in blocks %}
+{% include_block block %}
+{% endfor %}
+{% endwith %}
+
+
+{% endblock %}

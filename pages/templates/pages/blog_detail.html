@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags extra_tags %}
+{% block body_class %}news-listing-page blog-detail-page{% endblock %}
+{% block inner_content_class %}inner-page-content{% endblock %}
+{% block title %}
+  {% get_blog_detail blog_slug as blog_detail %}
+  {% with item=blog_detail.item %}
+    {{ item.title|safe }}
+  {% endwith %}
+{% endblock %}
+{% block content %}
+  {% get_blog_detail blog_slug as blog_detail %}
+  {% get_related_blogs blog_slug as related_blogs %}
+
+  {% with item=blog_detail.item %}
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-image">
+        <div class="overlay">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-8 offset-lg-2">
+                <div class="hero-content">
+                  {% for cat in item.blog_category.all %}
+                    <div class="category">{{ cat.category.title }}</div>
+                  {% endfor %}
+                  <h2>{{ item.title|safe }}</h2>
+                  <div class="date">{{ item.release_date|date:'F j, Y' }}</div>
+                </div>
+              </div>
+
+              <div class="col-lg-10 offset-lg-1">
+                <div class="image-wrap">
+                  {% image item.image original format-webp as img %}
+                  <img src="{{ img.url }}" alt="Hero Image" class="full" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <div class="detail-page-content">
+              {% with blocks=item.body %}
+                {% for block in blocks %}
+                  {% include_block block %}
+                {% endfor %}
+              {% endwith %}
+
+            <div class="share-btns">
+              <h5>share this article</h5>
+              <div class="share-icons">
+                <ul class="nav">
+                  <li class="social-icon">
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                  </li>
+                  <li class="social-icon">
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                  </li>
+                  <li class="social-icon">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                  </li>
+                  <li class="social-icon">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                  </li>
+                  <li class="social-icon">
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% with blocks=self.body %}
+      {% for block in blocks %}
+        <section class="block-{{ block.block_type }}">
+          {% include_block block %}
+        </section>
+      {% endfor %}
+    {% endwith %}
+
+    {% if related_blogs.items %}
+      <section class="related-blogs section latest-news-section">
+        <section class="section-scrolling-title">
+          <div class="scrolling-title scrolling-title--ruled" aria-label="Latest News and Blogs marquee">
+            <div class="scrolling-title__track" id="marqueeTrack">
+              <h2 class="scrolling-title__txt">Related Articles</h2>
+              <h2 class="scrolling-title__txt">Related Articles</h2>
+              <h2 class="scrolling-title__txt">Related Articles</h2>
+            </div>
+          </div>
+        </section>
+        <div class="container-fluid">
+
+          <div class="news-blocks-wrap">
+            <div class="row">
+              {% for item in related_blogs.items %}
+                <div class="col-lg-3">
+                  <div class="block">
+                    <div class="image-wrap">
+                      {% image item.image original as img %}
+                      <a href="{% url 'blog_detail_page' item.slug %}">
+                        {% if img.url %}
+                          <img src="{{ img.url }}" alt="" class="full" />
+                        {% endif %}
+                      </a>
+                    </div>
+                    <div class="block-content">
+                      <h4><a href="{% url 'blog_detail_page' item.slug %}">{{ item.title|safe }}</a></h4>
+                      <div class="bottom-content">
+                        <div class="row align-items-center">
+                          <div class="col-lg-6">
+                            <div class="category">
+                              {% for cat in item.blog_category.all %}
+                                {% if forloop.first %}{{ cat.category.title }}{% endif %}
+                              {% endfor %}
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="text-end">{{ item.release_date|date:'F j, Y' }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+  {% endwith %}
+
+  {% with blocks=self.body %}
+    {% for block in blocks %}
+      {% include_block block %}
+    {% endfor %}
+  {% endwith %}
+{% endblock %}

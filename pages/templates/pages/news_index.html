@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% load static wagtailcore_tags wagtailimages_tags extra_tags %}
+{% block body_class %}general-page innerpage news-listing-page{% endblock %}
+
+{% block content %}
+  {% get_news_category as categories %}
+  {% get_news_items as news_listing %}
+  <section class="hero-section">
+    {% for item in page.get_hero %}
+    <div class="hero-image">
+      <div class="overlay">
+        <div class="overlay-top">
+          <div class="crest-wrap">
+            <a href="/home-v2">
+              <object data="/static/images/stedwards-logo-crest.svg" type="image/xml+svg">
+                <img src="/static/images/stedwards-logo-crest.png" alt="" />
+              </object>
+            </a>
+          </div>
+        </div>
+        <div class="overlay-bottom">
+          <!-- Center Title -->
+          <div class="hero-content text-center">
+            {% if item.pre_title %}
+              <h5 class="anim-title-js">{{ item.pre_title|safe }}</h5>
+            {% endif %}
+            {% if item.title %}
+              <h1 class="anim-title-js">{{ item.title|safe }}</h1>
+            {% endif %}
+            {% if item.text %}
+              <p class="anim-title-js">{{ item.text|safe }}</p>
+            {% endif %}
+            <div class="divider"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section class="section latest-news-section">
+    <div class="container-fluid">
+      <div class="section-header">
+        <div class="row">
+          <div class="col-lg-8">
+            <h2>Latest <em>News</em></h2>
+          </div>
+          <div class="col-lg-4">
+            <div class="btn-wrap">
+              <a href="#" class="read_more">
+                view all
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="news-blocks-wrap">
+        <div class="row">
+          {% for item in news_listing.items %}
+            <div class="col-lg-3">
+              <div class="block">
+                <div class="image-wrap">
+                  <a href="{% url 'news_detail_page' item.slug %}">
+                    {% image item.image fill-660x440 format-webp as img %}
+                    <img src="{{ img.url }}" class="full" alt="" />
+                  </a>
+                </div>
+                <div class="block-content">
+                  <h4><a href="{% url 'news_detail_page' item.slug %}">{{ item.title|truncatechars:45|safe }}</a></h4>
+                  <div class="bottom-content">
+                    <div class="row align-items-center">
+                      <div class="col-lg-6">
+                        <div class="category">
+                          {% for cat in item.news_category.all %}
+                              {% if forloop.first %}{{ cat.category.title }}{% endif %}
+                            {% endfor %}
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="text-end">{{ item.release_date|date:'F j, Y' }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="row">
+          <div class="col-lg-4 offset-lg-4">
+            <div class="btn-wrap">
+              <a href="#" class="btn btn-outline-navy full load-more-news">Load more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% with blocks=page.body %}
+    {% for block in blocks %}
+      {% include_block block %}
+    {% endfor %}
+  {% endwith %}
+{% endblock %}
+
+{% block extra_js %}
+  <script src="/static/js/news-filter.js"></script>
+{% endblock %}

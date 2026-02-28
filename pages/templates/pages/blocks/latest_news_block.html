@@ -1,0 +1,61 @@
+{% load wagtailcore_tags wagtailimages_tags extra_tags %}
+  {% get_news_category as categories %}
+  {% get_news_items value.category.slug value.limit as news_list %}
+
+  <section class="section latest-news-section  {{ value.top_padding }} {{ value.bottom_padding }}">
+    <section class="section-scrolling-title">
+      <div class="scrolling-title scrolling-title--ruled" aria-label="Latest News and Blogs marquee">
+        <div class="scrolling-title__track" id="marqueeTrack">
+          <h2 class="scrolling-title__txt">{{ value.title|safe }}</h2>
+          <h2 class="scrolling-title__txt">{{ value.title|safe }}</h2>
+          <h2 class="scrolling-title__txt">{{ value.title|safe }}</h2>
+        </div>
+      </div>
+    </section>
+    <div class="container-fluid">
+      <div class="news-blocks-wrap">
+        <div class="row">
+          {% if news_list.items|length %}
+            {% for item in news_list.items %}
+              <div class="col-lg-3">
+                <div class="block">
+                  <div class="image-wrap">
+                    {% image item.image original as img %}
+                    <a href="{% url 'news_detail_page' item.slug %}">
+                      {% if img.url %}
+                        <img src="{{ img.url }}" alt="" class="full" />
+                      {% endif %}
+                    </a>
+                  </div>
+                  <div class="block-content">
+                    <h4><a href="{% url 'news_detail_page' item.slug %}">{{ item.title|safe }}</a></h4>
+                    <div class="bottom-content">
+                      <div class="row align-items-center">
+                        <div class="col-lg-6">
+                          <div class="category">
+                            {% for cat in item.news_category.all %}
+                              {% if forloop.first %}{{ cat.category.title }}{% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="text-end">{{ item.release_date|date:'F j, Y' }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No records found.</p>
+          {% endif %}
+        </div>
+        {% if value.button.text %}
+          <div class="btn-wrap">
+            {% include_block value.button %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
