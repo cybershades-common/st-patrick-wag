@@ -776,7 +776,11 @@ class CTASectionBlock(blocks.StructBlock):
 
 
 class HeroSectionBlock(blocks.StructBlock):
-    title = blocks.CharBlock(help_text="Hero title. Use &lt;span&gt; tags for multiple lines e.g. &lt;span&gt;Let your &lt;/span&gt;&lt;span&gt;light shine.&lt;/span&gt;")
+    title_lines = blocks.ListBlock(
+        blocks.CharBlock(),
+        label="Title lines",
+        help_text="Each line animates in separately. Add one line per entry e.g. 'Let your' then 'light shine.'"
+    )
     text = blocks.TextBlock(required=False, help_text="Paragraph text in the right column")
     button_label = blocks.CharBlock(required=False)
     button_url = blocks.URLBlock(required=False)

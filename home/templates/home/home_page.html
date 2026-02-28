@@ -4,26 +4,6 @@
 
 {% block extra_css %}
 {{ block.super }}
-<style>
-/*
- * Hero fallback: show content even if GSAP hasn't animated it yet.
- * Higher specificity (.home-page .hero-title) beats the stylesheet rule (.hero-title).
- * When GSAP runs it overrides with inline styles, so animations still work.
- */
-.home-page .hero-title {
-    opacity: 1;
-    visibility: visible;
-}
-.home-page .hero-text p {
-    opacity: 1;
-    visibility: visible;
-}
-.home-page .hero-text button,
-.home-page .hero-text a {
-    opacity: 1;
-    visibility: visible;
-}
-</style>
 {% endblock %}
 
 {% block content %}
@@ -41,7 +21,7 @@
                 <div class="col-xl-7 col-lg-8 col-md-8">
                     <div class="col-lg-auto hero-content">
                         <div class="hero-gradient position-absolute"></div>
-                        <h1 class="hero-title">{{ hero.title|safe }}</h1>
+                        <h1 class="hero-title">{% for line in hero.title_lines %}<span>{{ line }}</span>{% endfor %}</h1>
                     </div>
                 </div>
                 <div class="col-xl-3 offset-xl-1 col-lg-4 col-md-8">
