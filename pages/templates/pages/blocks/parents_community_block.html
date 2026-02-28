@@ -1,0 +1,19 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% image value.background_image original as bg_img %}
+<section class="parents-community-section position-relative section {{ value.css_class }}">
+    <div class="parents-community-background position-absolute w-100 h-100">
+        <img src="{{ bg_img.url }}" alt="{{ value.heading }}" class="parents-community-bg-img" loading="lazy">
+        <div class="parents-community-overlay position-absolute w-100 h-100"></div>
+    </div>
+    <div class="container-fluid position-relative">
+        <div class="row">
+            <div class="col-lg-6 parents-community-content">
+                <h2>{{ value.heading }}</h2>
+                {% if value.text %}<p>{{ value.text }}</p>{% endif %}
+                {% if value.button_label %}
+                <a href="{{ value.button_url|default:'#' }}" class="btn-rounded-large-outline">{{ value.button_label }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

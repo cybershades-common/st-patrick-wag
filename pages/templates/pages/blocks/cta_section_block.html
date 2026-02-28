@@ -1,0 +1,34 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% image value.background_image original as bg_img %}
+<section class="cta-section position-relative section {{ value.css_class }}">
+    <div class="cta-background position-absolute w-100 h-100">
+        <img src="{{ bg_img.url }}" alt="{{ value.heading }}" class="cta-bg-img" loading="lazy">
+        <div class="cta-overlay position-absolute w-100 h-100"></div>
+    </div>
+    <div class="container-fluid position-relative">
+        <div class="cta-block-wrap">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6 col-md-6 cta-content">
+                    <div class="cta-heading-wrapper">
+                        <h1>{{ value.heading }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 offset-xl-6 col-lg-6 col-md-6 offset-md-6 offset-lg-6">
+                    <div class="cta-text-wrapper">
+                        {% if value.text %}<p>{{ value.text }}</p>{% endif %}
+                        <div class="cta-buttons d-flex align-items-center">
+                            {% if value.button1_label %}
+                            <a href="{{ value.button1_url|default:'#' }}" class="btn-rounded-large-solid cta-button-solid">{{ value.button1_label }}</a>
+                            {% endif %}
+                            {% if value.button2_label %}
+                            <a href="{{ value.button2_url|default:'#' }}" class="btn-rounded-large-outline cta-button-outline">{{ value.button2_label }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

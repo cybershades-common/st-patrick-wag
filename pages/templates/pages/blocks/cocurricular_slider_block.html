@@ -1,0 +1,43 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="cocurricular-section position-relative section {{ value.css_class }}">
+    <div class="cocurricular-background position-absolute w-100 h-100">
+        {% for slide in value.slides %}
+        <div class="cocurricular-bg-slide{% if forloop.first %} is-active{% endif %}">
+            {% if slide.background_image %}
+            {% image slide.background_image original as bg_img %}
+            <img src="{{ bg_img.url }}" alt="{{ slide.title }}" loading="lazy">
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="cocurricular-overlay position-absolute w-100 h-100"></div>
+    </div>
+    <div class="container-fluid position-relative">
+        <div class="row">
+            <div class="col-12 cocurricular-content">
+                {% if value.label %}<small class="cocurricular-label">{{ value.label }}</small>{% endif %}
+                <div class="cocurricular-slides">
+                    {% for slide in value.slides %}
+                    <div class="cocurricular-slide">
+                        <div class="cocurricular-left">
+                            <h2>{{ slide.title }}</h2>
+                            <p>{{ slide.text }}</p>
+                            {% if slide.button.text %}
+                            <a href="{{ slide.button.href.url }}" {{ slide.button.href.target }} class="btn-rounded-large-outline">{{ slide.button.text }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-12 cocurricular-nav">
+                        <div class="cocurricular-nav-buttons d-flex align-items-center">
+                            {% for nav in value.nav_buttons %}
+                            <button class="btn-rounded-large-outline cocurricular-nav-btn{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}">{{ nav.label }}</button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,55 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="testimonials-section section {{ value.css_class }}">
+    <div class="testimonials-gradient position-absolute"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 testimonials-content">
+                <div class="row align-items-start">
+                    <div class="col-12 col-xl-4 col-md-5 testimonials-image-col">
+                        <div class="testimonials-image-wrapper" id="testimonialsImageWrapper">
+                            {% for testimonial in value.testimonials %}
+                            <div class="testimonials-image{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}">
+                                {% if testimonial.image %}
+                                {% image testimonial.image original as t_img %}
+                                <img src="{{ t_img.url }}" alt="{{ testimonial.author }}" class="testimonials-img">
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-5 col-md-6 offset-xl-2 offset-md-1 testimonials-text-col">
+                        <div class="testimonials-quote-wrapper" id="testimonialsContentWrapper">
+                            {% for testimonial in value.testimonials %}
+                            <div class="testimonials-slide-content{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}">
+                                <p>"{{ testimonial.quote }}"</p>
+                                <p>{{ testimonial.author }}{% if testimonial.position %}, {{ testimonial.position }}{% endif %}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center testimonials-bottom-row">
+                    <div class="col-6 col-lg-6 testimonials-button-col">
+                        {% if value.button.text %}
+                        <a href="{{ value.button.href.url }}" {{ value.button.href.target }} class="btn-rounded-large-outline testimonials-button">{{ value.button.text }}</a>
+                        {% endif %}
+                    </div>
+                    <div class="col-6 col-lg-6 testimonials-arrows-col">
+                        <div class="testimonials-arrows d-flex align-items-center">
+                            <button class="testimonials-arrow-btn" id="testimonialPrev" aria-label="Previous testimonial">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 10L10 20L20 30M10 20H30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <button class="testimonials-arrow-btn" id="testimonialNext" aria-label="Next testimonial">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 10L30 20L20 30M30 20H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

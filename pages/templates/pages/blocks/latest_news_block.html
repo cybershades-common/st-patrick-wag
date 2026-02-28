@@ -1,61 +1,75 @@
 {% load wagtailcore_tags wagtailimages_tags extra_tags %}
-  {% get_news_category as categories %}
-  {% get_news_items value.category.slug value.limit as news_list %}
+{% get_news_items value.category.slug value.limit as news_list %}
 
-  <section class="section latest-news-section  {{ value.top_padding }} {{ value.bottom_padding }}">
-    <section class="section-scrolling-title">
-      <div class="scrolling-title scrolling-title--ruled" aria-label="Latest News and Blogs marquee">
-        <div class="scrolling-title__track" id="marqueeTrack">
-          <h2 class="scrolling-title__txt">{{ value.title|safe }}</h2>
-          <h2 class="scrolling-title__txt">{{ value.title|safe }}</h2>
-          <h2 class="scrolling-title__txt">{{ value.title|safe }}</h2>
-        </div>
-      </div>
-    </section>
+<section class="latest-news-section section {{ value.top_padding }} {{ value.bottom_padding }}">
     <div class="container-fluid">
-      <div class="news-blocks-wrap">
         <div class="row">
-          {% if news_list.items|length %}
-            {% for item in news_list.items %}
-              <div class="col-lg-3">
-                <div class="block">
-                  <div class="image-wrap">
-                    {% image item.image original as img %}
-                    <a href="{% url 'news_detail_page' item.slug %}">
-                      {% if img.url %}
-                        <img src="{{ img.url }}" alt="" class="full" />
-                      {% endif %}
-                    </a>
-                  </div>
-                  <div class="block-content">
-                    <h4><a href="{% url 'news_detail_page' item.slug %}">{{ item.title|safe }}</a></h4>
-                    <div class="bottom-content">
-                      <div class="row align-items-center">
-                        <div class="col-lg-6">
-                          <div class="category">
-                            {% for cat in item.news_category.all %}
-                              {% if forloop.first %}{{ cat.category.title }}{% endif %}
-                            {% endfor %}
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="text-end">{{ item.release_date|date:'F j, Y' }}</div>
-                        </div>
-                      </div>
+            <div class="col-12 latest-news-top">
+                <div class="row align-items-start">
+                    <div class="col-12 col-xl-4 col-lg-5 col-md-5 latest-news-heading-col">
+                        {% if value.title %}<h2>{{ value.title|safe }}</h2>{% endif %}
                     </div>
-                  </div>
+                    <div class="col-12 col-xl-5 offset-xl-2 col-lg-6 offset-lg-1 col-md-6 offset-md-1 latest-news-content-col">
+                        {% if value.text %}<p>{{ value.text }}</p>{% endif %}
+                        <div class="latest-news-buttons d-flex align-items-center">
+                            {% if value.button.text %}
+                            <a href="{{ value.button.href.url }}" {{ value.button.href.target }} class="btn-rounded-large-outline">{{ value.button.text }}</a>
+                            {% endif %}
+                            {% if value.button2_label %}
+                            <a href="{{ value.button2_url|default:'#' }}" class="btn-rounded-large-no-border">{{ value.button2_label }}
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.5 2L8 5.5L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-              </div>
-            {% endfor %}
-          {% else %}
-            <p>No records found.</p>
-          {% endif %}
+            </div>
+            <div class="col-12 latest-news-bottom">
+                <div class="row align-items-center latest-news-filters-row">
+                    <div class="col-12 col-lg-auto latest-news-arrows-col ms-auto">
+                        <div class="latest-news-arrows d-flex align-items-center">
+                            <button class="latest-news-arrow-btn latest-news-prev" id="latestNewsPrev" aria-label="Previous news">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 10L10 20L20 30M10 20H30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <button class="latest-news-arrow-btn latest-news-next" id="latestNewsNext" aria-label="Next news">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 10L30 20L20 30M30 20H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="latest-news-slider">
+                    <div class="latest-news-tracks-wrapper">
+                        <div class="latest-news-track" id="latestNewsTrackAll">
+                            {% if news_list.items|length %}
+                            {% for item in news_list.items %}
+                            <div class="latest-news-slide{% if forloop.first %} active{% endif %}">
+                                <div class="latest-news-card">
+                                    <a href="{% url 'news_detail_page' item.slug %}">
+                                        {% if item.image %}
+                                        {% image item.image original as news_img %}
+                                        <img loading="lazy" src="{{ news_img.url }}" alt="{{ item.title }}" class="latest-news-image">
+                                        {% endif %}
+                                        <div class="latest-news-card-content">
+                                            <h3>{{ item.title|safe }}</h3>
+                                            <p>{{ item.release_date|date:'d.m.y' }}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <p>No news items found.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% if value.button.text %}
-          <div class="btn-wrap">
-            {% include_block value.button %}
-          </div>
-        {% endif %}
-      </div>
     </div>
-  </section>
+</section>

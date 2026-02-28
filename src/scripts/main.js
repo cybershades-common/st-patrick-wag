@@ -1,11 +1,13 @@
 // Menu functionality
 document.addEventListener('DOMContentLoaded', function () {
+    if (window._mainJsInitialized) return;
+    window._mainJsInitialized = true;
     const header = document.getElementById('header');
     const menuToggle = document.getElementById('menuToggle');
     const megaMenu = document.getElementById('megaMenu');
     const menuOverlay = document.getElementById('menuOverlay');
     const hamburger = document.getElementById('hamburger');
-    const menuText = menuToggle.querySelector('.menu-text');
+    const menuText = menuToggle?.querySelector('.menu-text');
     const menuMainItems = document.querySelectorAll('.menu-main-item');
     const menuSubItems = document.querySelectorAll('.menu-sub-item');
     const footerArrowUp = document.getElementById('footerArrowUp');
@@ -512,15 +514,17 @@ document.addEventListener('DOMContentLoaded', function () {
         updateHeaderOnScroll();
     }
 
-    menuToggle.addEventListener('click', function () {
-        if (isMenuOpen) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    });
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function () {
+            if (isMenuOpen) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+    }
 
-    menuOverlay.addEventListener('click', closeMenu);
+    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
 
     // Mobile menu navigation
     function isMobile() {
@@ -726,7 +730,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const heroTitle = document.querySelector('.hero-title');
         const heroTitleSpans = document.querySelectorAll('.hero-title span');
         const heroText = document.querySelector('.hero-text p');
-        const heroButton = document.querySelector('.hero-text button');
+        const heroButton = document.querySelector('.hero-text button') || document.querySelector('.hero-text a');
         const heroGradient = document.querySelector('.hero-gradient');
 
         if (!heroTitle || !heroText) {
@@ -740,9 +744,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Set initial states - override CSS visibility immediately
         // Use autoAlpha which handles both opacity and visibility
+        // When spans exist, don't apply Y to the parent — only spans animate Y.
+        // (CSS transforms stack: parent Y + child Y would double the offset.)
         gsap.set(heroTitle, {
-            autoAlpha: 0, // This sets opacity: 0 and visibility: visible
-            y: 80,
+            autoAlpha: 0,
+            y: heroTitleSpans.length > 0 ? 0 : 80,
             force3D: true
         });
 
@@ -780,12 +786,12 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Animate hero title - animate parent and spans together
+        // Animate hero title
         if (heroTitleSpans.length > 0) {
-            // First, make parent visible (just visibility, keep opacity at 0)
+            // Make parent visible (opacity still 0) so children can be seen
             gsap.set(heroTitle, { visibility: 'visible' });
 
-            // Then animate hero title spans (staggered) - this will make them visible
+            // Animate spans with stagger — each line slides up independently
             heroTimeline.to(heroTitleSpans, {
                 autoAlpha: 1,
                 y: 0,
@@ -795,10 +801,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 force3D: true
             }, 0);
 
-            // Also animate parent title's opacity to 1 (in sync with spans)
+            // Fade parent opacity in (no Y — parent has no Y offset)
             heroTimeline.to(heroTitle, {
                 opacity: 1,
-                y: 0,
                 duration: 1.2,
                 ease: 'power3.out',
                 force3D: true

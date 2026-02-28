@@ -620,7 +620,10 @@ class LatestNewsBlock(blocks.StructBlock):
     top_padding = blocks.ChoiceBlock(choices=top_padding_list,required=False)
     bottom_padding = blocks.ChoiceBlock(choices=bottom_padding_list,required=False)
     title = blocks.CharBlock(required=False)
+    text = blocks.TextBlock(required=False, help_text="Description paragraph under heading")
     button = SimpleButton()
+    button2_label = blocks.CharBlock(required=False, help_text="Second button label (e.g. Events and Bookings)")
+    button2_url = blocks.URLBlock(required=False)
     category = SnippetChooserBlock('news.Category',required=False)
     limit = blocks.IntegerBlock(required=False, default=3, help_text="Number of items to show")
 
@@ -690,7 +693,96 @@ class CoCurricularSliderBlock(blocks.StructBlock):
         ('label', blocks.CharBlock()),
     ]))
     css_class = blocks.CharBlock(required=False)
-    
+
     class Meta:
         label = "Co-Curricular Slider"
         template = "pages/blocks/cocurricular_slider_block.html"
+
+
+class AboutSectionBlock(blocks.StructBlock):
+    heading = blocks.CharBlock(help_text="Main heading. Use HTML for underlines e.g. <span class='underline'>word</span>")
+    text_col1 = blocks.TextBlock(required=False, help_text="First paragraph")
+    text_col2 = blocks.TextBlock(required=False, help_text="Second paragraph")
+    image = ImageChooserBlock()
+    button1_label = blocks.CharBlock(required=False)
+    button1_url = blocks.URLBlock(required=False)
+    button2_label = blocks.CharBlock(required=False)
+    button2_url = blocks.URLBlock(required=False)
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "About Section"
+        template = "pages/blocks/about_section_block.html"
+
+
+class StrategicSectionBlock(blocks.StructBlock):
+    background_image = ImageChooserBlock()
+    heading = blocks.CharBlock(help_text="Use <br> for line breaks")
+    button_label = blocks.CharBlock(required=False)
+    button_url = blocks.URLBlock(required=False)
+    text_col1 = blocks.TextBlock(required=False, help_text="Left text column")
+    text_col2 = blocks.TextBlock(required=False, help_text="Right text column")
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "Strategic Section (Full Background)"
+        template = "pages/blocks/strategic_section_block.html"
+
+
+class AcademicsSectionBlock(blocks.StructBlock):
+    heading = blocks.CharBlock(help_text="Use <br> for line breaks")
+    text = blocks.TextBlock(required=False)
+    button1_label = blocks.CharBlock(required=False)
+    button1_url = blocks.URLBlock(required=False)
+    button2_label = blocks.CharBlock(required=False)
+    button2_url = blocks.URLBlock(required=False)
+    cards = blocks.ListBlock(blocks.StructBlock([
+        ('image', ImageChooserBlock()),
+        ('title', blocks.CharBlock()),
+    ]))
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "Academics Section"
+        template = "pages/blocks/academics_section_block.html"
+
+
+class ParentsCommunitySectionBlock(blocks.StructBlock):
+    background_image = ImageChooserBlock()
+    heading = blocks.CharBlock()
+    text = blocks.TextBlock(required=False)
+    button_label = blocks.CharBlock(required=False)
+    button_url = blocks.URLBlock(required=False)
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "Parents & Community Section"
+        template = "pages/blocks/parents_community_block.html"
+
+
+class CTASectionBlock(blocks.StructBlock):
+    background_image = ImageChooserBlock()
+    heading = blocks.CharBlock()
+    text = blocks.TextBlock(required=False)
+    button1_label = blocks.CharBlock(required=False, help_text="Primary (solid) button")
+    button1_url = blocks.URLBlock(required=False)
+    button2_label = blocks.CharBlock(required=False, help_text="Secondary (outline) button")
+    button2_url = blocks.URLBlock(required=False)
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "CTA Section"
+        template = "pages/blocks/cta_section_block.html"
+
+
+class HeroSectionBlock(blocks.StructBlock):
+    title = blocks.CharBlock(help_text="Hero title. Use &lt;span&gt; tags for multiple lines e.g. &lt;span&gt;Let your &lt;/span&gt;&lt;span&gt;light shine.&lt;/span&gt;")
+    text = blocks.TextBlock(required=False, help_text="Paragraph text in the right column")
+    button_label = blocks.CharBlock(required=False)
+    button_url = blocks.URLBlock(required=False)
+    image = ImageChooserBlock(required=False, help_text="Background image / video poster frame")
+    background_video_url = blocks.URLBlock(required=False, help_text="MP4 video URL for hero background")
+
+    class Meta:
+        label = "Hero Section"
+        icon = "image"

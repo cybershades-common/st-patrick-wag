@@ -27,9 +27,14 @@ common_blocks = [
     ('StatisticsBlock',StatisticsBlock()),
     ('TestimonialsBlock',TestimonialsBlock()),
     ('CoCurricularSliderBlock',CoCurricularSliderBlock()),
+    ('AboutSectionBlock',AboutSectionBlock()),
+    ('StrategicSectionBlock',StrategicSectionBlock()),
+    ('AcademicsSectionBlock',AcademicsSectionBlock()),
+    ('ParentsCommunitySectionBlock',ParentsCommunitySectionBlock()),
+    ('CTASectionBlock',CTASectionBlock()),
 
 ]
-homepage_stream_fields= common_blocks+ []
+homepage_stream_fields= common_blocks
 
 
 generalpage_stream_fields=common_blocks+[]

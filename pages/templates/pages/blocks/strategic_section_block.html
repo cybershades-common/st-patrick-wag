@@ -1,0 +1,36 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% image value.background_image original as bg_img %}
+<section class="strategic-section position-relative section {{ value.css_class }}" style="background-image: url('{{ bg_img.url }}');">
+    <div class="strategic-overlay w-100 h-100">
+        <div class="container-fluid position-relative">
+            <div class="row full">
+                <div class="col-12 strategic-content">
+                    <div class="row">
+                        <div class="col-12 col-lg-5 strategic-top">
+                            <h2>{{ value.heading|safe }}</h2>
+                            {% if value.button_label %}
+                            <a href="{{ value.button_url|default:'#' }}" class="btn-rounded-large-outline strategic-button">{{ value.button_label }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row full">
+                        <div class="col-12 col-md-6 strategic-text-wrapper">
+                            <div class="row">
+                                {% if value.text_col1 %}
+                                <div class="col-12 col-md-6 strategic-text-col">
+                                    <p>{{ value.text_col1 }}</p>
+                                </div>
+                                {% endif %}
+                                {% if value.text_col2 %}
+                                <div class="col-12 col-md-6 strategic-text-col">
+                                    <p>{{ value.text_col2 }}</p>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,39 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="about-section position-relative section {{ value.css_class }}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                <h2>{{ value.heading|safe }}</h2>
+            </div>
+        </div>
+        <div class="about-content-row">
+            <div class="row about-content-wrap">
+                <div class="col-12 col-lg-4 col-md-6 about-content">
+                    <div class="about-text">
+                        {% if value.text_col1 %}<p>{{ value.text_col1 }}</p>{% endif %}
+                        {% if value.text_col2 %}<p>{{ value.text_col2 }}</p>{% endif %}
+                    </div>
+                    <div class="about-buttons d-flex align-items-center">
+                        {% if value.button1_label %}
+                        <a href="{{ value.button1_url|default:'#' }}" class="btn-rounded-large-outline">{{ value.button1_label }}</a>
+                        {% endif %}
+                        {% if value.button2_label %}
+                        <a href="{{ value.button2_url|default:'#' }}" class="btn-rounded-large-no-border">{{ value.button2_label }}
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.5 2L8 5.5L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 offset-md-1 col-lg-6 offset-lg-2 about-image">
+                    {% if value.image %}
+                    {% image value.image original as img %}
+                    <img src="{{ img.url }}" alt="St Patrick's College" class="w-100 h-100" loading="lazy">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gradient-circle right"></div>
+</section>

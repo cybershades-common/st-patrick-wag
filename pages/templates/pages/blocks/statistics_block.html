@@ -1,0 +1,35 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="statistics-section section {{ value.css_class }}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 statistics-top">
+                <div class="row align-items-start">
+                    {% if value.heading %}
+                    <div class="col-12 col-lg-5 col-md-5 statistics-heading-col">
+                        <h2>{{ value.heading }}</h2>
+                    </div>
+                    {% endif %}
+                    <div class="col-12 col-lg-4 col-md-6 offset-md-1 offset-lg-1 statistics-content-col">
+                        {% if value.text %}<p>{{ value.text }}</p>{% endif %}
+                        {% if value.button.text %}
+                        <a href="{{ value.button.href.url }}" {{ value.button.href.target }} class="btn-rounded-large-outline statistics-button">{{ value.button.text }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 statistics-cards">
+                <div class="row">
+                    {% for stat in value.statistics %}
+                    <div class="col-12 col-lg-3 col-md-6 statistics-card">
+                        <div class="statistics-card-divider"></div>
+                        <div class="statistics-card-content">
+                            <p>{{ stat.description }}</p>
+                            <p>{{ stat.value }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

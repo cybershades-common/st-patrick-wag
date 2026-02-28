@@ -3,9 +3,10 @@ from django.db import models
 from wagtail.models import Page
 from wagtail.images.models import Image
 from pages.fields import homepage_stream_fields
+from pages.blocks import HeroSectionBlock
 from wagtail.fields import StreamField
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtailseo.models import SeoMixin
 
 class PageAbstract(SeoMixin, models.Model):
@@ -61,7 +62,15 @@ class HomePage(Page):
     left_static_text= models.CharField(null=True,blank=True,max_length=255)
     right_static_text= models.CharField(null=True,blank=True,max_length=255)
     right_dynamic_text= models.CharField(null=True,blank=True,max_length=255)
+    hero_section = StreamField([('hero', HeroSectionBlock())], null=True, blank=True)
     body = StreamField(homepage_stream_fields, null=True, blank=True)
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('hero_section'),
+        ], heading="Hero Section"),
+        FieldPanel('body'),
+    ]
 
     template = 'home/home_page.html'
     class Meta:

@@ -1,0 +1,45 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="academics-section position-relative section {{ value.css_class }}">
+    <div class="academics-gradient position-absolute"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 academics-top">
+                <div class="row align-items-start">
+                    <div class="col-12 col-xl-4 col-lg-5 col-md-5 academics-heading-col">
+                        <h2>{{ value.heading|safe }}</h2>
+                    </div>
+                    <div class="col-12 col-xl-5 col-lg-6 col-md-6 offset-md-1 offset-xl-2 academics-content-col">
+                        {% if value.text %}<p>{{ value.text }}</p>{% endif %}
+                        <div class="academics-buttons d-flex align-items-center">
+                            {% if value.button1_label %}
+                            <a href="{{ value.button1_url|default:'#' }}" class="btn-rounded-large-outline">{{ value.button1_label }}</a>
+                            {% endif %}
+                            {% if value.button2_label %}
+                            <a href="{{ value.button2_url|default:'#' }}" class="btn-rounded-large-no-border">{{ value.button2_label }}
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.5 2L8 5.5L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-1"></div>
+                </div>
+            </div>
+            <div class="col-12 academics-cards">
+                <div class="row">
+                    {% for card in value.cards %}
+                    <div class="col-12 col-md-6 academics-card">
+                        <div class="academics-card-image">
+                            {% image card.image original as card_img %}
+                            <img src="{{ card_img.url }}" alt="{{ card.title }}" class="w-100 h-100" loading="lazy">
+                        </div>
+                        <h4>{{ card.title }}</h4>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gradient-circle left"></div>
+</section>

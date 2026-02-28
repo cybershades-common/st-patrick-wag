@@ -1,14 +1,105 @@
 {% extends "base.html" %}
-
 {% load static wagtailcore_tags wagtailimages_tags %}
 {% block body_class %}home-page{% endblock %}
 
-{% block content %}
-{% include "pages/hero.html" with type="home" page=page %}
+{% block extra_css %}
+{{ block.super }}
+<style>
+/*
+ * Hero fallback: show content even if GSAP hasn't animated it yet.
+ * Higher specificity (.home-page .hero-title) beats the stylesheet rule (.hero-title).
+ * When GSAP runs it overrides with inline styles, so animations still work.
+ */
+.home-page .hero-title {
+    opacity: 1;
+    visibility: visible;
+}
+.home-page .hero-text p {
+    opacity: 1;
+    visibility: visible;
+}
+.home-page .hero-text button,
+.home-page .hero-text a {
+    opacity: 1;
+    visibility: visible;
+}
+</style>
+{% endblock %}
 
-{% with blocks=page.body %}
-{% for block in blocks %}
-{% include_block block %}
-{% endfor %}
+{% block content %}
+
+{# Hero section — managed via the "Hero Section" panel in admin #}
+{% with hero_block=page.hero_section.0 %}
+{% if hero_block %}
+{% with hero=hero_block.value %}
+
+<!-- Hero Section -->
+<section class="hero position-relative">
+    <div class="hero-content-wrap">
+        <div class="container-fluid position-relative">
+            <div class="row">
+                <div class="col-xl-7 col-lg-8 col-md-8">
+                    <div class="col-lg-auto hero-content">
+                        <div class="hero-gradient position-absolute"></div>
+                        <h1 class="hero-title">{{ hero.title|safe }}</h1>
+                    </div>
+                </div>
+                <div class="col-xl-3 offset-xl-1 col-lg-4 col-md-8">
+                    <div class="col-lg-auto hero-text d-flex flex-column justify-content-between align-items-start">
+                        {% if hero.text %}<p class="mb-0">{{ hero.text }}</p>{% endif %}
+                        {% if hero.button_label %}
+                        <a href="{{ hero.button_url|default:'#' }}" class="btn-rounded-large-outline mt-auto">{{ hero.button_label }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sticky Wrapper: Hero media + About section overlay -->
+<div class="sticky-wrapper">
+    <div class="hero-media w-100">
+        <div class="hero-media-wrapper position-relative w-100">
+            {% if hero.image %}{% image hero.image original as hero_img %}{% endif %}
+            {% if hero.background_video_url %}
+            <video class="hero-video position-absolute top-0 start-0 w-100" id="heroVideo" autoplay muted loop playsinline preload="none"{% if hero.image %} poster="{{ hero_img.url }}"{% endif %}>
+                <source src="{{ hero.background_video_url }}" type="video/mp4">
+                {% if hero.image %}<img src="{{ hero_img.url }}" alt="St Patrick's College" class="hero-image w-100 h-100">{% endif %}
+            </video>
+            {% elif hero.image %}
+            <img src="{{ hero_img.url }}" alt="St Patrick's College" class="hero-image w-100 h-100">
+            {% endif %}
+            <div class="hero-media-overlay position-absolute top-0 start-0 w-100 h-100"></div>
+        </div>
+    </div>
+    <!-- First body block (About Section) renders inside sticky overlay -->
+    <div class="sticky-content">
+        {% for block in page.body %}{% if forloop.first %}{% include_block block %}{% endif %}{% endfor %}
+    </div>
+</div>
+
 {% endwith %}
+{% endif %}
+{% endwith %}
+
+<!-- Remaining body blocks (skip first — it's in sticky-content above) -->
+{% for block in page.body %}
+    {% if not forloop.first %}
+    {% include_block block %}
+    {% endif %}
+{% endfor %}
+
 {% endblock content %}
+
+{% block extra_js %}
+{{ block.super }}
+{# Safety net: load these if the footer-script content holder doesn't include them. #}
+{# The _mainJsInitialized flag in main.js prevents double-execution if they also #}
+{# load via the content holder. #}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="{% static 'scripts/animations.js' %}"></script>
+<script src="{% static 'scripts/main.js' %}"></script>
+{% endblock %}
