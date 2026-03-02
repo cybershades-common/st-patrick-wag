@@ -700,7 +700,10 @@ class CoCurricularSliderBlock(blocks.StructBlock):
 
 
 class AboutSectionBlock(blocks.StructBlock):
-    heading = blocks.CharBlock(help_text="Main heading. Use HTML for underlines e.g. <span class='underline'>word</span>")
+    heading = blocks.RichTextBlock(
+        features=['bold', 'italic', 'underline'],
+        help_text="Type heading here. Select words and click U to underline them."
+    )
     text_col1 = blocks.TextBlock(required=False, help_text="First paragraph")
     text_col2 = blocks.TextBlock(required=False, help_text="Second paragraph")
     image = ImageChooserBlock()

@@ -2301,11 +2301,21 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   letter-spacing: -0.0375rem;
   color: var(--primary-blue);
 }
+.about-section h2 p {
+  display: inline;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  margin: 0;
+}
 .about-section h2 .word {
   display: inline;
   text-decoration: inherit;
 }
-.about-section h2 .underline {
+.about-section h2 .underline,
+.about-section h2 u {
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-skip-ink: auto;

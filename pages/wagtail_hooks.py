@@ -1,6 +1,26 @@
+from wagtail import hooks
+from wagtail.admin.rich_text.editors.draftail.features import InlineStyleFeature
+from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from .models import ContentHolder, DynamicContentSnippet, PhotoGallery, BlockCatalog
+
+
+@hooks.register('register_rich_text_features')
+def register_underline_feature(features):
+    features.register_editor_plugin(
+        'draftail', 'underline',
+        InlineStyleFeature({
+            'type': 'UNDERLINE',
+            'label': 'U',
+            'description': 'Underline',
+            'style': {'textDecoration': 'underline'},
+        })
+    )
+    features.register_converter_rule('contentstate', 'underline', {
+        'from_database_format': {'u': InlineStyleElementHandler('UNDERLINE')},
+        'to_database_format': {'style_map': {'UNDERLINE': 'u'}},
+    })
 
 class BlockCatalogViewSet(SnippetViewSet):
     model = BlockCatalog
