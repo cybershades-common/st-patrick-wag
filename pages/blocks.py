@@ -692,6 +692,7 @@ class CoCurricularSliderBlock(blocks.StructBlock):
     nav_buttons = blocks.ListBlock(blocks.StructBlock([
         ('label', blocks.CharBlock()),
     ]))
+    default_slide = blocks.IntegerBlock(default=0, help_text="0 = first slide, 1 = second slide, etc.")
     css_class = blocks.CharBlock(required=False)
 
     class Meta:

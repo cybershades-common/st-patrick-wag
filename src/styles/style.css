@@ -3711,12 +3711,14 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   width: 33.4375rem;
   max-width: 100%;
 }
-.parents-community-content button {
+.parents-community-content button,
+.parents-community-content a {
   border-color: var(--basic-white);
   color: var(--basic-white);
   margin-top: 0;
 }
-.parents-community-content button:hover {
+.parents-community-content button:hover,
+.parents-community-content a:hover {
   background-color: var(--basic-white);
   color: var(--basic-black);
 }

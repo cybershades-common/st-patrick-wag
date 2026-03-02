@@ -2697,7 +2697,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const navBtns = Array.from(section.querySelectorAll('.cocurricular-nav-btn'));
         if (!slides.length) return;
 
-        let currentIndex = 0;
+        let currentIndex = parseInt(section.dataset.defaultSlide, 10) || 0;
         let isAnimating = false;
 
         // Initial state — active slide visible, rest hidden
