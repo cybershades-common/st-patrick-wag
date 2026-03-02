@@ -3,12 +3,12 @@
 <section class="about-intro-section position-relative section {{ value.css_class }}">
     <div class="container-fluid">
         <div class="row align-items-start">
-            <div class="col-12 col-lg-5 about-intro-section-left">
-                <h2 class="about-intro-section-title" data-gsap-children='{"h2":{"type":"fade-up"}}'>{{ value.heading|safe }}</h2>
+            <div class="col-12 col-lg-5 about-intro-section-left" data-gsap-children='{"h2":{"type":"fade-up"}}'>
+                <h2 class="about-intro-section-title">{{ value.heading|safe }}</h2>
             </div>
             <div class="col-12 col-lg-5 about-intro-section-right">
                 <div class="about-intro-section-content"
-                    data-gsap-children='{"p":{"type":"fade-up"}, "div":{"type":"fade-up","stagger":"0.2"}}'>
+                    data-gsap-children='{"p":{"type":"fade-up"}, ".about-intro-section-buttons > *":{"type":"fade-in","stagger":"0.2"}}'>
                     {% if value.text %}
                     <p class="about-intro-section-text">{{ value.text|safe }}</p>
                     {% endif %}
