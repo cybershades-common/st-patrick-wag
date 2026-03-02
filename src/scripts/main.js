@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuText = menuToggle?.querySelector('.menu-text');
     const menuMainItems = document.querySelectorAll('.menu-main-item');
     const menuSubItems = document.querySelectorAll('.menu-sub-item');
+    // GSAP owns the visibility — set initial state so animation always starts from a known point
+    gsap.set(menuMainItems, { opacity: 0, x: -60, force3D: true });
+    gsap.set(menuSubItems, { opacity: 0, x: -20, force3D: true });
     const footerArrowUp = document.getElementById('footerArrowUp');
     const menuSubItemsContainer = document.querySelector('.menu-sub-items');
     const menuImageWrapper = document.querySelector('.menu-image-wrapper');
@@ -335,8 +338,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const menuImage = menuImageSlide ? menuImageSlide.querySelector('.menu-image') : document.querySelector('.menu-image');
         const menuFooter = document.querySelector('.mega-menu-footer');
 
-        // Clear any existing properties
-        gsap.set([menuMainItems, menuSubItems, menuImageSlide, menuImage], { clearProps: 'all' });
+        // Kill any tweens still running from a previous open/close, then reset items to start state
+        gsap.killTweensOf([menuMainItems, menuSubItems]);
+        gsap.set(menuMainItems, { opacity: 0, x: -60, force3D: true });
+        gsap.set(menuSubItems, { opacity: 0, x: -20, force3D: true });
+        if (menuImageSlide) gsap.set(menuImageSlide, { clearProps: 'all' });
+        if (menuImage) gsap.set(menuImage, { clearProps: 'all' });
 
         const isMobileView = isMobile();
 
@@ -362,15 +369,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 force3D: true,
                 immediateRender: false
             }, 0.2)
-            // Main menu items (after header items)
-            .fromTo(menuMainItems,
-                { opacity: 0, x: -60, force3D: true },
+            // Main menu items — state already set to {opacity:0, x:-60} above
+            .to(menuMainItems,
                 { opacity: 1, x: 0, duration: 0.3, stagger: 0.1, ease: 'power1.out', force3D: true },
                 0.55
             )
-            // Sub menu items (after main menu)
-            .fromTo(menuSubItems,
-                { opacity: 0, x: -20, force3D: true },
+            // Sub menu items
+            .to(menuSubItems,
                 { opacity: 1, x: 0, duration: 0.4, stagger: 0.04, ease: 'power1.out', force3D: true },
                 0.95
             )
