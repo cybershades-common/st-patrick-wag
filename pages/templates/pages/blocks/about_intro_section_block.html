@@ -1,0 +1,47 @@
+{% load wagtailcore_tags %}
+
+<section class="about-intro-section position-relative section {{ value.css_class }}">
+    <div class="container-fluid">
+        <div class="row align-items-start">
+            <div class="col-12 col-lg-5 about-intro-section-left">
+                <h2 class="about-intro-section-title" data-gsap-children='{"h2":{"type":"fade-up"}}'>{{ value.heading|safe }}</h2>
+            </div>
+            <div class="col-12 col-lg-5 about-intro-section-right">
+                <div class="about-intro-section-content"
+                    data-gsap-children='{"p":{"type":"fade-up"}, "div":{"type":"fade-up","stagger":"0.2"}}'>
+                    {% if value.text %}
+                    <p class="about-intro-section-text">{{ value.text|safe }}</p>
+                    {% endif %}
+                    {% if value.primary_button.label or value.secondary_button.label %}
+                    <div class="about-intro-section-buttons d-flex align-items-center gap-3">
+                        {% if value.primary_button.label %}
+                            {% if value.primary_button.href and value.primary_button.href.is_url %}
+                            <a href="{{ value.primary_button.href.url }}" {{ value.primary_button.href.target }} class="btn-rounded-large-outline">{{ value.primary_button.label }}</a>
+                            {% else %}
+                            <button class="btn-rounded-large-outline" type="button">{{ value.primary_button.label }}</button>
+                            {% endif %}
+                        {% endif %}
+                        {% if value.secondary_button.label %}
+                            {% if value.secondary_button.href and value.secondary_button.href.is_url %}
+                            <a href="{{ value.secondary_button.href.url }}" {{ value.secondary_button.href.target }} class="btn-rounded-large-no-border">
+                                {{ value.secondary_button.label }}
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.5 2L8 5.5L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                            {% else %}
+                            <a href="#" class="btn-rounded-large-no-border">
+                                {{ value.secondary_button.label }}
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.5 2L8 5.5L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

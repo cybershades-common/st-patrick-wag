@@ -900,3 +900,31 @@ class InternalExploreBlock(blocks.StructBlock):
     class Meta:
         label = "Internal Explore Grid"
         template = "pages/blocks/internal_explore_block.html"
+
+
+class AboutIntroSectionBlock(blocks.StructBlock):
+    heading = blocks.CharBlock(help_text="Use <br> for line breaks if needed.")
+    text = blocks.TextBlock(required=False)
+    primary_button = InternalLinkBlock(required=False)
+    secondary_button = InternalLinkBlock(required=False)
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "About Intro Section"
+        template = "pages/blocks/about_intro_section_block.html"
+
+
+class AboutNavCardsBlock(blocks.StructBlock):
+    start_from_second = blocks.BooleanBlock(
+        required=False,
+        help_text="If enabled, leave the first card position empty.",
+    )
+    items = blocks.ListBlock(blocks.StructBlock([
+        ('image', ImageChooserBlock()),
+        ('title', blocks.CharBlock()),
+    ]))
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "About Navigation Cards"
+        template = "pages/blocks/about_nav_cards_block.html"

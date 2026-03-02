@@ -46,7 +46,10 @@ internal_blocks = [
 ]
 
 generalpage_stream_fields = common_blocks + internal_blocks
-landingpage_stream_fields = common_blocks + []
+landingpage_stream_fields = common_blocks + [
+    ('AboutIntroSectionBlock', AboutIntroSectionBlock()),
+    ('AboutNavCardsBlock', AboutNavCardsBlock()),
+]
 newspage_stream_fields = [
     ('VideoBlock',VideoBlock()),
     ('FullwidthImageBlock',FullwidthImageBlock()),

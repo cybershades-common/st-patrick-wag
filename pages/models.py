@@ -11,6 +11,7 @@ from wagtail.admin.panels import PageChooserPanel
 from wagtail.images import get_image_model_string
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from pages.fields import generalpage_stream_fields,landingpage_stream_fields
+from pages.blocks import HeroSectionBlock
 from django import forms
 from home.models import HeroAbstract, PageAbstract
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, FORM_FIELD_CHOICES
@@ -139,6 +140,7 @@ class LandingpageHero(HeroAbstract):
     page = ParentalKey('LandingPage', related_name='landingpage_hero')
 
 class LandingPage(PageAbstract, Page):
+    hero_section = StreamField([('hero', HeroSectionBlock())], null=True, blank=True)
     body = StreamField(landingpage_stream_fields,null=True,blank=True)
 
     template = 'pages/landing_page.html'

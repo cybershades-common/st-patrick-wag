@@ -24,6 +24,14 @@ def split_words(value):
         return []
     return [word for word in re.split(r'\s+', str(value).strip()) if word]
 
+@register.filter
+def split_lines(value):
+    if not value:
+        return []
+    text = str(value)
+    text = text.replace('<br />', '\n').replace('<br>', '\n')
+    return [line.strip() for line in text.splitlines() if line.strip()]
+
 
 @register.inclusion_tag('pages/content-holders/content_holder.html',takes_context=True)
 def load_content_holder(context, Slug):
