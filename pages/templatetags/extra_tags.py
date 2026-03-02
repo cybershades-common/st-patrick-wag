@@ -9,6 +9,8 @@ import re
 import random
 from news.models import Category as newscategory,News
 from blog.models import Category as blogcategory,Blog
+from wagtailmenus.models import FlatMenu
+from wagtail.models import Site
 
 @register.filter
 def highlight(string, term):
@@ -31,6 +33,43 @@ def split_lines(value):
     text = str(value)
     text = text.replace('<br />', '\n').replace('<br>', '\n')
     return [line.strip() for line in text.splitlines() if line.strip()]
+
+
+@register.inclusion_tag('pages/menus/flat_menu_dropdown.html', takes_context=True)
+def flat_menu_any(context, handle):
+    request = context.get('request')
+    site = None
+    if request is not None:
+        site = getattr(request, 'site', None) or Site.find_for_request(request)
+    if site is None:
+        site = Site.objects.filter(is_default_site=True).first()
+
+    menu_qs = FlatMenu.objects.filter(handle=handle)
+    if site is not None:
+        menu_qs = menu_qs.filter(site=site)
+
+    menu = menu_qs.first()
+    items = []
+
+    if menu:
+        for item in menu.custom_flat_menu_items.all().order_by('sort_order'):
+            href = '#'
+            if item.link_page:
+                if getattr(item.link_page, 'live', True) is False:
+                    continue
+                href = item.link_page.url or '#'
+            elif item.link_url:
+                href = item.link_url
+
+            if item.url_append:
+                href = f"{href}{item.url_append}"
+
+            items.append({
+                'href': href,
+                'text': item.link_text or '',
+            })
+
+    return {'menu_items': items}
 
 
 @register.inclusion_tag('pages/content-holders/content_holder.html',takes_context=True)
