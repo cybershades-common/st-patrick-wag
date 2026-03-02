@@ -3362,11 +3362,13 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   max-width: 34.9375rem;
   margin-bottom: 2.5rem;
 }
-.cocurricular-left button {
+.cocurricular-left button,
+.cocurricular-left a {
   border-color: var(--basic-white);
   color: var(--basic-white);
 }
-.cocurricular-left button:hover {
+.cocurricular-left button:hover,
+.cocurricular-left a:hover {
   background-color: var(--basic-white);
   color: var(--basic-black);
 }

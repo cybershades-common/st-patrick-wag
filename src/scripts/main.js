@@ -2697,7 +2697,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const navBtns = Array.from(section.querySelectorAll('.cocurricular-nav-btn'));
         if (!slides.length) return;
 
-        let currentIndex = 1;
+        let currentIndex = 0;
         let isAnimating = false;
 
         // Initial state — active slide visible, rest hidden
@@ -2718,8 +2718,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const toSlide = slides[newIndex];
             const fromBg = bgSlides[oldIndex];
             const toBg = bgSlides[newIndex];
-            const fromItems = Array.from(fromSlide.querySelectorAll('small, h2, p, button'));
-            const toItems = Array.from(toSlide.querySelectorAll('small, h2, p, button'));
+            const fromItems = Array.from(fromSlide.querySelectorAll('small, h2, p, button, a'));
+            const toItems = Array.from(toSlide.querySelectorAll('small, h2, p, button, a'));
 
             // Stack: fromSlide on top during out, toSlide below
             gsap.set(fromSlide, { zIndex: 3 });

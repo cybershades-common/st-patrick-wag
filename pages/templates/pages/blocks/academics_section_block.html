@@ -3,7 +3,7 @@
     <div class="academics-gradient position-absolute"></div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 academics-top">
+            <div class="col-12 academics-top" data-gsap-children='{"h2":{"type":"fade-up"},"p":{"type":"fade-up"},"a":{"type":"zoom-in","stagger":"0.7"}}'>
                 <div class="row align-items-start">
                     <div class="col-12 col-xl-4 col-lg-5 col-md-5 academics-heading-col">
                         <h2>{{ value.heading|safe }}</h2>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="col-12 academics-cards">
-                <div class="row">
+                <div class="row" data-gsap-children='{"img":{"type":"image-fade-in","start":"top 60%","stagger":"0.4"},"h4":{"type":"fade-up","start":"top 90%"}}' data-gsap-children-mobile='{"img":{"type":"image-fade-in","start":"top 70%","stagger":0},"h4":{"start":"top 95%"}}'>
                     {% for card in value.cards %}
                     <div class="col-12 col-md-6 academics-card">
                         <div class="academics-card-image">

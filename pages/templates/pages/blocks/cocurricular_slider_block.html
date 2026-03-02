@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12 cocurricular-nav">
-                        <div class="cocurricular-nav-buttons d-flex align-items-center">
+                        <div class="cocurricular-nav-buttons d-flex align-items-center" data-gsap-children='{"button":{"type":"fade-up","start":"top 110%","stagger":"0.2","ease":"back.out(1.7)"}}' data-gsap-children-mobile='{"button":{"start":"top 90%"}}'>
                             {% for nav in value.nav_buttons %}
                             <button class="btn-rounded-large-outline cocurricular-nav-btn{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}">{{ nav.label }}</button>
                             {% endfor %}

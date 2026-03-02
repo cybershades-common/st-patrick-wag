@@ -8,7 +8,7 @@
                     <div class="col-12 col-xl-4 col-md-5 testimonials-image-col">
                         <div class="testimonials-image-wrapper" id="testimonialsImageWrapper">
                             {% for testimonial in value.testimonials %}
-                            <div class="testimonials-image{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}">
+                            <div class="testimonials-image{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}"{% if forloop.first %} data-gsap-children='{"img":{"type":"image-fade-in","start":"top 60%"}}' data-gsap-children-mobile='{"img":{"start":"top 80%"}}'{% endif %}>
                                 {% if testimonial.image %}
                                 {% image testimonial.image original as t_img %}
                                 <img src="{{ t_img.url }}" alt="{{ testimonial.author }}" class="testimonials-img">
@@ -20,7 +20,7 @@
                     <div class="col-12 col-xl-5 col-md-6 offset-xl-2 offset-md-1 testimonials-text-col">
                         <div class="testimonials-quote-wrapper" id="testimonialsContentWrapper">
                             {% for testimonial in value.testimonials %}
-                            <div class="testimonials-slide-content{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}">
+                            <div class="testimonials-slide-content{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}"{% if forloop.first %} data-gsap-children='{"p":{"type":"fade-up","start":"top 60%","stagger":"0.4"}}' data-gsap-children-mobile='{"p":{"start":"top 80%"}}'{% endif %}>
                                 <p>"{{ testimonial.quote }}"</p>
                                 <p>{{ testimonial.author }}{% if testimonial.position %}, {{ testimonial.position }}{% endif %}</p>
                             </div>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row align-items-center testimonials-bottom-row">
+                <div class="row align-items-center testimonials-bottom-row" data-gsap-children='{"a":{"type":"zoom-in","start":"top 100%","stagger":"0.4"},"button":{"type":"zoom-in","start":"top 100%","stagger":"0.4"}}' data-gsap-children-mobile='{"a":{"start":"top 80%"},"button":{"start":"top 80%"}}'>
                     <div class="col-6 col-lg-6 testimonials-button-col">
                         {% if value.button.text %}
                         <a href="{{ value.button.href.url }}" {{ value.button.href.target }} class="btn-rounded-large-outline testimonials-button">{{ value.button.text }}</a>

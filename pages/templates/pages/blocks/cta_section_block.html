@@ -9,14 +9,14 @@
         <div class="cta-block-wrap">
             <div class="row">
                 <div class="col-xl-5 col-lg-6 col-md-6 cta-content">
-                    <div class="cta-heading-wrapper">
+                    <div class="cta-heading-wrapper" data-gsap-children='{"h1":{"type":"fade-up"}}'>
                         <h1>{{ value.heading }}</h1>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-4 offset-xl-6 col-lg-6 col-md-6 offset-md-6 offset-lg-6">
-                    <div class="cta-text-wrapper">
+                    <div class="cta-text-wrapper" data-gsap-children='{"p":{"type":"fade-up"},"a":{"type":"zoom-in","stagger":"0.5"}}'>
                         {% if value.text %}<p>{{ value.text }}</p>{% endif %}
                         <div class="cta-buttons d-flex align-items-center">
                             {% if value.button1_label %}

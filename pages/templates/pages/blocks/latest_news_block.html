@@ -6,10 +6,10 @@
         <div class="row">
             <div class="col-12 latest-news-top">
                 <div class="row align-items-start">
-                    <div class="col-12 col-xl-4 col-lg-5 col-md-5 latest-news-heading-col">
+                    <div class="col-12 col-xl-4 col-lg-5 col-md-5 latest-news-heading-col" data-gsap-children='{"h2":{"type":"fade-up"}}'>
                         {% if value.title %}<h2>{{ value.title|safe }}</h2>{% endif %}
                     </div>
-                    <div class="col-12 col-xl-5 offset-xl-2 col-lg-6 offset-lg-1 col-md-6 offset-md-1 latest-news-content-col">
+                    <div class="col-12 col-xl-5 offset-xl-2 col-lg-6 offset-lg-1 col-md-6 offset-md-1 latest-news-content-col" data-gsap-children='{"p":{"type":"fade-up"},"a":{"type":"fade-in","stagger":"0.4"}}'>
                         {% if value.text %}<p>{{ value.text }}</p>{% endif %}
                         <div class="latest-news-buttons d-flex align-items-center">
                             {% if value.button.text %}
@@ -28,7 +28,7 @@
             </div>
             <div class="col-12 latest-news-bottom">
                 <div class="row align-items-center latest-news-filters-row">
-                    <div class="col-12 col-lg-auto latest-news-arrows-col ms-auto">
+                    <div class="col-12 col-lg-auto latest-news-arrows-col ms-auto" data-gsap-children='{"div":{"type":"fade-in"}}'>
                         <div class="latest-news-arrows d-flex align-items-center">
                             <button class="latest-news-arrow-btn latest-news-prev" id="latestNewsPrev" aria-label="Previous news">
                                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +49,7 @@
                             {% if news_list.items|length %}
                             {% for item in news_list.items %}
                             <div class="latest-news-slide{% if forloop.first %} active{% endif %}">
-                                <div class="latest-news-card">
+                                <div class="latest-news-card"{% if forloop.first %} data-gsap-children='{"img":{"type":"image-fade-in","start":"top 60%"},"div":{"type":"fade-up","start":"top 150%"}}' data-gsap-children-mobile='{"img":{"start":"top 80%"}}'{% endif %}>
                                     <a href="{% url 'news_detail_page' item.slug %}">
                                         {% if item.image %}
                                         {% image item.image original as news_img %}
