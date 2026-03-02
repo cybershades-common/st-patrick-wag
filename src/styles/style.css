@@ -3763,7 +3763,8 @@ body:has(.internal-content-single) .internal-intro-text .internal-intro-text-con
   .parents-community-content p {
     font-size: 1.125rem;
   }
-  .parents-community-content button {
+  .parents-community-content button,
+  .parents-community-content a {
     margin-top: auto;
   }
 }

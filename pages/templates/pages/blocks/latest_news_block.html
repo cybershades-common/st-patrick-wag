@@ -1,5 +1,4 @@
 {% load wagtailcore_tags wagtailimages_tags extra_tags %}
-{% get_news_items value.category.slug value.limit as news_list %}
 
 <section class="latest-news-section section {{ value.top_padding }} {{ value.bottom_padding }}">
     <div class="container-fluid">
@@ -28,6 +27,15 @@
             </div>
             <div class="col-12 latest-news-bottom">
                 <div class="row align-items-center latest-news-filters-row">
+                    {% if value.filters %}
+                    <div class="col-12 col-lg-auto latest-news-filters-col" data-gsap-children='{"button":{"type":"fade-in","stagger":"0.4"}}'>
+                        <div class="latest-news-filters d-flex align-items-center">
+                            {% for f in value.filters %}
+                            <button class="btn-rounded-large-outline latest-news-filter-btn{% if forloop.first %} latest-news-filter-btn-active{% else %} latest-news-filter-btn-gold{% endif %}" data-filter="{{ forloop.counter0 }}">{{ f.label }}</button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                     <div class="col-12 col-lg-auto latest-news-arrows-col ms-auto" data-gsap-children='{"div":{"type":"fade-in"}}'>
                         <div class="latest-news-arrows d-flex align-items-center">
                             <button class="latest-news-arrow-btn latest-news-prev" id="latestNewsPrev" aria-label="Previous news">
@@ -45,28 +53,57 @@
                 </div>
                 <div class="latest-news-slider">
                     <div class="latest-news-tracks-wrapper">
-                        <div class="latest-news-track" id="latestNewsTrackAll">
-                            {% if news_list.items|length %}
-                            {% for item in news_list.items %}
-                            <div class="latest-news-slide{% if forloop.first %} active{% endif %}">
-                                <div class="latest-news-card"{% if forloop.first %} data-gsap-children='{"img":{"type":"image-fade-in","start":"top 60%"},"div":{"type":"fade-up","start":"top 150%"}}' data-gsap-children-mobile='{"img":{"start":"top 80%"}}'{% endif %}>
-                                    <a href="{% url 'news_detail_page' item.slug %}">
-                                        {% if item.image %}
-                                        {% image item.image original as news_img %}
-                                        <img loading="lazy" src="{{ news_img.url }}" alt="{{ item.title }}" class="latest-news-image">
-                                        {% endif %}
-                                        <div class="latest-news-card-content">
-                                            <h3>{{ item.title|safe }}</h3>
-                                            <p>{{ item.release_date|date:'d.m.y' }}</p>
-                                        </div>
-                                    </a>
+                        {% if value.filters %}
+                            {% for f in value.filters %}
+                            {% get_news_items f.category.slug|default:'all' value.limit as filter_news %}
+                            <div class="latest-news-track" data-filter="{{ forloop.counter0 }}">
+                                {% if filter_news.items %}
+                                {% for item in filter_news.items %}
+                                <div class="latest-news-slide{% if forloop.first %} active{% endif %}">
+                                    <div class="latest-news-card"{% if forloop.first %} data-gsap-children='{"img":{"type":"image-fade-in","start":"top 60%"},"div":{"type":"fade-up","start":"top 150%"}}' data-gsap-children-mobile='{"img":{"start":"top 80%"}}'{% endif %}>
+                                        <a href="{% url 'news_detail_page' item.slug %}">
+                                            {% if item.image %}
+                                            {% image item.image original as news_img %}
+                                            <img loading="lazy" src="{{ news_img.url }}" alt="{{ item.title }}" class="latest-news-image">
+                                            {% endif %}
+                                            <div class="latest-news-card-content">
+                                                <h3>{{ item.title|safe }}</h3>
+                                                <p>{{ item.release_date|date:'d.m.y' }}</p>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
+                                {% endfor %}
+                                {% else %}
+                                <p>No news items found.</p>
+                                {% endif %}
                             </div>
                             {% endfor %}
-                            {% else %}
-                            <p>No news items found.</p>
-                            {% endif %}
-                        </div>
+                        {% else %}
+                            {% get_news_items value.category.slug value.limit as news_list %}
+                            <div class="latest-news-track" data-filter="all">
+                                {% if news_list.items %}
+                                {% for item in news_list.items %}
+                                <div class="latest-news-slide{% if forloop.first %} active{% endif %}">
+                                    <div class="latest-news-card"{% if forloop.first %} data-gsap-children='{"img":{"type":"image-fade-in","start":"top 60%"},"div":{"type":"fade-up","start":"top 150%"}}' data-gsap-children-mobile='{"img":{"start":"top 80%"}}'{% endif %}>
+                                        <a href="{% url 'news_detail_page' item.slug %}">
+                                            {% if item.image %}
+                                            {% image item.image original as news_img %}
+                                            <img loading="lazy" src="{{ news_img.url }}" alt="{{ item.title }}" class="latest-news-image">
+                                            {% endif %}
+                                            <div class="latest-news-card-content">
+                                                <h3>{{ item.title|safe }}</h3>
+                                                <p>{{ item.release_date|date:'d.m.y' }}</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                <p>No news items found.</p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

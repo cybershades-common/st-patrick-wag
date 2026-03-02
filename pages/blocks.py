@@ -626,6 +626,10 @@ class LatestNewsBlock(blocks.StructBlock):
     button2_url = blocks.URLBlock(required=False)
     category = SnippetChooserBlock('news.Category',required=False)
     limit = blocks.IntegerBlock(required=False, default=3, help_text="Number of items to show")
+    filters = blocks.ListBlock(blocks.StructBlock([
+        ('label', blocks.CharBlock(help_text="Tab label, e.g. All News")),
+        ('category', SnippetChooserBlock('news.Category', required=False, help_text="Leave empty to show all news")),
+    ]), required=False, help_text="Filter tabs shown above the news slider. Leave empty to hide tabs.")
 
     class Meta:
         label = "Latest News"

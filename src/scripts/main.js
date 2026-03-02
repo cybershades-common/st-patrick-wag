@@ -1239,16 +1239,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function initLatestNewsSlider() {
-        const trackAll = document.getElementById('latestNewsTrackAll');
-        const trackJunior = document.getElementById('latestNewsTrackJunior');
-        const trackSenior = document.getElementById('latestNewsTrackSenior');
         const prevBtn = document.getElementById('latestNewsPrev');
         const nextBtn = document.getElementById('latestNewsNext');
+        const allTracks = Array.from(document.querySelectorAll('.latest-news-track'));
 
-        if (!trackAll || !prevBtn || !nextBtn) return;
+        if (!allTracks.length || !prevBtn || !nextBtn) return;
 
-        const trackMap = { all: trackAll, junior: trackJunior, senior: trackSenior };
-        let activeTrack = trackAll;
+        const trackMap = {};
+        allTracks.forEach(t => { trackMap[t.dataset.filter] = t; });
+        let activeTrack = allTracks[0];
         let currentIndex = 0;
         let isDragging = false;
         let startX = 0;
@@ -1257,7 +1256,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let cleanupFn = null;
 
         // Hide non-active tracks on init
-        gsap.set([trackJunior, trackSenior], { display: 'none' });
+        allTracks.forEach((t, i) => { if (i > 0) gsap.set(t, { display: 'none' }); });
 
         const isMobile = () => window.innerWidth <= 768;
 
