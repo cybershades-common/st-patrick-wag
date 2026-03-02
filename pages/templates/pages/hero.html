@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags extra_tags %}
 {% if page.get_hero %}
 {% if type == 'home' %}
 <style>
@@ -86,6 +86,31 @@
     </div>
     {% endfor %}
 </section>
+{% elif type == 'internal' %}
+{% with alignment=page.hero_title_alignment|default:'left' %}
+<section class="hero-internal position-relative{% if alignment == 'center' %} hero-internal--center{% else %} hero-internal--left{% endif %}">
+    {% for item in page.get_hero %}
+    <div class="hero-internal-background position-absolute w-100 h-100">
+        {% if item.image %}
+            {% image item.image original as img %}
+            <img src="{{ img.url }}" alt="{{ item.title|default:page.title }}" class="hero-internal-image w-100 h-100" loading="eager">
+        {% endif %}
+        <div class="hero-internal-overlay position-absolute w-100 h-100"></div>
+    </div>
+    <div class="container-fluid position-relative">
+        <div class="hero-internal-content{% if alignment == 'center' %} align-center{% else %} align-left{% endif %}"
+            data-gsap-children='{"span":{"type":"masked-word","stagger":"0.3","delay":"0.3","ease":"back.out(1.3)"}}'
+            data-gsap-immediate="true">
+            {% with hero_title=item.title|default:page.title %}
+            <h1 class="hero-internal-title{% if alignment == 'center' %} align-center{% else %} align-left{% endif %}">
+                {% for word in hero_title|split_words %}<span>{{ word }}</span>{% if not forloop.last %} {% endif %}{% endfor %}
+            </h1>
+            {% endwith %}
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endwith %}
 {% else %}
 <section class="hero-section">
     {% for item in page.get_hero %}

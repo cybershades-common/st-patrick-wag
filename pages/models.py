@@ -165,6 +165,14 @@ class GeneralpageHero(HeroAbstract):
     page = ParentalKey('GeneralPage', related_name='generalpage_hero')
 
 class GeneralPage(PageAbstract, Page):
+    hero_title_alignment = models.CharField(
+        max_length=10,
+        choices=[
+            ('left', 'Left'),
+            ('center', 'Center'),
+        ],
+        default='left',
+    )
     body = StreamField(generalpage_stream_fields,null=True,blank=True)
 
     class Meta:

@@ -802,3 +802,101 @@ class HeroSectionBlock(blocks.StructBlock):
     class Meta:
         label = "Hero Section"
         icon = "image"
+
+
+class InternalLinkBlock(blocks.StructBlock):
+    label = blocks.CharBlock(required=False)
+    href = HrefBlock(required=False)
+
+    class Meta:
+        label = "Link"
+
+
+class InternalLocalNavBlock(blocks.StructBlock):
+    alignment = blocks.ChoiceBlock(
+        choices=[
+            ('left', 'Left'),
+            ('center', 'Center'),
+        ],
+        default='left',
+        required=False,
+    )
+    items = blocks.ListBlock(InternalLinkBlock())
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "Internal Local Nav"
+        template = "pages/blocks/internal_local_nav_block.html"
+
+
+class InternalIntroTextBlock(blocks.StructBlock):
+    alignment = blocks.ChoiceBlock(
+        choices=[
+            ('left', 'Left'),
+            ('center', 'Center'),
+        ],
+        default='left',
+        required=False,
+    )
+    text = blocks.TextBlock()
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "Internal Intro Text"
+        template = "pages/blocks/internal_intro_text_block.html"
+
+
+class InternalQuoteBlock(blocks.StructBlock):
+    quote = blocks.TextBlock()
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "Internal Quote"
+        template = "pages/blocks/internal_quote_block.html"
+
+
+class InternalContentBlock(blocks.StructBlock):
+    layout = blocks.ChoiceBlock(
+        choices=[
+            ('two-column', 'Two Column'),
+            ('single-column', 'Single Column'),
+        ],
+        default='two-column',
+        required=True,
+    )
+    image = ImageChooserBlock(required=False)
+    alignment = blocks.ChoiceBlock(
+        choices=[
+            ('left', 'Image Left'),
+            ('right', 'Image Right'),
+        ],
+        default='left',
+        required=False,
+        help_text="Used for two-column layout only.",
+    )
+    text = blocks.RichTextBlock(required=False)
+    quote = blocks.TextBlock(required=False, help_text="Used for single-column layout only.")
+    text_secondary = blocks.RichTextBlock(required=False, help_text="Used for single-column layout only.")
+    primary_button = InternalLinkBlock(required=False)
+    secondary_button = InternalLinkBlock(required=False)
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "Internal Content"
+        template = "pages/blocks/internal_content_block.html"
+
+
+class InternalExploreBlock(blocks.StructBlock):
+    heading_line_one = blocks.CharBlock(required=False, help_text="First line, e.g. Keep Exploring")
+    heading_line_two = blocks.CharBlock(required=False, help_text="Second line, e.g. About Us")
+    text = blocks.TextBlock(required=False)
+    button = InternalLinkBlock(required=False)
+    items = blocks.ListBlock(blocks.StructBlock([
+        ('image', ImageChooserBlock()),
+        ('title', blocks.CharBlock()),
+    ]))
+    css_class = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "Internal Explore Grid"
+        template = "pages/blocks/internal_explore_block.html"

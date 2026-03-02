@@ -607,7 +607,7 @@
 
 // Center alignment for local nav and intro text in single-column layout
 body:has(.internal-content-single) {
-  .internal-local-nav {
+  .internal-local-nav:not(.align-left) {
     .container-fluid {
       display: flex;
       justify-content: center;
@@ -618,7 +618,7 @@ body:has(.internal-content-single) {
     }
   }
 
-  .internal-intro-text {
+  .internal-intro-text:not(.align-left) {
     .container-fluid {
       display: flex;
       justify-content: center;
@@ -631,6 +631,34 @@ body:has(.internal-content-single) {
       h3 {
         text-align: center;
       }
+    }
+  }
+}
+
+// Explicit alignment options for local nav + intro text
+.internal-local-nav.align-center {
+  .container-fluid {
+    display: flex;
+    justify-content: center;
+  }
+
+  .internal-local-nav-tabs {
+    justify-content: center;
+  }
+}
+
+.internal-intro-text.align-center {
+  .container-fluid {
+    display: flex;
+    justify-content: center;
+  }
+
+  .internal-intro-text-content {
+    justify-content: center;
+    text-align: center;
+
+    h3 {
+      text-align: center;
     }
   }
 }

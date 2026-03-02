@@ -18,6 +18,13 @@ def highlight(string, term):
     rht = '' if len(parts) < 2 else parts[1][:max_length]
     return mark_safe('...%s<b>%s</b>%s...' % (lft, term, rht))
 
+@register.filter
+def split_words(value):
+    if not value:
+        return []
+    return [word for word in re.split(r'\s+', str(value).strip()) if word]
+
+
 @register.inclusion_tag('pages/content-holders/content_holder.html',takes_context=True)
 def load_content_holder(context, Slug):
     html_header = ""
@@ -271,4 +278,3 @@ def get_main_menu_items(context):
         return result
     except Exception:
         return []
-

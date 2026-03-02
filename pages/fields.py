@@ -37,8 +37,16 @@ common_blocks = [
 homepage_stream_fields= common_blocks
 
 
-generalpage_stream_fields=common_blocks+[]
-landingpage_stream_fields=common_blocks+[]
+internal_blocks = [
+    ('InternalLocalNavBlock', InternalLocalNavBlock()),
+    ('InternalIntroTextBlock', InternalIntroTextBlock()),
+    ('InternalContentBlock', InternalContentBlock()),
+    ('InternalQuoteBlock', InternalQuoteBlock()),
+    ('InternalExploreBlock', InternalExploreBlock()),
+]
+
+generalpage_stream_fields = common_blocks + internal_blocks
+landingpage_stream_fields = common_blocks + []
 newspage_stream_fields = [
     ('VideoBlock',VideoBlock()),
     ('FullwidthImageBlock',FullwidthImageBlock()),

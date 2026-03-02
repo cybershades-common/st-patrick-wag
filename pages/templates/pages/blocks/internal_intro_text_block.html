@@ -1,0 +1,15 @@
+<section class="internal-intro-text position-relative section {% if value.alignment == 'center' %}align-center{% else %}align-left{% endif %} {{ value.css_class }}">
+    <div class="container-fluid">
+        <div class="internal-intro-text-content" data-gsap-children='{"h3":{"type":"fade-up"}}'>
+            {% if value.alignment == 'left' %}
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <h3>{{ value.text|safe }}</h3>
+                </div>
+            </div>
+            {% else %}
+            <h3>{{ value.text|safe }}</h3>
+            {% endif %}
+        </div>
+    </div>
+</section>

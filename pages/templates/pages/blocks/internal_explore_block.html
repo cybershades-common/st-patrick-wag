@@ -1,0 +1,39 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<section class="internal-explore position-relative section {{ value.css_class }}">
+    <div class="container-fluid">
+        <div class="internal-explore-header" data-gsap-children='{"h2":{"type":"fade-up", "delay":0}, "p":{"type":"fade-up", "delay":0.3}, "button":{"type":"zoom-in", "delay":0.6}}'>
+            <div class="row align-items-start">
+                <div class="col-12 col-lg-5 internal-explore-heading-col">
+                    <h2>
+                        {% if value.heading_line_one %}<span>{{ value.heading_line_one }}</span>{% endif %}
+                        {% if value.heading_line_two %}<br><span class="internal-explore-heading-indent">{{ value.heading_line_two }}</span>{% endif %}
+                    </h2>
+                </div>
+                <div class="col-12 col-lg-4 offset-lg-1 internal-explore-content-col">
+                    {% if value.text %}<p>{{ value.text }}</p>{% endif %}
+                    {% if value.button.label %}
+                        {% if value.button.href and value.button.href.is_url %}
+                        <a href="{{ value.button.href.url }}" {{ value.button.href.target }} class="btn-rounded-large-outline">{{ value.button.label }}</a>
+                        {% else %}
+                        <button class="btn-rounded-large-outline" type="button">{{ value.button.label }}</button>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="internal-explore-cards">
+            <div class="row" data-gsap-children='{".internal-explore-card":{"type":"card-row-stagger", "start":"top 70%", "stagger":"0.15"}}' data-gsap-children-mobile='{".internal-explore-card":{"type":"card-row-stagger", "start":"top 80%", "stagger":"0.2"}}'>
+                {% for item in value.items %}
+                <div class="col-6 col-md-6 col-lg-3 internal-explore-card">
+                    <div class="internal-explore-card-image">
+                        {% image item.image original as img %}
+                        <img src="{{ img.url }}" alt="{{ item.title }}" class="w-100 h-100" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <h5>{{ item.title }}</h5>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,105 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% if value.layout == 'single-column' %}
+<section class="internal-content-single position-relative section {{ value.css_class }}">
+    <div class="container-fluid">
+        <div class="internal-content-single-wrapper">
+            {% if value.image %}
+            <div class="internal-content-single-image" data-gsap-children='{"img":{"type":"image-fade-in","start":"top 50%"}}' data-gsap-children-mobile='{"img":{"start":"top 70%"}}'>
+                {% image value.image original as img %}
+                <img src="{{ img.url }}" alt="" class="w-100 h-100" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            {% endif %}
+
+            {% if value.text %}
+            <div class="internal-content-single-text" data-gsap-children='{"p":{"type":"fade-up","stagger":"0.15"}}' data-gsap-children-mobile='{"p":{"stagger":0}}'>
+                {{ value.text|richtext }}
+            </div>
+            {% endif %}
+
+            {% if value.quote %}
+            <div class="internal-content-single-quote" data-gsap-children='{"p":{"type":"word-reveal"}, "svg":{"type":"zoom-in"}, "img":{"type":"image-clip-left"}}'>
+                <div class="internal-quote-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="54" height="40" viewBox="0 0 54 40" fill="none">
+                        <path
+                            d="M16.2387 20C21.4582 20 24.9379 24.0385 24.9379 29.4231C24.9379 35.3846 20.4916 40 13.5322 40C5.99284 40 0 33.8462 0 24.4231C0 15 5.79952 5.19231 21.4582 0V4.61538C11.7924 7.69231 6.57279 13.8462 6.57279 19.4231C6.57279 21.7308 7.34606 22.8846 8.69928 22.8846C10.8258 22.8846 11.7924 20 16.2387 20ZM45.3007 20C50.5203 20 54 24.0385 54 29.4231C54 35.3846 49.5537 40 42.5943 40C35.0549 40 29.0621 33.8462 29.0621 24.4231C29.0621 15 34.8616 5.19231 50.5203 0V4.61538C40.8544 7.69231 35.6348 13.8462 35.6348 19.4231C35.6348 21.7308 36.4081 22.8846 37.7613 22.8846C39.8878 22.8846 40.8544 20 45.3007 20Z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <p>{{ value.quote|safe }}</p>
+                <div class="internal-quote-decoration">
+                    <img src="{% static 'images/Tie.png' %}" alt="Decorative Tie" style="width: 12.5rem; height: 0.625rem;" loading="lazy" onerror="this.style.display='none'">
+                </div>
+            </div>
+            {% endif %}
+
+            {% if value.text_secondary %}
+            <div class="internal-content-single-text" data-gsap-children='{"p":{"type":"fade-up","stagger":"0.15"}}' data-gsap-children-mobile='{"p":{"stagger":0}}'>
+                {{ value.text_secondary|richtext }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="internal-content position-relative section {{ value.css_class }}">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            {% if value.alignment != 'right' %}
+            <div class="col-12 col-lg-6 internal-content-image-col" data-gsap-children='{"img":{"type":"image-fade-in","start":"top 50%"}}' data-gsap-children-mobile='{"img":{"start":"top 70%"}}'>
+                <div class="internal-content-image">
+                    {% if value.image %}
+                        {% image value.image original as img %}
+                        <img src="{{ img.url }}" alt="" class="w-100 h-100" loading="lazy" onerror="this.style.display='none'">
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="col-12 col-lg-6 internal-content-text-col{% if value.alignment == 'right' %} internal-content-text-col-reversed{% endif %}"
+                data-gsap-children='{"p":{"type":"fade-up","stagger":"0.15"}, "button":{"type":"zoom-in"}, "a":{"type":"zoom-in","delay":"0.3"}}' data-gsap-children-mobile='{"p":{"stagger":0}}'>
+                <div class="internal-content-text">
+                    {{ value.text|richtext }}
+                </div>
+                {% if value.primary_button.label or value.secondary_button.label %}
+                <div class="internal-content-buttons">
+                    {% if value.primary_button.label %}
+                        {% if value.primary_button.href and value.primary_button.href.is_url %}
+                        <a href="{{ value.primary_button.href.url }}" {{ value.primary_button.href.target }} class="btn-rounded-large-outline">{{ value.primary_button.label }}</a>
+                        {% else %}
+                        <button class="btn-rounded-large-outline" type="button">{{ value.primary_button.label }}</button>
+                        {% endif %}
+                    {% endif %}
+                    {% if value.secondary_button.label %}
+                        {% if value.secondary_button.href and value.secondary_button.href.is_url %}
+                        <a href="{{ value.secondary_button.href.url }}" {{ value.secondary_button.href.target }} class="btn-rounded-large-no-border">
+                            {{ value.secondary_button.label }}
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.5 2L8 5.5L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                        {% else %}
+                        <a href="#" class="btn-rounded-large-no-border">
+                            {{ value.secondary_button.label }}
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.5 2L8 5.5L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            {% if value.alignment == 'right' %}
+            <div class="col-12 col-lg-6 internal-content-image-col" data-gsap-children='{"img":{"type":"image-fade-in","start":"top 50%"}}' data-gsap-children-mobile='{"img":{"start":"top 70%"}}'>
+                <div class="internal-content-image">
+                    {% if value.image %}
+                        {% image value.image original as img %}
+                        <img src="{{ img.url }}" alt="" class="w-100 h-100" loading="lazy" onerror="this.style.display='none'">
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
