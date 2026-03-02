@@ -699,7 +699,7 @@ class CoCurricularSliderBlock(blocks.StructBlock):
         template = "pages/blocks/cocurricular_slider_block.html"
 
 
-class AboutSectionBlock(blocks.StructBlock):
+class LeadContentWithImageBlock(blocks.StructBlock):
     heading = blocks.RichTextBlock(
         features=['bold', 'italic', 'underline'],
         help_text="Type heading here. Select words and click U to underline them."
@@ -714,8 +714,12 @@ class AboutSectionBlock(blocks.StructBlock):
     css_class = blocks.CharBlock(required=False)
 
     class Meta:
-        label = "About Section"
-        template = "pages/blocks/about_section_block.html"
+        label = "Lead Content with Image"
+        template = "pages/blocks/lead_content_with_image_block.html"
+
+
+# Alias kept for backwards compatibility with existing migrations and database content
+AboutSectionBlock = LeadContentWithImageBlock
 
 
 class StrategicSectionBlock(blocks.StructBlock):
