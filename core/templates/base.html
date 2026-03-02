@@ -41,7 +41,7 @@
     <body class="{% block body_class %}{% endblock %} {{page.body_css_class|safe}}">
         {% wagtailuserbar %}
     <div class="wrapper">
-        {% load_content_holder "header-design" %}
+        {% include 'header.html' %}
         <!--- post header -->
         {% block post_header_design %}{% endblock %}
         <!--- post header end-->

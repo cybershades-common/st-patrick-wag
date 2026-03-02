@@ -1,0 +1,8 @@
+{% load menu_tags wagtailimages_tags %}
+{% for item in menu_items %}
+{% if item.image %}{% image item.image original as menu_img %}{% endif %}
+<a href="{{ item.href }}"
+   class="menu-main-item {{ item.active_class }}"
+   data-menu="{{ item.text|slugify }}"
+   {% if item.image %}data-image="{{ menu_img.url }}"{% endif %}>{{ item.text }}</a>
+{% endfor %}

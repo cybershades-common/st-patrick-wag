@@ -3,6 +3,7 @@ from django.template import Template, Context
 from pages.models import ContentHolder
 from django.utils.safestring import mark_safe
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.text import slugify
 register = template.Library()
 import re
 import random
@@ -192,4 +193,82 @@ def get_next_pre_pages(page):
 def get_random_number_tagged(min_value=1, max_value=10000):
     number = random.randint(min_value, max_value)
     return number
+
+
+@register.simple_tag(takes_context=True)
+def get_main_menu_items(context):
+    """
+    Returns a list of main menu items directly from the DB for the current site.
+    Each item has: text, href, slug, image_url, children (list of {text, href}).
+    Replaces double {% main_menu %} calls to avoid wagtailmenus double-render issues.
+    """
+    from wagtailmenus.models import MainMenu
+    from wagtail.models import Site
+
+    request = context.get('request')
+    if not request:
+        return []
+
+    try:
+        current_site = Site.find_for_request(request)
+        menu = MainMenu.objects.filter(site=current_site).first()
+        if not menu:
+            return []
+
+        result = []
+        for menu_item in menu.custom_main_menu_items.all().select_related('link_page', 'image').order_by('sort_order'):
+            try:
+                # Determine display text
+                text = (menu_item.link_text or
+                        (menu_item.link_page.title if menu_item.link_page else '') or
+                        menu_item.link_url or '')
+                if not text:
+                    continue
+
+                # Determine href and child pages
+                if menu_item.link_page and menu_item.link_page.live:
+                    href = menu_item.link_page.get_url(request) or menu_item.link_page.url or '#'
+                    children = []
+                    for child in menu_item.link_page.get_children().live().in_menu():
+                        child_href = child.get_url(request) or child.url or '#'
+                        children.append({'text': child.title, 'href': child_href})
+                elif menu_item.link_url:
+                    href = menu_item.link_url
+                    children = []
+                else:
+                    continue
+
+                # Get image rendition URL
+                image_url = ''
+                if menu_item.image:
+                    try:
+                        rendition = menu_item.image.get_rendition('original')
+                        image_url = rendition.url
+                    except Exception:
+                        pass
+
+                # Determine active state based on request path
+                is_active = False
+                if menu_item.link_page:
+                    page_url = menu_item.link_page.url or ''
+                    if page_url and page_url != '/' and (
+                        request.path == page_url or
+                        request.path.startswith(page_url.rstrip('/') + '/')
+                    ):
+                        is_active = True
+
+                result.append({
+                    'text': text,
+                    'href': href,
+                    'slug': slugify(text),
+                    'image_url': image_url,
+                    'children': children,
+                    'is_active': is_active,
+                })
+            except Exception:
+                continue  # skip bad items, keep processing the rest
+
+        return result
+    except Exception:
+        return []
 

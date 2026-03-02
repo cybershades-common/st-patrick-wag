@@ -331,8 +331,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Create menu animation timeline
         const menuTimeline = gsap.timeline();
 
-        const menuMainItems = document.querySelectorAll('.menu-main-item');
-        const menuSubItems = document.querySelectorAll('.menu-sub-item');
         const menuImageSlide = menuImageWrapper ? menuImageWrapper.querySelector('.menu-image-slide.is-active') : null;
         const menuImage = menuImageSlide ? menuImageSlide.querySelector('.menu-image') : document.querySelector('.menu-image');
         const menuFooter = document.querySelector('.mega-menu-footer');
@@ -403,8 +401,6 @@ document.addEventListener('DOMContentLoaded', function () {
         isMenuOpen = false;
 
         // Reset menu items AFTER fade to avoid flicker
-        const menuMainItems = document.querySelectorAll('.menu-main-item');
-        const menuSubItems = document.querySelectorAll('.menu-sub-item');
         const menuImageSlide = menuImageWrapper ? menuImageWrapper.querySelector('.menu-image-slide.is-active') : null;
         const menuImage = menuImageSlide ? menuImageSlide.querySelector('.menu-image') : document.querySelector('.menu-image');
         const menuFooter = document.querySelector('.mega-menu-footer');

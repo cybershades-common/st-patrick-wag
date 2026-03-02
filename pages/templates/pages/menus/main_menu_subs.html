@@ -1,0 +1,10 @@
+{% load menu_tags %}
+{% for item in menu_items %}
+{% if item.sub_menu %}
+<div class="menu-sub-items-group{% if forloop.first %} is-active{% endif %}" data-menu="{{ item.text|slugify }}">
+    {% for sub_item in item.sub_menu.items %}
+    <a href="{{ sub_item.href }}" class="menu-sub-item {{ sub_item.active_class }}">{{ sub_item.text }}</a>
+    {% endfor %}
+</div>
+{% endif %}
+{% endfor %}
