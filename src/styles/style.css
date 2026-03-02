@@ -663,6 +663,7 @@ hr {
   --menu-scroll-offset: 7.5rem;
   padding-top: 0;
   padding-bottom: var(--spacing-base);
+  height: 90vh;
   max-height: 90vh;
   overflow: hidden;
   box-shadow: none;
@@ -1185,6 +1186,7 @@ hr {
     display: none !important;
   }
   html body .mega-menu {
+    height: 100vh;
     max-height: 100vh;
   }
 }
