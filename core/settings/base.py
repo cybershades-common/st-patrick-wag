@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     "core",
     "home",
     "pages",
-    "contact",
     "search",
     "news",
     "events",
